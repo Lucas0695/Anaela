@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relOrdemServico_itensservico" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="264c805e-d5b9-4c08-b23e-15fbc6bf72fe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="83"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigoordem" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     itensservico."ordemservico_id" AS idordem,
+     servico."nome" AS servico,
+     itensservico."quantidade" AS Qtd,
+     itensservico."valor" AS valor,
+     itensservico."valor" * itensservico."quantidade" as subtotal
+FROM
+     "public"."servico" servico INNER JOIN "public"."itensservico" itensservico ON servico."id" = itensservico."servico_id"
+where
+itensservico."ordemservico_id" = $P{codigoordem}]]>
+	</queryString>
+	<field name="idordem" class="java.lang.Long"/>
+	<field name="servico" class="java.lang.String"/>
+	<field name="qtd" class="java.lang.Double"/>
+	<field name="valor" class="java.lang.Double"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="15" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="14" width="530" height="1" uuid="168f2af1-41c1-4b0e-9fd8-c139661c9a08"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" uuid="9d61e3d5-687c-4ee7-b4a4-b13244eb5d50"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serviço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="100" height="15" uuid="47295b33-cf21-4166-90e4-7bb4d8679b99"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="15" uuid="7e3b6ea1-e371-494f-8a9b-d1134f6c81d3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="15" uuid="73793d61-deee-49da-a9f7-9efcd1d17238"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SubTotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="255" height="20" uuid="b7527c36-8165-4aa4-a20a-67cf4840016b"/>
+				<textFieldExpression><![CDATA[$F{servico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="0" width="100" height="20" uuid="37522b3f-914f-41ef-ba83-7039e9ea11c1"/>
+				<textFieldExpression><![CDATA[$F{qtd}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="355" y="0" width="100" height="20" uuid="097c7591-59a4-4b97-a986-fda3a0773859"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="0" width="100" height="20" uuid="09311ad6-73c8-4c6d-8e8f-1d15ab39104b"/>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
