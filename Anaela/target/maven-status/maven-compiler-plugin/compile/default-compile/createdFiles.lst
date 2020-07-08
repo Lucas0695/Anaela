@@ -34,6 +34,7 @@ entidade/Estado.class
 facade/PessoaFacade.class
 facade/GrupoProdutoFacade.class
 entidade/StatusVenda.class
+controle/CompraControle.class
 facade/CidadeFacade.class
 entidade/Marca.class
 entidade/PessoaFisica.class

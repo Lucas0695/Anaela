@@ -64,6 +64,7 @@
                     </p:submenu>
 
                     <p:submenu label="Movimentos" icon="pi pi-pencil" style="background: #ffffff">
+                        <p:menuitem value="Compra" ajax="false" action="/compra/listacompra"/>
                     </p:submenu>
 
                     <p:submenu label="Relatórios" icon="pi pi-question" style="background: #ffffff">
@@ -73,6 +74,11 @@
                         <p:menuitem value="Tamanho" ajax="false" action="/relatorios/reltamanho"/>
                         <p:menuitem value="Cor" ajax="false" action="/relatorios/relcor"/>
                         <p:menuitem value="Produto" ajax="false" action="/relatorios/relproduto"/>
+                        <p:menuitem value="Grupo de Produto" ajax="false" action="/relatorios/relgrupoproduto"/>
+                        <p:menuitem value="Perfil" ajax="false" action="/relatorios/relperfil"/>
+                        <p:menuitem value="Usuário" ajax="false" action="/relatorios/relusuario"/>
+                        <p:menuitem value="Pessoa Física" ajax="false" action="/relatorios/relpessoafisica"/>
+                        <p:menuitem value="Pessoa Jurídica" ajax="false" action="/relatorios/relpessoajuridica"/>
                     </p:submenu>
 
                     <f:facet name="options" >

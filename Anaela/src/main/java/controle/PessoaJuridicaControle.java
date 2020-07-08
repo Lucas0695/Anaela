@@ -27,24 +27,11 @@ public class PessoaJuridicaControle implements Serializable {
     @Inject
     private PessoaJuridicaFacade pessoaJuridicaFacade;
     private PessoaJuridica pessoaJuridica;
-    private String tipoPessoa = "PessoaFisica";
+    private String tipoPessoa;
     @Inject
     private CidadeFacade cidadeFacade;
     private ConverterGenerico converterCidade;
-    
-    public Boolean isPF() {
-        if (tipoPessoa.equals("PessoaFisica")) {
-            return true;
-        }
-        return false;
-    }
 
-    public Boolean isPJ() {
-        if (tipoPessoa.equals("PessoaJuridica")) {
-            return true;
-        }
-        return false;
-    }
 
     public String getTipoPessoa() {
         return tipoPessoa;

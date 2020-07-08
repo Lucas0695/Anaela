@@ -9,7 +9,9 @@
             <h3 align="center">Relatório de Produto</h3>
             <h:form>
                 <p:panelGrid columns="2">  
-                    <p:commandButton value="Gerar" action="#{relatorioControle.gerarRelatorioProduto()}" ajax="false" icon="ui-icon-disk" onclick="this.form.target='_blank'"/>
+                    Grupo de Produto:<p:inputText value="#{relatorioControle.filtro}"/>
+                    Marca:<p:inputText value="#{relatorioControle.filtro1}"/>
+                    <p:commandButton value="Gerar" action="#{relatorioControle.gerarRelatorioProduto()}" ajax="false" icon="ui-icon-disk" onclick="this.form.target = '_blank'"/>
                     <p:commandButton value="Voltar" action="../index"/>
                 </p:panelGrid>            
             </h:form>

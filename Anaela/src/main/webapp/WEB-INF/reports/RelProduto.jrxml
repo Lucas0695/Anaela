@@ -7,6 +7,8 @@
 		<property name="produtoid" value="long&#xA;"/>
 		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="filtro" class="java.lang.String"/>
+	<parameter name="filtro1" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      produto."id" AS produto_id,
@@ -19,7 +21,9 @@
      grupoproduto."nome" AS grupoproduto_nome
 FROM
      public."marca" marca INNER JOIN public."produto" produto ON marca."id" = produto."marca_id"
-     INNER JOIN public."grupoproduto" grupoproduto ON produto."grupoproduto_id" = grupoproduto."id"]]>
+     INNER JOIN public."grupoproduto" grupoproduto ON produto."grupoproduto_id" = grupoproduto."id"
+where
+grupoproduto."nome" like $P{filtro}  and marca."nome" like $P{filtro1}]]>
 	</queryString>
 	<field name="produto_id" class="java.lang.Long"/>
 	<field name="produto_nome" class="java.lang.String"/>

@@ -10,43 +10,25 @@
             <h3 align="center">Cadastro de PessoaJuridica</h3>
             <h:form>
                 <p:growl autoUpdate="true"/>
-<!--
-                <table>
-                    <tr><td align="center" width="1450"> 
-                            <p:selectOneRadio  value="{pessoaJuridicaControle.tipoPessoa}"  layout="grid" columns="2">
-                                <f:selectItem itemLabel="Pessoa Fisica" itemValue="PessoaFisica"/> 
-                                <f:selectItem itemLabel="Pessoa Juridica" itemValue="PessoaJuridica"/>
-                                <p:ajax  update="painel"/>
-                            </p:selectOneRadio>    
-                        </td></tr>
-                </table>
-                <br/>-->
 
                 <p:panelGrid columns="4" id="painel">
-                    Nome:<p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
+                    Razão Social:<p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
                     Nome Fantasia:<p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.nomeFantasia}" required="true" requiredMessage="O nome é obrigatório!"/>
 
-                    <p:outputLabel value="CPF:" rendered="#{pessoaJuridicaControle.isPF()}"/>
-                    <p:inputMask value="#{pessoaJuridicaControle.pessoaJuridica.cnpj}" 
-                                 mask="999.999.999-99"
-                                 required="true"
-                                 size="25"
-                                 id="cpfCnpj1"
-                                 rendered="#{pessoaJuridicaControle.isPF()}"/>
-                    <p:outputLabel value="CNPJ:" rendered="#{pessoaJuridicaControle.isPJ()}"/>
+                    <p:outputLabel value="CNPJ:"/>
                     <p:inputMask value="#{pessoaJuridicaControle.pessoaJuridica.cnpj}" 
                                  mask="99.999.999/9999-99"
                                  required="true"
                                  size="25"
-                                 id="cpfCnpj2"
-                                 rendered="#{pessoaJuridicaControle.isPJ()}"/>
+                                 id="cpfCnpj1"
+                                 />
+                  
                     Telefone:<p:inputMask value="#{pessoaJuridicaControle.pessoaJuridica.telefone}"
                                           mask="(99) 9999-9999"
                                           />
-                    <p:outputLabel value="IE:" rendered="#{pessoaJuridicaControle.isPJ()}"/>
+                    <p:outputLabel value="IE:"/>
                     <p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.ie}" 
-                                 size="25"
-                                 rendered="#{pessoaJuridicaControle.isPJ()}"/>         
+                                 size="25"/>         
 
                     Endereco:<p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.endereco}"/>
                     Numero:<p:inputText value="#{pessoaJuridicaControle.pessoaJuridica.numero}"/>

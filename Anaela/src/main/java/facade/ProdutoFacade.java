@@ -1,6 +1,5 @@
 package facade;
 
-import entidade.Estado;
 import entidade.Produto;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
