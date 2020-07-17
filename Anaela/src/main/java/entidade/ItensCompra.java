@@ -32,6 +32,11 @@ public class ItensCompra implements Serializable {
     private Compra compra;
     @ManyToOne
     private ComposicaoProduto composicaoProduto;
+     
+    public ItensCompra(){
+        quantidade = 0d;
+        valor = 0d;
+    }
 
     public ComposicaoProduto getComposicaoProduto() {
         return composicaoProduto;

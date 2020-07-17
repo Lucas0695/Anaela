@@ -5,23 +5,25 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <ui:composition template="/index.xhtml">
         <ui:define name="body">
             <h3 align="center">Movimento de Compra</h3>
             <h:form>
+
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <p:panelGrid columns="2">
                     Data da Compra:<p:calendar value="#{compraControle.compra.dataCompra}"
                                                pattern="dd/MM/yyyy"
                                                locale="pt_BR"/>
-                    PessoaJuridica:<p:autoComplete value="#{compraControle.compra.pessoaJuridica}"
-                                                   completeMethod="#{compraControle.listaFiltrandoPessoaJuridica}"
-                                                   var="co"
-                                                   converter="#{compraControle.converterPessoaJuridica}"
-                                                   itemLabel="#{co.nome}"
-                                                   itemValue="#{co}"
-                                                   forceSelection="true"
-                                                   />
+                    Pessoa Jurídica:<p:autoComplete value="#{compraControle.compra.pessoaJuridica}"
+                                                    completeMethod="#{compraControle.listaFiltrandoPessoaJuridica}"
+                                                    var="co"
+                                                    converter="#{compraControle.converterPessoaJuridica}"
+                                                    itemLabel="#{co.nome}"
+                                                    itemValue="#{co}"
+                                                    forceSelection="true"
+                                                    />
                     Total:<p:outputLabel value="#{compraControle.compra.valorTotal}" 
                                          converter="#{compraControle.moneyConverter}"
                                          style="color: blue; font-size: medium"
@@ -36,28 +38,25 @@
                                             itemValue="#{pr}"
                                             forceSelection="true"
                                             >
-                        <p:ajax update="precoProduto" event="itemSelect" listener="#{compraControle.setaValorComposicaoProduto()}"/>
+                        <p:ajax update="comp" event="itemSelect"/>
                     </p:autoComplete>
-                    Preço:<p:inputText id="precoProduto" 
-                                       converter="#{compraControle.moneyConverter}" 
-                                       value="#{compraControle.itensCompra.valor}" 
-                                       onkeydown="mascaraMonetaria(this)"
-                                       size="10"/>
-                    Quantidade:<p:inputText size="10" value="#{compraControle.itensCompra.quantidade}"/>
+                    Quantidade: <p:inputText value="#{compraControle.itensCompra.quantidade}"/>
 
                     <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
 
-                    <p:dataTable id="comp"> 
-                       
-                        value="#{compraControle.listaTodosProdutos(pr)}"
-                        <!--                        value="{produtoControle.produto.composicaoProduto}"-->
-                        var="it"
-                        emptyMessage="Nenhum serviço adicionado!" id="comp">
+                    <style type="text/css">
+                        .old {
+                            background-color: #fca752 !important;
+                            background-image: none !important;
+                            color: #000000 !important;
+                        }
+                    </style>
+                        <p:dataTable id="comp" value="#{compraControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{compraControle.teste le it ? 'old' : null}" >                                 
 
-                        <p:column headerText="Cor">
+                        <p:column headerText="Cor" filterBy="#{it.cor.nome}">
                             #{it.cor.nome}
                         </p:column>
-                        <p:column headerText="Tamnho">
+                        <p:column headerText="Tamanho" filterBy="#{it.tamanho.nome}">
                             #{it.tamanho.nome}
                         </p:column>
 
@@ -67,19 +66,26 @@
                         <p:column headerText="Estoque">
                             #{it.estoque}
                         </p:column>
+                        <p:column headerText="Operação">
+                            <p:commandButton value="Selecionar" ajax="false" actionListener="#{compraControle.setarComposicao(it)}" />
+                        </p:column>
                     </p:dataTable>
 
-                    <!--         FIM DA TABELA DE COMPOSIÇÃO PRODUTO-->
 
-                    <p:commandButton value="atualizar" ajax="true" update="comp"/>
                     <p:commandButton value="ADD" actionListener="#{compraControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelcompra"/>
                     <p:dataTable 
                         value="#{compraControle.compra.itensCompra}"
                         var="it"
-                        emptyMessage="Nenhum serviço adicionado!">
+                        emptyMessage="Nenhum produto adicionado!">
 
                         <p:column headerText="Produto">
-                            #{it.produto.nome}
+                            #{it.composicaoProduto.produto.nome}
+                        </p:column>
+                        <p:column headerText="Cor">
+                            #{it.composicaoProduto.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamanho">
+                            #{it.composicaoProduto.tamanho.nome}
                         </p:column>
                         <p:column headerText="Valor">
                             <p:outputLabel converter="#{compraControle.moneyConverter}"
@@ -98,35 +104,36 @@
                     </p:dataTable>
                 </p:panel>
 
-                <!--                <p:panel header="Forma de Pagamento">
-                                    <p:panelGrid columns="2">
-                                        Forma de Pagamento: <p:selectOneMenu id="formapag" value="{compraControle.compra.formapag}">
-                                            <f:selectItem itemLabel="Dinheiro a Vista" itemValue="Dinheiro Avista" />
-                                            <f:selectItem itemLabel="Dinheiro a Prazo" itemValue="Dinheiro a Prazo" />
-                                            <f:selectItem itemLabel="Boleto" itemValue="Boleto" />
-                                            <f:selectItem itemLabel="Cheque a Vista" itemValue="Cheque a Vista" />
-                                            <f:selectItem itemLabel="Cheque a Prazo" itemValue="Cheque a Prazo" />
-                                            <f:selectItem itemLabel="Cartão" itemValue="Cartão" />
-                                        </p:selectOneMenu>
-                                        Numero de parcelas: <p:inputText value="{compraControle.numParcela}" size="5"/>
-                
-                                    </p:panelGrid>
-                                    <p:commandButton value="Gerar" actionListener="{compraControle.geraParcela()}" ajax="true" update="teste"/> 
-                                    <p:dataTable value="{compraControle.compra.contasPagars}"
-                                                 var="cp" id="teste">                        
-                                        <p:column headerText="Parcela">
-                                            <p:outputLabel value="{cp.parcela}"/>
-                                        </p:column>
-                                        <p:column headerText="Vencimento">
-                                            <p:outputLabel value="{cp.dataVencimento}">
-                                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
-                                            </p:outputLabel>
-                                        </p:column>
-                                        <p:column headerText="Valor">
-                                            <p:outputLabel value="{cp.valor}"/>
-                                        </p:column>
-                                    </p:dataTable>
-                                </p:panel>-->
+                <p:panel header="Forma de Pagamento">
+                    <p:panelGrid columns="2">
+                        Forma de Pagamento: <p:selectOneMenu id="formapag" value="#{compraControle.compra.formaPag}">
+                            <f:selectItem itemLabel="Dinheiro a Vista" itemValue="Dinheiro Avista" />
+                            <f:selectItem itemLabel="Cartão Avista" itemValue="Cartão Avista" />
+                            <f:selectItem itemLabel="Cartão Parcelado" itemValue="Cartão Parcelado" />
+                            <f:selectItem itemLabel="Boleto" itemValue="Boleto" />
+                            <f:selectItem itemLabel="Cheque a Vista" itemValue="Cheque a Vista" />
+                            <f:selectItem itemLabel="Cheque a Prazo" itemValue="Cheque a Prazo" />
+                        </p:selectOneMenu>
+
+                        Numero de parcelas: <p:inputText value="#{compraControle.numParcela}" size="5"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="Gerar" actionListener="#{compraControle.geraParcela()}" ajax="true" update="teste"/> 
+                    <p:dataTable value="#{compraControle.compra.contasPagars}"
+                                 var="cp" id="teste">                        
+                        <p:column headerText="Parcela">
+                            <p:outputLabel value="#{cp.parcela}"/>
+                        </p:column>
+                        <p:column headerText="Vencimento">
+                            <p:outputLabel value="#{cp.dataVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <p:outputLabel value="#{cp.valor}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
                 <p:commandButton value="Salvar" actionListener="#{compraControle.salvar()}" action="listacompra" ajax="false"/>
                 <p:commandButton value="Cancelar" action="listacompra" immediate="true" ajax="false"/>
 

@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Movimento de Venda</h3>
+            <h:form id="Painel">
+
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:selectOneRadio value="#{vendaControle.venda.statusVenda}"
+                                  style="margin: 0 auto;">
+                    <f:selectItem itemValue="FATURADA" itemLabel="Faturada"/>
+                    <f:selectItem itemValue="CONDICIONAL" itemLabel="Condicional"/>
+                    <f:selectItem itemValue="ORCAMENTO" itemLabel="Orçamento"/>
+                    <p:ajax  update="Painel"/>
+                </p:selectOneRadio>
+                <p:panelGrid columns="2">
+                    Data da Venda:<p:calendar value="#{vendaControle.venda.dataVenda}"
+                                              pattern="dd/MM/yyyy"
+                                              locale="pt_BR"/>
+                    Cliente:<p:autoComplete value="#{vendaControle.venda.pessoa}"
+                                            completeMethod="#{vendaControle.listaFiltrandoPessoa}"
+                                            var="co"
+                                            converter="#{vendaControle.converterPessoa}"
+                                            itemLabel="#{co.nome}"
+                                            itemValue="#{co}"
+                                            forceSelection="true"
+                                            />
+                    Vendedor:<p:autoComplete value="#{vendaControle.venda.colaborador}"
+                                             completeMethod="#{vendaControle.listaFiltrandoColaborador}"
+                                             var="ve"
+                                             converter="#{vendaControle.converterColaborador}"
+                                             itemLabel="#{ve.nome}"
+                                             itemValue="#{ve}"
+                                             forceSelection="true"
+                                             />
+                    Total:<p:outputLabel value="#{vendaControle.venda.valorTotal}" 
+                                         converter="#{vendaControle.moneyConverter}"
+                                         style="color: blue; font-size: medium"
+                                         id="campototal"/>
+                </p:panelGrid>  
+                <p:panel header="Itens de Produto" id="painelvenda">
+                    Produto:<p:autoComplete value="#{vendaControle.produto}"
+                                            completeMethod="#{vendaControle.listaFiltrandoComposicaoProduto}"
+                                            var="pr"
+                                            converter="#{vendaControle.converterProduto}"
+                                            itemLabel="#{pr.nome}"
+                                            itemValue="#{pr}"
+                                            forceSelection="true"
+                                            >
+                        <p:ajax update="comp" event="itemSelect"/>
+                    </p:autoComplete>
+                    Quantidade: <p:inputText value="#{vendaControle.itensVenda.quantidade}"/>
+
+                    <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
+
+                    <style type="text/css">
+                        .old {
+                            background-color: #fca752 !important;
+                            background-image: none !important;
+                            color: #000000 !important;
+                        }
+                    </style>
+                    <p:dataTable id="comp" value="#{vendaControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{vendaControle.teste le it ? 'old' : null}" >                                 
+
+                        <p:column headerText="Cor" filterBy="#{it.cor.nome}">
+                            #{it.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamanho" filterBy="#{it.tamanho.nome}">
+                            #{it.tamanho.nome}
+                        </p:column>
+
+                        <p:column headerText="Preço" filterBy="#{e.preco}">
+                            <p:outputLabel value="#{it.preco}" converter="#{vendaControle.moneyConverter}"/>
+                        </p:column>
+                        <p:column headerText="Estoque">
+                            #{it.estoque}
+                        </p:column>
+                        <p:column headerText="Operação">
+                            <p:commandButton value="Selecionar" ajax="false" actionListener="#{vendaControle.setarComposicao(it)}" />
+                        </p:column>
+                    </p:dataTable>
+
+
+                    <p:commandButton value="ADD" actionListener="#{vendaControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelvenda"/>
+                    <p:dataTable 
+                        value="#{vendaControle.venda.itensVenda}"
+                        var="it"
+                        emptyMessage="Nenhum produto adicionado!">
+
+                        <p:column headerText="Produto">
+                            #{it.composicaoProduto.produto.nome}
+                        </p:column>
+                        <p:column headerText="Cor">
+                            #{it.composicaoProduto.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamanho">
+                            #{it.composicaoProduto.tamanho.nome}
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <p:outputLabel converter="#{vendaControle.moneyConverter}"
+                                           value="#{it.valor}"/>
+                        </p:column>
+                        <p:column headerText="Quantidade">
+                            #{it.quantidade}
+                        </p:column>
+                        <p:column headerText="Subtotal">
+                            <p:outputLabel converter="#{vendaControle.moneyConverter}"
+                                           value="#{it.subtotal}"/>                            
+                        </p:column>
+                        <p:column headerText="Operações">
+                            <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{vendaControle.removerItemVenda(it)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+
+                <p:panel header="Forma de Pagamento" id="painel1"  rendered="#{vendaControle.isSituacao()}">
+                    <p:panelGrid columns="2">
+                        Forma de Pagamento: <p:selectOneMenu id="formapag" value="#{vendaControle.venda.formaPag}">
+                            <f:selectItem itemLabel="Dinheiro a Vista" itemValue="Dinheiro Avista" />
+                            <f:selectItem itemLabel="Cartão Avista" itemValue="Cartão Avista" />
+                            <f:selectItem itemLabel="Cartão Parcelado" itemValue="Cartão Parcelado" />
+                            <f:selectItem itemLabel="Promissória" itemValue="Promissória" />
+                            <f:selectItem itemLabel="Cheque a Vista" itemValue="Cheque a Vista" />
+                            <f:selectItem itemLabel="Cheque a Prazo" itemValue="Cheque a Prazo" />
+                        </p:selectOneMenu>
+
+                        Numero de parcelas: <p:inputText value="#{vendaControle.numParcela}" size="5"/>
+
+                    </p:panelGrid>
+                    <p:commandButton value="Gerar" actionListener="#{vendaControle.geraParcela()}" ajax="true" update="teste"/> 
+                    <p:dataTable value="#{vendaControle.venda.contasRecebers}"
+                                 var="cp" id="teste">                        
+                        <p:column headerText="Parcela">
+                            <p:outputLabel value="#{cp.parcela}"/>
+                        </p:column>
+                        <p:column headerText="Vencimento">
+                            <p:outputLabel value="#{cp.dataVencimento}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                            </p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Valor">
+                            <p:outputLabel value="#{cp.valor}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:commandButton value="Salvar" actionListener="#{vendaControle.salvar()}" action="listavenda" ajax="false"/>
+                <p:commandButton value="Cancelar" action="listavenda" immediate="true" ajax="false"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

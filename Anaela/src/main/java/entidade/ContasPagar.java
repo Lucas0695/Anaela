@@ -33,7 +33,7 @@ public class ContasPagar implements Serializable, EntidadePai  {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Temporal(TemporalType.DATE)
     private Date dataLancamento;
     @Column(nullable = false)
@@ -42,10 +42,10 @@ public class ContasPagar implements Serializable, EntidadePai  {
     @Column(length = 100, nullable = false)
     private Double Valor;
     @Column(length = 10)
-    private Integer parcela;
-    @Column(length = 255, nullable = false)
+    private String parcela;
+    @Column(length = 255)
     private String descricao;
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String formapag;
     @ManyToOne
     private PessoaJuridica pessoaJuridica;
@@ -131,11 +131,11 @@ public class ContasPagar implements Serializable, EntidadePai  {
         this.Valor = Valor;
     }
 
-    public Integer getParcela() {
+    public String getParcela() {
         return parcela;
     }
 
-    public void setParcela(Integer parcela) {
+    public void setParcela(String parcela) {
         this.parcela = parcela;
     }
 

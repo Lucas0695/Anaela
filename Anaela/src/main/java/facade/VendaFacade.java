@@ -1,8 +1,9 @@
 package facade;
 
+import entidade.ComposicaoProduto;
 import entidade.Venda;
 import entidade.ItensVenda;
-import entidade.Produto;
+import entidade.Venda;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import util.Transacional;
@@ -26,27 +27,27 @@ public class VendaFacade extends AbstractFacade<Venda>{
     @Override
     public void salvar(Venda co) {        
         super.salvar(co); 
-//        somaEstoque(co);
+        diminuiEstoque(co);
     }
 
-//    private void somaEstoque(Venda co) {
-//        for(ItensVenda it : co.getItensVendas()){
-//            Produto p = it.getProduto();
-//            p.setEstoque(p.getEstoque() - it.getQuantidade());
-//            em.merge(p);
-//        }
-//    }
-//    
-//   
-//       @Override
-//    public void excluir(Venda ve) {
-//        for(ItensVenda it : ve.getItensVendas()){
-//            Produto p = it.getProduto();
-//            p.setEstoque(p.getEstoque() + it.getQuantidade());
-//            em.merge(p);
-//        }
-//        super.excluir(ve);
-//    }
+    private void diminuiEstoque(Venda ve) {
+        for(ItensVenda it : ve.getItensVenda()){
+            ComposicaoProduto p = it.getComposicaoProduto();
+            p.setEstoque(p.getEstoque() - it.getQuantidade());
+            em.merge(p);
+        }
+    }
+    
+   
+       @Override
+    public void excluir(Venda ve) {
+        for(ItensVenda it : ve.getItensVenda()){
+           ComposicaoProduto p = it.getComposicaoProduto();
+            p.setEstoque(p.getEstoque() + it.getQuantidade());
+            em.merge(p);
+        }
+        super.excluir(ve);
+    }
     
     }
     

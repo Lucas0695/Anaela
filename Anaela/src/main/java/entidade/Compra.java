@@ -70,12 +70,12 @@ public class Compra implements Serializable, EntidadePai {
         this.formaPag = formaPag;
     }
 
-     public Double getValorTotal() {
-        double ValorTotal = 0d;
+    public Double getValorTotal() {
+        valorTotal = 0d;
         for (ItensCompra is : itensCompra) {
-            ValorTotal += is.getSubtotal();
+            valorTotal += is.getSubtotal();
         }
-        return ValorTotal;
+        return valorTotal;
     }
 
     public void setValorTotal(Double valorTotal) {

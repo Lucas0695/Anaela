@@ -7,6 +7,7 @@ package controle;
 
 import converter.ConverterGenerico;
 import converter.MoneyConverter;
+import entidade.BaixaContasPagar;
 import entidade.PessoaJuridica;
 import entidade.Colaborador;
 import entidade.ComposicaoProduto;
@@ -19,12 +20,16 @@ import facade.ColaboradorFacade;
 import facade.CompraFacade;
 import facade.ProdutoFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
-import org.primefaces.model.DefaultScheduleModel;
 
 /**
  *
@@ -53,7 +58,37 @@ public class CompraControle implements Serializable {
     private ContasPagar contasPagar;
     private PessoaJuridica pessoaJuridica;
     private Produto produto;
+    private String teste = "old";
     private List<ComposicaoProduto> composicaoProduto;
+    
+        public String getSituacao(){
+            return "Baixado";
+    }
+
+    public void setarComposicao(ComposicaoProduto cp) {
+        if (itensCompra.getQuantidade().equals(0d)) {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Obrigatório adicionar a quantidade de produto",
+                            ""));
+        } else {
+
+            itensCompra.setComposicaoProduto(cp);
+            itensCompra.setValor(cp.getPreco());
+            setTeste(cp.toString());
+        }
+    }
+    
+    public String getTeste() {
+        return teste;
+    }
+
+    public void setTeste(String teste) {
+        this.teste = teste;
+    }
+    
+    
 
     public Produto getProduto() {
         return produto;
@@ -126,22 +161,32 @@ public class CompraControle implements Serializable {
     }
 
     public void addItemComposicaoProduto() {
-        Double estoque = itensCompra.getComposicaoProduto().getEstoque();
-        ItensCompra itemTemp = null;
-        for (ItensCompra it : compra.getItensCompra()) {
-            if (it.getComposicaoProduto().equals(itensCompra.getComposicaoProduto())) {
-                estoque = estoque + it.getQuantidade();
-                itemTemp = it;
+//        if (itensCompra.getQuantidade() > itensCompra.getComposicaoProduto().getEstoque()) {
+//            FacesContext.getCurrentInstance().addMessage(
+//                    null, new FacesMessage(
+//                            FacesMessage.SEVERITY_ERROR,
+//                            "A quantidade inicada é maior que o estoque atual: ",
+//                            "" + itensCompra.getComposicaoProduto().getEstoque()));
+//        } else {
+
+            Double estoque = itensCompra.getComposicaoProduto().getEstoque();
+            ItensCompra itemTemp = null;
+            for (ItensCompra it : compra.getItensCompra()) {
+                if (it.getComposicaoProduto().equals(itensCompra.getComposicaoProduto())) {
+                    estoque = estoque + it.getQuantidade();
+                    itemTemp = it;
+                }
             }
+            if (itemTemp != null) {
+                itemTemp.setQuantidade(itemTemp.getQuantidade() + itensCompra.getQuantidade());
+            } else {
+                itensCompra.setCompra(compra);
+                compra.getItensCompra().add(itensCompra);
+            }
+            itensCompra = new ItensCompra();
+            setTeste("old");
         }
-        if (itemTemp != null) {
-            itemTemp.setQuantidade(itemTemp.getQuantidade() + itensCompra.getQuantidade());
-        } else {
-            itensCompra.setCompra(compra);
-            compra.getItensCompra().add(itensCompra);
-        }
-        itensCompra = new ItensCompra();
-    }
+//    }
 
     public void removerItemCompra(ItensCompra it) {
         compra.getItensCompra().remove(it);
@@ -156,10 +201,6 @@ public class CompraControle implements Serializable {
 
     public void setMoneyConverter(MoneyConverter moneyConverter) {
         this.moneyConverter = moneyConverter;
-    }
-
-    public void setaValorComposicaoProduto() {
-        itensCompra.setValor(itensCompra.getComposicaoProduto().getPreco());
     }
 
     public ItensCompra getItensCompra() {
@@ -213,6 +254,7 @@ public class CompraControle implements Serializable {
     public List<Compra> listaTodos() {
         return compraFacade.listaTodos();
     }
+
     public List<Produto> listaTodosProdutos() {
         return produtoFacade.listaTodos();
     }
@@ -225,68 +267,59 @@ public class CompraControle implements Serializable {
         this.compra = compra;
     }
 
-//    public void carregaComposicao() {
-//
-//        composicaoProduto = composicaoProduto.;
-//        for (AgendamentoHorario a : agendamentos) {
-//            ScheduleEventAgenda ds = new ScheduleEventAgenda(a.getDescricao() + " - Cliente: " + a.getCliente().getNome() + "   -   Colaborador : " + a.getColaborador().getNome(), a.getDataInicial(), a.getDataFinal());
-//            ds.setAgendamentoHorario(a);
-//            eventModel.addEvent(ds);
-//        }
-//    }
-//    
-//    public void geraParcela() {
-//        compra.setContasPagars(new ArrayList<ContasPagar>());
-//        Double valor = compra.getValorTotal() / numParcela;
-//        Date dataVen = compra.getDataCompra();
-//        for (Integer i = 1; i <= numParcela; i++) {
-//
-//            if (compra.getFormapag().equals("Cartão") || compra.getFormapag().equals("Cheque a Vista") || compra.getFormapag().equals("Dinheiro Avista")) {
-//                ContasPagar cr = new ContasPagar();
-//                cr.setDataLancamento(compra.getDataCompra());
-//                cr.setParcela(i.toString() + "/" + numParcela.toString());
-//                cr.setValor(valor);
-//                cr.setPessoaJuridica(compra.getPessoaJuridica());
-//                cr.setDataVencimento(dataVen);
-//                cr.setCompra(compra);
-//                cr.setFormapag(compra.getFormapag());
-//
-//                BaixaContasPagar b = new BaixaContasPagar();
-//                b.setContasPagar(cr);
-//                b.setDataBaixa(compra.getDataCompra());
-//                b.setValor(valor);
-//                cr.setBaixaContasPagars(new ArrayList<BaixaContasPagar>());
-//                cr.getBaixaContasPagars().add(b);
-//                if (compra.getPessoaJuridica() != null) {
-//                    cr.setPessoaJuridica(compra.getPessoaJuridica());
-//                }
-//                compra.getContasPagars().add(cr);
-//                //Soma 1 mês no compracimento
-//                Calendar cal = Calendar.getInstance();
-//                cal.setTime(dataVen);
-//                cal.add(Calendar.MONTH, 1);
-//                dataVen = cal.getTime();
-//
-//            } else {
-//                ContasPagar cr = new ContasPagar();
-//                cr.setDataLancamento(compra.getDataCompra());
-//                cr.setParcela(i.toString() + "/" + numParcela.toString());
-//                cr.setValor(valor);
-//                cr.setPessoaJuridica(compra.getPessoaJuridica());
-//                cr.setDataVencimento(dataVen);
-//                cr.setCompra(compra);
-//                cr.setFormapag(compra.getFormapag());
-//
-//                if (compra.getPessoaJuridica() != null) {
-//                    cr.setPessoaJuridica(compra.getPessoaJuridica());
-//                }
-//                compra.getContasPagars().add(cr);
-//                //Soma 1 mês no compracimento
-//                Calendar cal = Calendar.getInstance();
-//                cal.setTime(dataVen);
-//                cal.add(Calendar.MONTH, 1);
-//                dataVen = cal.getTime();
-//            }
-//        }
-//    }
+
+    public void geraParcela() {
+        compra.setContasPagars(new ArrayList<ContasPagar>());
+        Double valor = compra.getValorTotal() / numParcela;
+        Date dataVen = compra.getDataCompra();
+        for (Integer i = 1; i <= numParcela; i++) {
+
+            if (compra.getFormaPag().equals("Cartão Avista") || compra.getFormaPag().equals("Cartão Parcelado") || compra.getFormaPag().equals("Cheque a Vista") || compra.getFormaPag().equals("Dinheiro Avista")) {
+                ContasPagar cr = new ContasPagar();
+                cr.setDataLancamento(compra.getDataCompra());
+                cr.setParcela(i.toString() + "/" + numParcela.toString());
+                cr.setValor(valor);
+                cr.setPessoaJuridica(compra.getPessoaJuridica());
+                cr.setDataVencimento(dataVen);
+                cr.setCompra(compra);
+                cr.setFormapag(compra.getFormaPag());
+
+                BaixaContasPagar b = new BaixaContasPagar();
+                b.setContasPagar(cr);
+                b.setDataBaixa(compra.getDataCompra());
+                b.setValor(valor);
+                cr.setBaixaContasPagars(new ArrayList<BaixaContasPagar>());
+                cr.getBaixaContasPagars().add(b);
+                if (compra.getPessoaJuridica() != null) {
+                    cr.setPessoaJuridica(compra.getPessoaJuridica());
+                }
+                compra.getContasPagars().add(cr);
+                //Soma 1 mês no compracimento
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dataVen);
+                cal.add(Calendar.MONTH, 1);
+                dataVen = cal.getTime();
+
+            } else {
+                ContasPagar cr = new ContasPagar();
+                cr.setDataLancamento(compra.getDataCompra());
+                cr.setParcela(i.toString() + "/" + numParcela.toString());
+                cr.setValor(valor);
+                cr.setPessoaJuridica(compra.getPessoaJuridica());
+                cr.setDataVencimento(dataVen);
+                cr.setCompra(compra);
+                cr.setFormapag(compra.getFormaPag());
+
+                if (compra.getPessoaJuridica() != null) {
+                    cr.setPessoaJuridica(compra.getPessoaJuridica());
+                }
+                compra.getContasPagars().add(cr);
+                //Soma 1 mês no compracimento
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dataVen);
+                cal.add(Calendar.MONTH, 1);
+                dataVen = cal.getTime();
+            }
+        }
+    }
 }

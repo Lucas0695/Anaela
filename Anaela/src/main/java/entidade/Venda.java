@@ -12,6 +12,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,6 +43,12 @@ public class Venda implements Serializable, EntidadePai {
     private Double valorTotal;
     @ManyToOne
     private Pessoa pessoa;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private StatusVenda statusVenda = StatusVenda.FATURADA;
+        
+    @ManyToOne
+    private Colaborador colaborador;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "venda")
@@ -56,6 +64,23 @@ public class Venda implements Serializable, EntidadePai {
         this.contasRecebers = new ArrayList<ContasReceber>();
     }
 
+    public StatusVenda getStatusVenda() {
+        return statusVenda;
+    }
+
+    public void setStatusVenda(StatusVenda statusVenda) {
+        this.statusVenda = statusVenda;
+    }
+
+    public Colaborador getColaborador() {
+        return colaborador;
+    }
+
+    public void setColaborador(Colaborador colaborador) {
+        this.colaborador = colaborador;
+    }
+
+    
     public Date getDataVenda() {
         return dataVenda;
     }
@@ -72,7 +97,7 @@ public class Venda implements Serializable, EntidadePai {
         this.formaPag = formaPag;
     }
 
-     public Double getValorTotal() {
+    public Double getValorTotal() {
         double ValorTotal = 0d;
         for (ItensVenda is : itensVenda) {
             ValorTotal += is.getSubtotal();
@@ -107,8 +132,6 @@ public class Venda implements Serializable, EntidadePai {
     public void setItensVenda(List<ItensVenda> itensVenda) {
         this.itensVenda = itensVenda;
     }
-    
-    
 
     @Override
     public Long getId() {

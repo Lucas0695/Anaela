@@ -3,6 +3,7 @@ entidade/Cor.class
 controle/PessoaFisicaControle.class
 entidade/BaixaContasPagar.class
 entidade/ItensCompra.class
+controle/ContasPagarControle.class
 controle/CidadeControle.class
 facade/PerfilFacade.class
 facade/ContasPagarFacade.class
@@ -46,8 +47,10 @@ controle/CorControle.class
 util/TransactionInterceptor.class
 facade/TamanhoFacade.class
 converter/MoneyConverter.class
+controle/VendaControle.class
 util/JpaUtil.class
 facade/MarcaFacade.class
+controle/ContasReceberControle.class
 controle/UsuarioControle.class
 entidade/Tamanho.class
 facade/AjusteEstoqueFacade.class

@@ -16,7 +16,7 @@
                         <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
                     </p:outputLabel>
                 </p:column>
-                <p:column headerText="Fornecedor" filterBy="#{e.pessoaJuridica.nome}" filterMatchMode="contains">
+                <p:column headerText="PessoaJuridica" filterBy="#{e.pessoaJuridica.nome}" filterMatchMode="contains">
                     #{e.pessoaJuridica.nome}
                 </p:column>
                 <p:column headerText="Forma de Pagamento" filterBy="#{e.formaPag}" filterMatchMode="contains">
@@ -38,7 +38,7 @@
                 </p:column>
             </p:dataTable>
             <p:commandButton value="Novo" actionListener="#{compraControle.novo()}" action="editacompra" ajax="false"/>
-            <p:commandButton value="Voltar" action="../index"/>
+            <p:commandButton value="Voltar" action="/index"/>
         </h:form>    
         </ui:define>
     </ui:composition>

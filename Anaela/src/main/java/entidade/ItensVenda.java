@@ -33,6 +33,11 @@ public class ItensVenda implements Serializable {
     @ManyToOne
     private ComposicaoProduto composicaoProduto;
 
+      public ItensVenda(){
+        quantidade = 0d;
+        valor = 0d;
+    }
+      
     public ComposicaoProduto getComposicaoProduto() {
         return composicaoProduto;
     }
