@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"          
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/index.xhtml">
         <ui:define name="body">
             <h2 align="center">Cadastro de Grupo de Produto</h2>
@@ -11,6 +12,16 @@
                 <p:growl autoUpdate="true"/>
                 <p:panelGrid columns="2" style="color: #ffffff">
                     Nome:<p:inputText value="#{grupoProdutoControle.grupoProduto.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
+
+                    Grupo de Pai:<p:autoComplete value="#{grupoProdutoControle.grupoProduto.grupoPai}"
+                                                     completeMethod="#{grupoProdutoControle.listaFiltrandoGrupoProduto}"
+                                                     var="gr"
+                                                     converter="#{produtoControle.grupoProdutoConverter}"
+                                                     itemLabel="#{gr.nome}"
+                                                     itemValue="#{gr}"
+                                                     forceSelection="true"
+                                                     />
+
                     <p:commandButton value="Salvar"  actionListener="#{grupoProdutoControle.salvar()}" action="listagrupoproduto" ajax="false"/>
                     <p:commandButton value="Cancelar" action="listagrupoProduto" immediate="true" ajax="false"/>
                 </p:panelGrid>            

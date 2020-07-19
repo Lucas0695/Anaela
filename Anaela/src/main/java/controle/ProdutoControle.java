@@ -164,22 +164,26 @@ public class ProdutoControle implements Serializable {
 
 // Metodo de adicionar    
     public void addEstoque() {
+//        ComposicaoProduto itemTemp = null;
+//        Cor cores = null;
+//        Tamanho tamanhos = null;
 //        for (ComposicaoProduto it : produto.getComposicaoProduto()) {
-//            if (it.getCor().equals(composicaoProduto.getCor()) || it.getTamanho().equals(composicaoProduto.getTamanho())) {
-//                 FacesContext.getCurrentInstance().addMessage(
-//                    null, new FacesMessage(
-//                            FacesMessage.SEVERITY_ERROR,
-//                            "Produto já existente na base de dados",
-//                            "se deseja alterar o estoque faça pelo movimento de ajuste de estoque"));
-//            }else{
-//        
-        produto.getComposicaoProduto().add(composicaoProduto);
-        composicaoProduto.setProduto(produto);
-        composicaoProduto = new ComposicaoProduto();
-
+//            cores = it.getCor();
+//            tamanhos = it.getTamanho();
+//            if (it.getCor().equals(cores) || it.getTamanho().equals(tamanhos)) {
+//                FacesContext.getCurrentInstance().addMessage(
+//                        null, new FacesMessage(
+//                                FacesMessage.SEVERITY_ERROR,
+//                                "Produto já existente na base de dados",
+//                                "se deseja alterar o estoque faça pelo movimento de ajuste de estoque"));
+//  
 //            }
-//        }
+//            }
+          produto.getComposicaoProduto().add(composicaoProduto);
+          composicaoProduto.setProduto(produto);
+          composicaoProduto = new ComposicaoProduto();
     }
+
 
     public void removerItemEstoque(ComposicaoProduto it) {
 //        diminuiEstoque();

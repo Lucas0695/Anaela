@@ -11,15 +11,7 @@
             <h:form>
                 <p:growl autoUpdate="true"/>
                 <p:panelGrid columns="2" id="TESTE">
-                    Marca:<p:autoComplete value="#{produtoControle.produto.marca}"
-                                          completeMethod="#{produtoControle.listaFiltrandoMarca}"
-                                          var="ma"
-                                          converter="#{produtoControle.marcaConverter}"
-                                          itemLabel="#{ma.nome}"
-                                          itemValue="#{ma}"
-                                          forceSelection="true"
-                                          />
-
+                    Nome:<p:inputText value="#{produtoControle.produto.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
                     Grupo de Produto:<p:autoComplete value="#{produtoControle.produto.grupoProduto}"
                                                      completeMethod="#{produtoControle.listaFiltrandoGrupoProduto}"
                                                      var="gr"
@@ -28,10 +20,14 @@
                                                      itemValue="#{gr}"
                                                      forceSelection="true"
                                                      />
-                    Nome:<p:inputText value="#{produtoControle.produto.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
-
-                    <!--                    <p:outputLabel value="Estoque:"/>
-                                        <p:outputLabel value="{produtoControle.produto.estoque}" id="campEst" />-->
+                    Marca:<p:autoComplete value="#{produtoControle.produto.marca}"
+                                          completeMethod="#{produtoControle.listaFiltrandoMarca}"
+                                          var="ma"
+                                          converter="#{produtoControle.marcaConverter}"
+                                          itemLabel="#{ma.nome}"
+                                          itemValue="#{ma}"
+                                          forceSelection="true"
+                                          />
                 </p:panelGrid> 
                 <p:panelGrid columns="2">
                     <p:panel header="Itens Estoque" id="painelEstoque">
@@ -63,7 +59,7 @@
                                            converter="#{produtoControle.moneyConverter}"
                                            size="9"
                                            />
-                        
+
                         Estoque:<p:inputText value="#{produtoControle.composicaoProduto.estoque}" required="true" size="9"/>
                         <p:commandButton value="ADD" actionListener="#{produtoControle.addEstoque()}" ajax="true" update="painelEstoque"/>
 

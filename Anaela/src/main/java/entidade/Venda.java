@@ -45,7 +45,7 @@ public class Venda implements Serializable, EntidadePai {
     private Pessoa pessoa;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusVenda statusVenda = StatusVenda.FATURADA;
+    private StatusVenda statusVenda;
         
     @ManyToOne
     private Colaborador colaborador;
@@ -62,6 +62,7 @@ public class Venda implements Serializable, EntidadePai {
         this.dataVenda = new Date();
         this.itensVenda = new ArrayList<ItensVenda>();
         this.contasRecebers = new ArrayList<ContasReceber>();
+        this.statusVenda = StatusVenda.FATURADA;
     }
 
     public StatusVenda getStatusVenda() {

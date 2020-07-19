@@ -86,7 +86,7 @@ public class VendaControle implements Serializable {
             setTeste(cp.toString());
         }
     }
-
+  
     public String getTeste() {
         return teste;
     }
@@ -262,7 +262,7 @@ public class VendaControle implements Serializable {
     public void editar(Venda e) {
         this.venda = e;
     }
-
+      
     public void salvar() {
         vendaFacade.salvar(venda);
     }

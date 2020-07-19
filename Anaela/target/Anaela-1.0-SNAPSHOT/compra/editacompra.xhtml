@@ -44,13 +44,13 @@
 
                     <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
 
-                    <style type="text/css">
+<!--                    <style type="text/css">
                         .old {
                             background-color: #fca752 !important;
                             background-image: none !important;
                             color: #000000 !important;
                         }
-                    </style>
+                    </style>-->
                         <p:dataTable id="comp" value="#{compraControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{compraControle.teste le it ? 'old' : null}" >                                 
 
                         <p:column headerText="Cor" filterBy="#{it.cor.nome}">
@@ -125,9 +125,9 @@
                             <p:outputLabel value="#{cp.parcela}"/>
                         </p:column>
                         <p:column headerText="Vencimento">
-                            <p:outputLabel value="#{cp.dataVencimento}">
+                            <p:inputText value="#{cp.dataVencimento}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
-                            </p:outputLabel>
+                            </p:inputText>>
                         </p:column>
                         <p:column headerText="Valor">
                             <p:outputLabel value="#{cp.valor}"/>

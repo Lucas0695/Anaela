@@ -5,6 +5,7 @@
  */
 package controle;
 
+import converter.ConverterGenerico;
 import entidade.GrupoProduto;
 import facade.GrupoProdutoFacade;
 import java.io.Serializable;
@@ -24,6 +25,23 @@ public class GrupoProdutoControle implements Serializable {
     @Inject
     private GrupoProdutoFacade grupoProdutoFacade;
     private GrupoProduto grupoProduto;
+    private ConverterGenerico converterGrupoProduto;
+    
+       public ConverterGenerico getConverterGrupoProduto() {
+        if (converterGrupoProduto == null) {
+            converterGrupoProduto = new ConverterGenerico(grupoProdutoFacade);
+        }
+        return converterGrupoProduto;
+    }
+
+    public void setConverterGrupoProduto(ConverterGenerico converterGrupoProduto) {
+        this.converterGrupoProduto = converterGrupoProduto;
+    }
+
+       public List<GrupoProduto> listaFiltrandoGrupoProduto(String parte) {
+        return grupoProdutoFacade.listaFiltrando(parte, "nome");
+    }
+
 
     public void novo(){
         grupoProduto = new GrupoProduto();

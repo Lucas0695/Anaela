@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -26,6 +27,8 @@ public class GrupoProduto implements Serializable, EntidadePai {
     private Long id;
     @Column(length = 255, nullable = false)
     private String nome;
+    @JoinColumn(name = "grupo_pai")
+    private GrupoProduto grupoPai;
    
     public Long getId() {
         return id;
@@ -41,6 +44,14 @@ public class GrupoProduto implements Serializable, EntidadePai {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public GrupoProduto getGrupoPai() {
+        return grupoPai;
+    }
+
+    public void setGrupoPai(GrupoProduto grupoPai) {
+        this.grupoPai = grupoPai;
     }
 
     @Override
