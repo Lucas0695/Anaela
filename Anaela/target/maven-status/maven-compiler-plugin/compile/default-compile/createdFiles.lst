@@ -10,6 +10,7 @@ facade/ContasPagarFacade.class
 entidade/ContasPagar.class
 entidade/Produto.class
 controle/PerfilControle.class
+entidade/IncrementoBKP.class
 controle/RelatorioControle.class
 controle/PessoaControle.class
 facade/CompraFacade.class
@@ -50,6 +51,7 @@ converter/MoneyConverter.class
 controle/VendaControle.class
 util/JpaUtil.class
 facade/MarcaFacade.class
+facade/BackupFacade.class
 controle/ContasReceberControle.class
 controle/UsuarioControle.class
 entidade/Tamanho.class
@@ -57,6 +59,7 @@ facade/AjusteEstoqueFacade.class
 entidade/Colaborador.class
 facade/PessoaJuridicaFacade.class
 entidade/Pessoa.class
+controle/BackupControle.class
 entidade/PessoaJuridica.class
 controle/EstadoControle.class
 entidade/Compra.class

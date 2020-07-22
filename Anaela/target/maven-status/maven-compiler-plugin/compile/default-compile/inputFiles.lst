@@ -27,6 +27,7 @@
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/ContasPagar.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/ItensCompra.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/Permissoes.java
+/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/BackupControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/Perfil.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/UsuarioControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/Colaborador.java
@@ -41,6 +42,7 @@
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/CompraControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/UsuarioFacade.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/PessoaFisicaControle.java
+/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/IncrementoBKP.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/ContasReceber.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/converter/MoneyConverter.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/PessoaFisica.java
@@ -52,6 +54,7 @@
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/Estado.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/ProdutoFacade.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/entidade/Pessoa.java
+/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/BackupFacade.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/CorControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/VendaControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/TamanhoFacade.java
