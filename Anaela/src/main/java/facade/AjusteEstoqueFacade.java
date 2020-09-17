@@ -1,14 +1,14 @@
 package facade;
 
 import entidade.AjusteEstoque;
+import entidade.ComposicaoProduto;
 import entidade.ItensAjusteEstoque;
-import entidade.Produto;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import util.Transacional;
 
 @Transacional
-public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque>{
+public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque> {
 
     @Inject
     private EntityManager em;
@@ -16,41 +16,30 @@ public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque>{
     public AjusteEstoqueFacade() {
         super(AjusteEstoque.class);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
 
     @Override
-    public void salvar(AjusteEstoque co) {        
-        super.salvar(co); 
-//        somaEstoque(co);
+    public void salvar(AjusteEstoque aj) {
+        for (ItensAjusteEstoque it : aj.getItensAjusteEstoque()) {
+            ComposicaoProduto p = it.getComposicaoProduto();
+            it.setEstoqueAnterior(p.getEstoque());
+            p.setEstoque(it.getEstoqueAntual());
+            em.merge(p);
+        }
+        super.salvar(aj);
     }
 
-//    private void somaEstoque(AjusteEstoque co) {
-//        for(ItensAjusteEstoque it : co.getItensAjusteEstoques()){
-//            Produto p = it.getProduto();
-//            p.setEstoque(p.getEstoque() - it.getQuantidade());
-//            em.merge(p);
-//        }
-//    }
-//    
-//   
-//       @Override
-//    public void excluir(AjusteEstoque ve) {
-//        for(ItensAjusteEstoque it : ve.getItensAjusteEstoques()){
-//            Produto p = it.getProduto();
-//            p.setEstoque(p.getEstoque() + it.getQuantidade());
-//            em.merge(p);
-//        }
-//        super.excluir(ve);
-//    }
-    
+    @Override
+    public void excluir(AjusteEstoque aj) {
+        for (ItensAjusteEstoque it : aj.getItensAjusteEstoque()) {
+            ComposicaoProduto p = it.getComposicaoProduto();
+            p.setEstoque(it.getEstoqueAnterior());
+            em.merge(p);
+        }
+        super.excluir(aj);
     }
-    
-    
-    
-    
-
+}

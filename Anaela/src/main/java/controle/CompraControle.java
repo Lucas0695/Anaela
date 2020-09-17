@@ -60,26 +60,26 @@ public class CompraControle implements Serializable {
     private Produto produto;
     private String teste = "old";
     private List<ComposicaoProduto> composicaoProduto;
-    
-        public String getSituacao(){
-            return "Baixado";
+
+    public String getSituacao() {
+        return "Baixado";
     }
 
     public void setarComposicao(ComposicaoProduto cp) {
-        if (itensCompra.getQuantidade().equals(0d)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR,
-                            "Obrigatório adicionar a quantidade de produto",
-                            ""));
-        } else {
+//        if (itensCompra.getQuantidade().equals(0d)) {
+//            FacesContext.getCurrentInstance().addMessage(
+//                    null, new FacesMessage(
+//                            FacesMessage.SEVERITY_ERROR,
+//                            "Obrigatório adicionar a quantidade de produto",
+//                            ""));
+//        } else {
 
             itensCompra.setComposicaoProduto(cp);
-            itensCompra.setValor(cp.getPreco());
+            itensCompra.setValor(cp.getPrecoCompra());
             setTeste(cp.toString());
-        }
+//        }
     }
-    
+
     public String getTeste() {
         return teste;
     }
@@ -87,8 +87,6 @@ public class CompraControle implements Serializable {
     public void setTeste(String teste) {
         this.teste = teste;
     }
-    
-    
 
     public Produto getProduto() {
         return produto;
@@ -169,6 +167,14 @@ public class CompraControle implements Serializable {
 //                            "" + itensCompra.getComposicaoProduto().getEstoque()));
 //        } else {
 
+        if (itensCompra.getQuantidade().equals(0d)) {
+            FacesContext.getCurrentInstance().addMessage(
+                    null, new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR,
+                            "Obrigatório adicionar a quantidade de produto",
+                            ""));
+        } else {
+
             Double estoque = itensCompra.getComposicaoProduto().getEstoque();
             ItensCompra itemTemp = null;
             for (ItensCompra it : compra.getItensCompra()) {
@@ -186,8 +192,9 @@ public class CompraControle implements Serializable {
             itensCompra = new ItensCompra();
             setTeste("old");
         }
-//    }
+        //    }
 
+    }
     public void removerItemCompra(ItensCompra it) {
         compra.getItensCompra().remove(it);
     }
@@ -266,7 +273,6 @@ public class CompraControle implements Serializable {
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
-
 
     public void geraParcela() {
         compra.setContasPagars(new ArrayList<ContasPagar>());

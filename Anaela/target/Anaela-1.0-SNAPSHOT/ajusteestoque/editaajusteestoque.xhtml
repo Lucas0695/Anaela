@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+            <h3 align="center">Movimento de AjusteEstoque</h3>
+            <h:form id="Painel">
+
+                <p:panelGrid columns="2">
+                    Data da AjusteEstoque:<p:calendar value="#{ajusteEstoqueControle.ajusteEstoque.dataAjuste}"
+                                                      pattern="dd/MM/yyyy"
+                                                      locale="pt_BR"/>
+                    Vendedor:<p:autoComplete value="#{ajusteEstoqueControle.ajusteEstoque.colaborador}"
+                                             completeMethod="#{ajusteEstoqueControle.listaFiltrandoColaborador}"
+                                             var="ve"
+                                             converter="#{ajusteEstoqueControle.converterColaborador}"
+                                             itemLabel="#{ve.nome}"
+                                             itemValue="#{ve}"
+                                             forceSelection="true"
+                                             />
+                    Motivo:<p:inputText value="#{ajusteEstoqueControle.ajusteEstoque.motivo}"/>
+
+                </p:panelGrid>  
+                <p:panel header="Itens de Produto" id="painelajusteEstoque">
+                    Produto:<p:autoComplete value="#{ajusteEstoqueControle.produto}"
+                                            completeMethod="#{ajusteEstoqueControle.listaFiltrandoComposicaoProduto}"
+                                            var="pr"
+                                            converter="#{ajusteEstoqueControle.converterProduto}"
+                                            itemLabel="#{pr.nome}"
+                                            itemValue="#{pr}"
+                                            forceSelection="true"
+                                            >
+                        <p:ajax update="comp" event="itemSelect"/>
+                    </p:autoComplete>
+
+                    <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
+
+                    <!--                    <style type="text/css">
+                                            .old {
+                                                background-color: #fca752 !important;
+                                                background-image: none !important;
+                                                color: #000000 !important;
+                                            }
+                                        </style>-->
+                    <p:dataTable id="comp" value="#{ajusteEstoqueControle.produto.composicaoProduto}" var="co" rowHover="true" >                                 
+
+                        <p:column headerText="Cor" filterBy="#{co.cor.nome}">
+                            #{co.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamanho" filterBy="#{co.tamanho.nome}">
+                            #{co.tamanho.nome}
+                        </p:column>
+                        <p:column headerText="Estoque">
+                            #{co.estoque}
+                        </p:column>
+                        <p:column headerText="Operação">
+                            <p:commandButton value="Selecionar" ajax="false" actionListener="#{ajusteEstoqueControle.setarComposicao(co)}" />
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <br/>
+                    Estoque Modificado: <p:inputText value="#{ajusteEstoqueControle.itensAjusteEstoque.estoqueAntual}"/>
+                    <br/>
+                    Estoque Anterior: <p:outputLabel value="#{ajusteEstoqueControle.itensAjusteEstoque.estoqueAnterior}"/>
+                        <br/>
+                    <p:commandButton value="ADD" actionListener="#{ajusteEstoqueControle.addItemComposicaoProduto()}" ajax="true" update="painelajusteEstoque comp"/>
+                    <p:dataTable 
+                        value="#{ajusteEstoqueControle.ajusteEstoque.itensAjusteEstoque}"
+                        var="it"
+                        emptyMessage="Nenhum produto adicionado!">
+
+                        <p:column headerText="Produto">
+                            #{it.composicaoProduto.produto.nome}
+                        </p:column>
+                        <p:column headerText="Cor">
+                            #{it.composicaoProduto.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamanho">
+                            #{it.composicaoProduto.tamanho.nome}
+                        </p:column>
+                         <p:column headerText="Estoque alterado">
+                            #{it.estoqueAntual}
+                        </p:column>
+                        <p:column headerText="Estoque anterior">
+                            #{it.composicaoProduto.estoque}
+                        </p:column>
+                        <p:column headerText="Operações">
+                            <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{ajusteEstoqueControle.removerItemAjusteEstoque(it)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+
+                <p:commandButton value="Salvar" actionListener="#{ajusteEstoqueControle.salvar()}" action="listaajusteestoque" ajax="false"/>
+                <p:commandButton value="Cancelar" action="listaajusteestoque" immediate="true" ajax="false"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

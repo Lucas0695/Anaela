@@ -40,18 +40,20 @@
                                             >
                         <p:ajax update="comp" event="itemSelect"/>
                     </p:autoComplete>
-                    Quantidade: <p:inputText value="#{compraControle.itensCompra.quantidade}"/>
+
+
 
                     <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
 
-<!--                    <style type="text/css">
-                        .old {
-                            background-color: #fca752 !important;
-                            background-image: none !important;
-                            color: #000000 !important;
-                        }
-                    </style>-->
-                        <p:dataTable id="comp" value="#{compraControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{compraControle.teste le it ? 'old' : null}" >                                 
+                    <!--                    <style type="text/css">
+                                            .old {
+                                                background-color: #fca752 !important;
+                                                background-image: none !important;
+                                                color: #000000 !important;
+                                            }
+                                        </style>-->
+                    <br></br>
+                    <p:dataTable id="comp" value="#{compraControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{compraControle.teste le it ? 'old' : null}" >                                 
 
                         <p:column headerText="Cor" filterBy="#{it.cor.nome}">
                             #{it.cor.nome}
@@ -60,8 +62,8 @@
                             #{it.tamanho.nome}
                         </p:column>
 
-                        <p:column headerText="Preço" filterBy="#{e.preco}">
-                            <p:outputLabel value="#{it.preco}" converter="#{compraControle.moneyConverter}"/>
+                        <p:column headerText="Preço" filterBy="#{e.precoCompra}">
+                            <p:outputLabel value="#{it.precoCompra}" converter="#{compraControle.moneyConverter}"/>
                         </p:column>
                         <p:column headerText="Estoque">
                             #{it.estoque}
@@ -70,9 +72,19 @@
                             <p:commandButton value="Selecionar" ajax="false" actionListener="#{compraControle.setarComposicao(it)}" />
                         </p:column>
                     </p:dataTable>
+                    <br/>
+                    Quantidade: <p:inputText value="#{compraControle.itensCompra.quantidade}"/>
+                    Preço: <p:inputText id="precoProduto" 
+                                        value="#{compraControle.itensCompra.valor}"
+                                        converter="#{compraControle.moneyConverter}" 
+                                        onkeydown="mascaraMonetaria(this)"
+                                        size="10"
+                                        />
 
 
                     <p:commandButton value="ADD" actionListener="#{compraControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelcompra"/>
+                    <br/>
+                    <br></br>
                     <p:dataTable 
                         value="#{compraControle.compra.itensCompra}"
                         var="it"
@@ -127,7 +139,7 @@
                         <p:column headerText="Vencimento">
                             <p:inputText value="#{cp.dataVencimento}">
                                 <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
-                            </p:inputText>>
+                            </p:inputText>
                         </p:column>
                         <p:column headerText="Valor">
                             <p:outputLabel value="#{cp.valor}"/>

@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import util.Transacional;
 
 @Transacional
-public class CompraFacade extends AbstractFacade<Compra>{
+public class CompraFacade extends AbstractFacade<Compra> {
 
     @Inject
     private EntityManager em;
@@ -16,41 +16,50 @@ public class CompraFacade extends AbstractFacade<Compra>{
     public CompraFacade() {
         super(Compra.class);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
 
     @Override
-    public void salvar(Compra co) {        
-        super.salvar(co); 
+    public void salvar(Compra co) {
+        super.salvar(co);
         somaEstoque(co);
+        atualizaPrecoCompra(co);
     }
 
     private void somaEstoque(Compra co) {
-        for(ItensCompra it : co.getItensCompra()){
+        for (ItensCompra it : co.getItensCompra()) {
             ComposicaoProduto p = it.getComposicaoProduto();
             p.setEstoque(p.getEstoque() + it.getQuantidade());
             em.merge(p);
         }
     }
-    
-   
-       @Override
+
+    private void atualizaPrecoCompra(Compra co) {
+        for (ItensCompra it : co.getItensCompra()) {
+            ComposicaoProduto p = it.getComposicaoProduto();
+            p.setPrecoCompra(it.getValor());
+
+            Double precComp = it.getValor();
+            Double precVenda = p.getPrecoVenda();
+            Double p1 = precVenda - precComp;
+            Double p2 = p1 / precComp;
+            Double perc = p2 * 100;
+            p.setPercentual(perc);
+            em.merge(p);
+        }
+    }
+
+    @Override
     public void excluir(Compra ve) {
-        for(ItensCompra it : ve.getItensCompra()){
-           ComposicaoProduto p = it.getComposicaoProduto();
+        for (ItensCompra it : ve.getItensCompra()) {
+            ComposicaoProduto p = it.getComposicaoProduto();
             p.setEstoque(p.getEstoque() - it.getQuantidade());
             em.merge(p);
         }
         super.excluir(ve);
     }
-    
-    }
-    
-    
-    
-    
 
+}

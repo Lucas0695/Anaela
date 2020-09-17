@@ -39,6 +39,7 @@
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/GrupoProdutoControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/MarcaFacade.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/PessoaJuridicaFacade.java
+/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/AjusteEstoqueControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/CompraControle.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/facade/UsuarioFacade.java
 /home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/java/controle/PessoaFisicaControle.java

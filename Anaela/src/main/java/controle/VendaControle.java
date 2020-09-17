@@ -73,20 +73,20 @@ public class VendaControle implements Serializable {
     }
 
     public void setarComposicao(ComposicaoProduto cp) {
-        if (itensVenda.getQuantidade().equals(0d)) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR,
-                            "Obrigatório adicionar a quantidade de produto",
-                            ""));
-        } else {
+//        if (itensVenda.getQuantidade().equals(0d)) {
+//            FacesContext.getCurrentInstance().addMessage(
+//                    null, new FacesMessage(
+//                            FacesMessage.SEVERITY_ERROR,
+//                            "Obrigatório adicionar a quantidade de produto",
+//                            ""));
+//        } else {
 
             itensVenda.setComposicaoProduto(cp);
-            itensVenda.setValor(cp.getPreco());
+            itensVenda.setValor(cp.getPrecoVenda());
             setTeste(cp.toString());
-        }
+//        }
     }
-  
+
     public String getTeste() {
         return teste;
     }
@@ -166,31 +166,40 @@ public class VendaControle implements Serializable {
     }
 
     public void addItemComposicaoProduto() {
-        if (itensVenda.getQuantidade() > itensVenda.getComposicaoProduto().getEstoque()) {
+        if (itensVenda.getQuantidade().equals(0d)) {
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(
                             FacesMessage.SEVERITY_ERROR,
-                            "A quantidade inicada é maior que o estoque atual: ",
-                            "" + itensVenda.getComposicaoProduto().getEstoque()));
+                            "Obrigatório adicionar a quantidade de produto",
+                            ""));
         } else {
-
-            Double estoque = itensVenda.getComposicaoProduto().getEstoque();
-            ItensVenda itemTemp = null;
-            for (ItensVenda it : venda.getItensVenda()) {
-                if (it.getComposicaoProduto().equals(itensVenda.getComposicaoProduto())) {
-                    estoque = estoque - it.getQuantidade();
-                    itemTemp = it;
-                }
-            }
-            if (itemTemp != null) {
-                itemTemp.setQuantidade(itemTemp.getQuantidade() + itensVenda.getQuantidade());
+            if (itensVenda.getQuantidade() > itensVenda.getComposicaoProduto().getEstoque()) {
+                FacesContext.getCurrentInstance().addMessage(
+                        null, new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR,
+                                "A quantidade inicada é maior que o estoque atual: ",
+                                "" + itensVenda.getComposicaoProduto().getEstoque()));
             } else {
-                itensVenda.setVenda(venda);
-                venda.getItensVenda().add(itensVenda);
+
+                Double estoque = itensVenda.getComposicaoProduto().getEstoque();
+                ItensVenda itemTemp = null;
+                for (ItensVenda it : venda.getItensVenda()) {
+                    if (it.getComposicaoProduto().equals(itensVenda.getComposicaoProduto())) {
+                        estoque = estoque - it.getQuantidade();
+                        itemTemp = it;
+                    }
+                }
+                if (itemTemp != null) {
+                    itemTemp.setQuantidade(itemTemp.getQuantidade() + itensVenda.getQuantidade());
+                } else {
+                    itensVenda.setVenda(venda);
+                    venda.getItensVenda().add(itensVenda);
+                }
+                itensVenda = new ItensVenda();
+                setTeste("old");
             }
-            itensVenda = new ItensVenda();
-            setTeste("old");
         }
+
     }
 
     public void removerItemVenda(ItensVenda it) {
@@ -262,7 +271,7 @@ public class VendaControle implements Serializable {
     public void editar(Venda e) {
         this.venda = e;
     }
-      
+
     public void salvar() {
         vendaFacade.salvar(venda);
     }

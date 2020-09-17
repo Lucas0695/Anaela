@@ -24,7 +24,10 @@ public class ComposicaoProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Double estoque = 0.0 ;
-    private Double preco;
+    private Double precoCompra;
+    private Double precoVenda;
+    private Double percentual;
+    private String codBarras;
     @ManyToOne
     private Cor cor;
     @ManyToOne
@@ -33,7 +36,35 @@ public class ComposicaoProduto implements Serializable {
     private Tamanho tamanho;
     
     public Double getSubtotal(){
-        return preco * estoque;
+        return precoCompra * estoque;
+    }
+
+    public String getCodBarras() {
+        return codBarras;
+    }
+
+    public void setCodBarras(String codBarras) {
+        this.codBarras = codBarras;
+    }
+    
+    
+
+    public Double getPercentual() {
+        return percentual;
+    }
+
+    public void setPercentual(Double percentual) {
+        this.percentual = percentual;
+    }
+    
+    
+
+    public Double getPrecoVenda() {
+        return precoVenda;
+    }
+
+    public void setPrecoVenda(Double precoVenda) {
+        this.precoVenda = precoVenda;
     }
 
     public Long getId() {
@@ -52,12 +83,12 @@ public class ComposicaoProduto implements Serializable {
         this.estoque = estoque;
     }
 
-    public Double getPreco() {
-        return preco;
+    public Double getPrecoCompra() {
+        return precoCompra;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    public void setPrecoCompra(Double precoCompra) {
+        this.precoCompra = precoCompra;
     }
 
     public Cor getCor() {

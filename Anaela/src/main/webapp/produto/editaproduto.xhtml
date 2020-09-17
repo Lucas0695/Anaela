@@ -29,8 +29,9 @@
                                           forceSelection="true"
                                           />
                 </p:panelGrid> 
-                <p:panelGrid columns="2">
-                    <p:panel header="Itens Estoque" id="painelEstoque">
+                <p:panel header="Itens Estoque" id="painelEstoque">
+                    <p:panelGrid columns="4">
+
 
 
                         Cor:<p:autoComplete value="#{produtoControle.composicaoProduto.cor}"
@@ -52,42 +53,70 @@
                                                 forceSelection="true"
                                                 size="9"
                                                 />
-                        Preço:<p:inputText value="#{produtoControle.composicaoProduto.preco}" 
-                                           required="true" 
-                                           requiredMessage="O preço é obrigatório!"
-                                           onkeydown="mascaraMonetaria(this)" 
-                                           converter="#{produtoControle.moneyConverter}"
-                                           size="9"
-                                           />
 
-                        Estoque:<p:inputText value="#{produtoControle.composicaoProduto.estoque}" required="true" size="9"/>
+                        Preço Compra:<p:inputText value="#{produtoControle.composicaoProduto.precoCompra}" 
+                                                  required="true" 
+                                                  requiredMessage="O preço é obrigatório!"
+                                                  onkeydown="mascaraMonetaria(this)" 
+                                                  converter="#{produtoControle.moneyConverter}"
+                                                  size="9"
+                                                  />
+                        Percentual:<p:inputText value="#{produtoControle.composicaoProduto.percentual}" size="9"/>
+
+                        Preço Venda:<p:inputText value="#{produtoControle.composicaoProduto.precoVenda}" 
+                                                 id="precoVenda"
+                                                 required="true" 
+                                                 requiredMessage="O preço é obrigatório!"
+                                                 onkeydown="mascaraMonetaria(this)" 
+                                                 converter="#{produtoControle.moneyConverter}"
+                                                 size="9"
+                                                 />
+                        Código de Barras <p:inputText value="#{produtoControle.composicaoProduto.codBarras}"
+                                                      />
+
+                        <p:commandButton value="Calc. %" actionListener="#{produtoControle.setCalculaPercentual()}" ajax="false" update="precoVenda" />
+
+                    </p:panelGrid>  
+                    <p:panelGrid columns="3">
+                        Estoque:<p:inputText value="#{produtoControle.composicaoProduto.estoque}" required="true" size="12"/>
                         <p:commandButton value="ADD" actionListener="#{produtoControle.addEstoque()}" ajax="true" update="painelEstoque"/>
+                    </p:panelGrid>
+                    <p:dataTable 
+                        value="#{produtoControle.produto.composicaoProduto}"
+                        var="it"
+                        emptyMessage="Nenhum serviço adicionado!">
 
-                        <p:dataTable 
-                            value="#{produtoControle.produto.composicaoProduto}"
-                            var="it"
-                            emptyMessage="Nenhum serviço adicionado!">
+                        <p:column headerText="Código de Barras">
+                            #{it.codBarras}
+                        </p:column>
 
-                            <p:column headerText="Cor">
-                                #{it.cor.nome}
-                            </p:column>
-                            <p:column headerText="Tamnho">
-                                #{it.tamanho.nome}
-                            </p:column>
+                        <p:column headerText="Cor">
+                            #{it.cor.nome}
+                        </p:column>
+                        <p:column headerText="Tamnho">
+                            #{it.tamanho.nome}
+                        </p:column>
 
-                            <p:column headerText="Preço" filterBy="{e.preco}">
-                                <p:outputLabel value="#{it.preco}" converter="#{produtoControle.moneyConverter}"/>
-                            </p:column>
-                            <p:column headerText="Estoque">
-                                #{it.estoque}
-                            </p:column>
+                        <p:column headerText="Preço da Compra" filterBy="{e.precoCompra}">
+                            <p:outputLabel value="#{it.precoCompra}" converter="#{produtoControle.moneyConverter}"/>
+                        </p:column>
+                        <p:column headerText="Preço da Venda" filterBy="{e.precoVenda}">
+                            <p:outputLabel value="#{it.precoVenda}" converter="#{produtoControle.moneyConverter}"/>
+                        </p:column>
+                        <p:column headerText="Percentual Aplicado" filterBy="{e.percentual}">
+                            <p:outputLabel value="#{it.percentual}"/>
+                        </p:column>
+                        <p:column headerText="Estoque">
+                            #{it.estoque}
+                        </p:column>
 
-                            <p:column headerText="Operações">
-                                <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{produtoControle.removerItemEstoque(it)}" update="painelEstoque campEst"/>
-                            </p:column>
-                        </p:dataTable>
-                    </p:panel>
-                </p:panelGrid>    
+                        <p:column headerText="Operações">
+                            <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{produtoControle.removerItemEstoque(it)}" update="painelEstoque campEst"/>
+                        </p:column>
+                    </p:dataTable>
+
+
+                </p:panel>
                 <p:commandButton value="Salvar" actionListener="#{produtoControle.salvar()}" action="listaproduto" ajax="false"/>
                 <p:commandButton value="Cancelar" action="listaproduto" immediate="true" ajax="false"/>
 

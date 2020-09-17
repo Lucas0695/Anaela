@@ -35,6 +35,7 @@ facade/VendaFacade.class
 entidade/Estado.class
 facade/PessoaFacade.class
 facade/GrupoProdutoFacade.class
+controle/AjusteEstoqueControle.class
 entidade/StatusVenda.class
 controle/CompraControle.class
 facade/CidadeFacade.class

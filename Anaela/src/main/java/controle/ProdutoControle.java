@@ -54,6 +54,22 @@ public class ProdutoControle implements Serializable {
     private ConverterGenerico tamanhoConverter;
     private ComposicaoProduto composicaoProduto = new ComposicaoProduto();
 
+    public void setCalculaPercentual() {
+        Double precComp = composicaoProduto.getPrecoCompra();
+        Double per = composicaoProduto.getPercentual() + 100;
+        Double PrecVenda = (precComp * per) / 100;
+        composicaoProduto.setPrecoVenda(PrecVenda);
+    }
+
+    public void setCalculaPercentualValor() {
+        Double precComp = composicaoProduto.getPrecoCompra();
+        Double precVenda = composicaoProduto.getPrecoVenda();
+        Double p1 = precVenda - precComp;
+        Double p2 = p1 / precComp;
+        Double perc = p2 * 100;
+        composicaoProduto.setPercentual(perc);
+    }
+
     public ConverterGenerico getTamanoConverter() {
         if (tamanhoConverter == null) {
             tamanhoConverter = new ConverterGenerico(tamanhoFacade);
@@ -179,11 +195,18 @@ public class ProdutoControle implements Serializable {
 //  
 //            }
 //            }
-          produto.getComposicaoProduto().add(composicaoProduto);
-          composicaoProduto.setProduto(produto);
-          composicaoProduto = new ComposicaoProduto();
+        if(composicaoProduto.getPercentual()!= null){
+              produto.getComposicaoProduto().add(composicaoProduto);
+        composicaoProduto.setProduto(produto);
+        composicaoProduto = new ComposicaoProduto();
+        }else{
+            
+        setCalculaPercentualValor();
+        produto.getComposicaoProduto().add(composicaoProduto);
+        composicaoProduto.setProduto(produto);
+        composicaoProduto = new ComposicaoProduto();
     }
-
+    }
 
     public void removerItemEstoque(ComposicaoProduto it) {
 //        diminuiEstoque();

@@ -56,38 +56,44 @@
                         <p:ajax update="comp" event="itemSelect"/>
                     </p:autoComplete>
                     Quantidade: <p:inputText value="#{vendaControle.itensVenda.quantidade}"/>
+                    Preço: <p:inputText id="precoProduto" 
+                                        value="#{vendaControle.itensVenda.valor}"
+                                        converter="#{vendaControle.moneyConverter}" 
+                                        onkeydown="mascaraMonetaria(this)"
+                                        size="10"
+                                        />
 
                     <!--\\ COMEÇO DA TABELA DE COMPOSIÇÃO PRODUTO-->
 
-<!--                    <style type="text/css">
-                        .old {
-                            background-color: #fca752 !important;
-                            background-image: none !important;
-                            color: #000000 !important;
-                        }
-                    </style>-->
-                    <p:dataTable id="comp" value="#{vendaControle.produto.composicaoProduto}" var="it" rowHover="true" rowStyleClass="#{vendaControle.teste le it ? 'old' : null}" >                                 
+                    <!--                    <style type="text/css">
+                                            .old {
+                                                background-color: #fca752 !important;
+                                                background-image: none !important;
+                                                color: #000000 !important;
+                                            }
+                                        </style>-->
+                    <p:dataTable id="comp" value="#{vendaControle.produto.composicaoProduto}" var="co" rowHover="true" rowStyleClass="#{vendaControle.teste le it ? 'old' : null}" >                                 
 
-                        <p:column headerText="Cor" filterBy="#{it.cor.nome}">
-                            #{it.cor.nome}
+                        <p:column headerText="Cor" filterBy="#{co.cor.nome}">
+                            #{co.cor.nome}
                         </p:column>
-                        <p:column headerText="Tamanho" filterBy="#{it.tamanho.nome}">
-                            #{it.tamanho.nome}
+                        <p:column headerText="Tamanho" filterBy="#{co.tamanho.nome}">
+                            #{co.tamanho.nome}
                         </p:column>
 
-                        <p:column headerText="Preço" filterBy="#{e.preco}">
-                            <p:outputLabel value="#{it.preco}" converter="#{vendaControle.moneyConverter}"/>
+                        <p:column headerText="Preço" filterBy="#{e.precoVenda}">
+                            <p:outputLabel value="#{co.precoVenda}" converter="#{vendaControle.moneyConverter}"/>
                         </p:column>
                         <p:column headerText="Estoque">
-                            #{it.estoque}
+                            #{co.estoque}
                         </p:column>
                         <p:column headerText="Operação">
-                            <p:commandButton value="Selecionar" ajax="false" actionListener="#{vendaControle.setarComposicao(it)}" />
+                            <p:commandButton value="Selecionar" ajax="false" actionListener="#{vendaControle.setarComposicao(co)}" />
                         </p:column>
                     </p:dataTable>
 
 
-                    <p:commandButton value="ADD" actionListener="#{vendaControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelvenda"/>
+                    <p:commandButton value="ADD" actionListener="#{vendaControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelvenda comp"/>
                     <p:dataTable 
                         value="#{vendaControle.venda.itensVenda}"
                         var="it"
