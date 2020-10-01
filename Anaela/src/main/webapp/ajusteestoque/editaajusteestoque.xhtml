@@ -14,7 +14,9 @@
                 <p:panelGrid columns="2">
                     Data da AjusteEstoque:<p:calendar value="#{ajusteEstoqueControle.ajusteEstoque.dataAjuste}"
                                                       pattern="dd/MM/yyyy"
-                                                      locale="pt_BR"/>
+                                                      locale="pt_BR"
+                                                      required="true" 
+                                                      requiredMessage="A data é obrigatória!"/>
                     Vendedor:<p:autoComplete value="#{ajusteEstoqueControle.ajusteEstoque.colaborador}"
                                              completeMethod="#{ajusteEstoqueControle.listaFiltrandoColaborador}"
                                              var="ve"
@@ -22,6 +24,8 @@
                                              itemLabel="#{ve.nome}"
                                              itemValue="#{ve}"
                                              forceSelection="true"
+                                             required="true" 
+                                             requiredMessage="O vendedor é obrigatório!"
                                              />
                     Motivo:<p:inputText value="#{ajusteEstoqueControle.ajusteEstoque.motivo}"/>
 

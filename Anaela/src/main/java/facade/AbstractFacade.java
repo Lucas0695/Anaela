@@ -19,6 +19,15 @@ public abstract class AbstractFacade<T> implements Serializable {
         return getEntityManager().find(entityClass, id);
     }
 
+//    public T buscar(Object id) {
+//        return getEntityManager().find(entityClass, id);
+//    }
+
+//    adicionado para buscar 
+    public T find(Object id) {
+        return getEntityManager().find(entityClass, id);
+    }
+
     public void salvar(T objeto) {
         getEntityManager().merge(objeto);
     }

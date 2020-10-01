@@ -8,23 +8,24 @@
 		<![CDATA[SELECT
      composicaoproduto."id" AS composicaoproduto_id,
      composicaoproduto."estoque" AS estoque,
-     composicaoproduto."preco" AS preco,
      composicaoproduto."cor_id" AS composicaoproduto_cor_id,
      composicaoproduto."produto_id" AS produto_id,
      composicaoproduto."tamanho_id" AS composicaoproduto_tamanho_id,
      cor."id" AS cor_id,
      cor."nome" AS cor_nome,
      tamanho."id" AS tamanho_id,
-     tamanho."nome" AS tamanho_nome
-     FROM
+     tamanho."nome" AS tamanho_nome,
+     composicaoproduto."precocompra" AS composicaoproduto_precocompra,
+     composicaoproduto."precovenda" AS composicaoproduto_precovenda,
+     composicaoproduto."percentual" AS composicaoproduto_percentual
+FROM
      "public"."cor" cor INNER JOIN "public"."composicaoproduto" composicaoproduto ON cor."id" = composicaoproduto."cor_id"
      INNER JOIN "public"."tamanho" tamanho ON composicaoproduto."tamanho_id" = tamanho."id"
-where
-	composicaoproduto."produto_id" = $P{produtoid}]]>
+WHERE
+     composicaoproduto."produto_id" = $P{produtoid}]]>
 	</queryString>
 	<field name="composicaoproduto_id" class="java.lang.Long"/>
 	<field name="estoque" class="java.lang.Double"/>
-	<field name="preco" class="java.lang.Double"/>
 	<field name="composicaoproduto_cor_id" class="java.lang.Long"/>
 	<field name="produto_id" class="java.lang.Long"/>
 	<field name="composicaoproduto_tamanho_id" class="java.lang.Long"/>
@@ -32,6 +33,9 @@ where
 	<field name="cor_nome" class="java.lang.String"/>
 	<field name="tamanho_id" class="java.lang.Long"/>
 	<field name="tamanho_nome" class="java.lang.String"/>
+	<field name="composicaoproduto_precocompra" class="java.lang.Double"/>
+	<field name="composicaoproduto_precovenda" class="java.lang.Double"/>
+	<field name="composicaoproduto_percentual" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,22 +49,90 @@ where
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="75" splitType="Stretch">
 			<textField>
-				<reportElement x="15" y="0" width="240" height="20" uuid="58453333-af8c-42d6-b17d-d8dda2e62aef"/>
+				<reportElement x="3" y="32" width="112" height="20" uuid="58453333-af8c-42d6-b17d-d8dda2e62aef"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cor_nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="255" y="0" width="100" height="20" uuid="7ff2a14b-270a-44ce-af4d-e6834bb87f27"/>
+				<reportElement x="115" y="32" width="88" height="20" uuid="7ff2a14b-270a-44ce-af4d-e6834bb87f27"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tamanho_nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="0" width="100" height="20" uuid="6981cefe-ae1c-47de-9e3f-18057632feeb"/>
+				<reportElement x="202" y="32" width="72" height="20" uuid="6981cefe-ae1c-47de-9e3f-18057632feeb"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{estoque}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="274" y="12" width="99" height="20" uuid="63e37b56-a7e1-47b3-a41a-945af39c64b5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R$ Compra]]></text>
+			</staticText>
 			<textField pattern="¤ #,##0.00">
-				<reportElement x="455" y="0" width="100" height="20" uuid="a1b496a3-0658-4857-92ca-39f6bf315327"/>
-				<textFieldExpression><![CDATA[$F{preco}]]></textFieldExpression>
+				<reportElement x="274" y="32" width="99" height="20" uuid="25e85014-9f8a-469e-a933-59406c909565"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{composicaoproduto_precocompra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="373" y="12" width="90" height="20" uuid="345113dd-4b27-42d2-af38-488a696acdf2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[R$ Venda]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="373" y="32" width="90" height="20" uuid="b4c4c645-68a0-4b65-b96f-cb3daef32f9b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{composicaoproduto_precovenda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="12" width="112" height="20" uuid="bfce3f3c-7304-474e-a28e-d69a4e6fcf99"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="12" width="88" height="20" uuid="de5154bf-e33b-4de8-8930-942a378b90e6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tamanho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="12" width="72" height="20" uuid="cc4b95ac-f632-4067-aae3-93020ae9d322"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estoque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="12" width="75" height="20" uuid="e4278f2c-a3b6-4c55-8923-029c0856a723"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Perc. %]]></text>
+			</staticText>
+			<textField pattern="###0">
+				<reportElement x="463" y="32" width="75" height="20" uuid="d4b86944-be70-41ba-97d5-86185bae14f1"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{composicaoproduto_percentual}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

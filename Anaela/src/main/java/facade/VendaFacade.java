@@ -22,22 +22,22 @@ public class VendaFacade extends AbstractFacade<Venda> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-//    @Override
-//    public List<Venda> listaTodos() {
-//        List<Venda> retorno = super.listaTodos();
-//        for(Venda c:retorno){
-//            c.getItensVenda().size();
-//        }
-//        return  retorno;//To change body of generated methods, choose Tools | Templates.
-//    }
-//
-////    @Override
-//    public Venda bucar(Object id) {
-//        Venda c = super.buscar((Long) id);
-//        c.getItensVenda().size();
-//        return  c;//To change body of generated methods, choose Tools | Templates.
-//    }
+
+    @Override
+    public List<Venda> listaTodos() {
+        List<Venda> retorno = super.listaTodos();
+        for (Venda c : retorno) {
+            c.getItensVenda().size();
+        }
+        return retorno;//To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Venda find(Object id) {
+        Venda c = super.find(id);
+        c.getItensVenda().size();
+        return c;//To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public void salvar(Venda ve) {
@@ -50,6 +50,7 @@ public class VendaFacade extends AbstractFacade<Venda> {
                 p.setEstoque(p.getEstoque() - it.getQuantidade());
                 em.merge(p);
             }
+            ve.setValorTotal(ve.getValorTotal());
             super.salvar(ve);
         }
     }

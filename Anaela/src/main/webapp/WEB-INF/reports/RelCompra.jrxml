@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelCompra" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="82ff8557-bfa7-4a3d-b29e-4daccd040988">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="filtro" class="java.lang.String"/>
+	<parameter name="dataInicial" class="java.util.Date"/>
+	<parameter name="dataFinal" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     compra."id" AS compra_id,
+     compra."datacompra" AS compra_datacompra,
+     compra."formapag" AS compra_formapag,
+     compra."valortotal" AS compra_valortotal,
+     compra."pessoajuridica_id" AS compra_pessoajuridica_id,
+     pessoajuridica."cnpj" AS pessoajuridica_cnpj,
+     pessoajuridica."ie" AS pessoajuridica_ie,
+     pessoajuridica."nomefantasia" AS pessoajuridica_nomefantasia,
+     pessoajuridica."id" AS pessoajuridica_id
+FROM
+     public."pessoajuridica" pessoajuridica INNER JOIN  public."compra" compra ON pessoajuridica."id" = compra."pessoajuridica_id"
+where
+pessoajuridica."nomefantasia" like $P{filtro} and
+compra."datacompra" between $P{dataInicial} and $P{dataFinal}
+order by
+compra."datacompra"]]>
+	</queryString>
+	<field name="compra_id" class="java.lang.Long"/>
+	<field name="compra_datacompra" class="java.sql.Date"/>
+	<field name="compra_formapag" class="java.lang.String"/>
+	<field name="compra_valortotal" class="java.lang.Double"/>
+	<field name="compra_pessoajuridica_id" class="java.lang.Long"/>
+	<field name="pessoajuridica_cnpj" class="java.lang.String"/>
+	<field name="pessoajuridica_ie" class="java.lang.String"/>
+	<field name="pessoajuridica_nomefantasia" class="java.lang.String"/>
+	<field name="pessoajuridica_id" class="java.lang.Long"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#FEFEFE" uuid="1fb153c1-b144-436d-84b9-9d50c05c9479"/>
+				<staticText>
+					<reportElement x="20" y="20" width="405" height="43" forecolor="#010101" uuid="b9e3acb7-aedf-4474-b055-54b8a06ca0dc"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Compra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#010101" uuid="fa578b57-3c94-403d-a576-69d38abcf02e"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sistema Anaela]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="2b912440-6970-4bc2-901e-0236fdd67eb6"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="-20" y="0" width="131" height="20" forecolor="#010101" backcolor="#FFF5F5" uuid="6de8567c-b533-4ea4-9d0c-7c5bd53ab587"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="247" height="20" forecolor="#010101" backcolor="#FFF5F5" uuid="1278546e-b7cb-40e8-96e6-df491dca04a3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="358" y="0" width="197" height="20" forecolor="#010101" backcolor="#FFF5F5" uuid="3d7f0345-2945-477f-a473-e30ec0804cb9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="97">
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="335" y="0" width="220" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="abc91b1a-95be-4e5c-916f-b90224f7a239"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_cnpj}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="6ff6a69a-cba7-45e0-9941-0e8aca488ace"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_datacompra}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="36" width="545" height="48" uuid="c6c9a6c5-612c-4b59-8d5b-68ad06e8cc8b"/>
+				<subreportParameter name="itid">
+					<subreportParameterExpression><![CDATA[$F{compra_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItemCompra.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="111" y="0" width="247" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="7945d719-b3db-40bc-abad-ec1ffb7ce4fe"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_nomefantasia}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="30">
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#FF0000" backcolor="#FEFEFE" uuid="89a88c71-0ac2-4fb5-a1ab-b6185b1c0316"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_valortotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="239" y="0" width="205" height="20" forecolor="#FF0000" backcolor="#FEFEFE" uuid="3c08f3cb-f509-4900-b695-ca3b4d23ac06"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Compra:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="111" y="0" width="128" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="8ff4df2e-9b9e-465a-97f6-c937c2c93c8c"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_formapag}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="01b3da8f-8a41-4572-9947-4515df433abf"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma Pag.:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="515" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="1f7f6c35-3302-4e85-9770-6b5d45411132"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="0" width="40" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="1ebb4f8d-f42c-419f-b70b-317a1bf82209"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="3f1f6004-85c6-4dd8-9965-45e1ac7821b6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

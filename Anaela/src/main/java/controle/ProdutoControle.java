@@ -153,6 +153,10 @@ public class ProdutoControle implements Serializable {
     public void editar(Produto e) {
         this.produto = e;
     }
+    
+    public void editarCompos(ComposicaoProduto cp) {
+        this.composicaoProduto = cp;
+    }
 
     public void salvar() {
         produtoFacade.salvar(produto);

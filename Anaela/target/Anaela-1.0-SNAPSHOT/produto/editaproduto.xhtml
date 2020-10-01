@@ -112,6 +112,7 @@
 
                         <p:column headerText="Operações">
                             <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{produtoControle.removerItemEstoque(it)}" update="painelEstoque campEst"/>
+                            <p:commandButton icon="ui-icon-pencil" actionListener="#{produtoControle.editarCompos(e)}" ajax="false" style=" background: #ffffff"/>
                         </p:column>
                     </p:dataTable>
 

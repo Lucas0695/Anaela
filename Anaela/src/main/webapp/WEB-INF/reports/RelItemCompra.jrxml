@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelItemCompra" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="255381e0-1766-43e3-a757-2e958adae395">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="itid" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     it.id AS itenscompra_id,
+     it.quantidade AS itenscompra_quantidade,
+     it.valor AS itenscompra_valor,
+     it.composicaoproduto_id AS itenscompra_composicaoproduto_id,
+     it.compra_id AS itenscompra_compra_id,
+     pr.id AS pr_id,
+     pr.nome AS pr_nome,
+     pr.grupoproduto_id AS pr_grupoproduto_id,
+     pr.marca_id AS pr_marca_id,
+     cp.id AS cp_id,
+     cp.codbarras AS cp_codbarras,
+     cp.estoque AS cp_estoque,
+     cp.percentual AS cp_percentual,
+     cp.precocompra AS cp_precocompra,
+     cp.precovenda AS cp_precovenda,
+     cp.cor_id AS cp_cor_id,
+     cp.produto_id AS cp_produto_id,
+     cp.tamanho_id AS cp_tamanho_id,
+     cp.id AS cp_id,
+     cp.codbarras AS cp_codbarras,
+     cp.estoque AS cp_estoque,
+     cp.percentual AS cp_percentual,
+     cp.precocompra AS cp_precocompra,
+     cp.precovenda AS cp_precovenda,
+     cp.cor_id AS cp_cor_id,
+     cp.produto_id AS cp_produto_id,
+     cp.tamanho_id AS cp_tamanho_id,
+     it.id AS itenscompra_id,
+     it.quantidade AS it_quantidade,
+     it.valor AS it_valor,
+     it.composicaoproduto_id AS it_composicaoproduto_id,
+     it.compra_id AS it_compra_id,
+     cp.id AS cp_id,
+     cp.estoque AS cp_estoque,
+     cp.percentual AS cp_percentual,
+     cp.precocompra AS cp_precocompra,
+     cp.cor_id AS cp_cor_id,
+     cp.produto_id AS cp_produto_id,
+     cp.tamanho_id AS cp_tamanho_id,
+     cor.id AS cor_id,
+     cor.nome AS cor_nome,
+     tm.id AS tamanho_id,
+     tm.nome AS tamanho_nome,
+     it.quantidade * it.valor AS subtotal
+
+FROM
+itenscompra it  inner join
+composicaoproduto cp on it.composicaoproduto_id =  cp.id
+inner join cor on cp.cor_id = cor.id
+inner join tamanho tm on cp.tamanho_id = tm.id
+inner join produto pr on cp.produto_id = pr.id
+WHERE
+it.compra_id = $P{itid}]]>
+	</queryString>
+	<field name="itenscompra_id" class="java.lang.Long"/>
+	<field name="itenscompra_quantidade" class="java.lang.Double"/>
+	<field name="itenscompra_valor" class="java.lang.Double"/>
+	<field name="itenscompra_composicaoproduto_id" class="java.lang.Long"/>
+	<field name="itenscompra_compra_id" class="java.lang.Long"/>
+	<field name="pr_id" class="java.lang.Long"/>
+	<field name="pr_nome" class="java.lang.String"/>
+	<field name="pr_grupoproduto_id" class="java.lang.Long"/>
+	<field name="pr_marca_id" class="java.lang.Long"/>
+	<field name="cp_id" class="java.lang.Long"/>
+	<field name="cp_codbarras" class="java.lang.String"/>
+	<field name="cp_estoque" class="java.lang.Double"/>
+	<field name="cp_percentual" class="java.lang.Double"/>
+	<field name="cp_precocompra" class="java.lang.Double"/>
+	<field name="cp_precovenda" class="java.lang.Double"/>
+	<field name="cp_cor_id" class="java.lang.Long"/>
+	<field name="cp_produto_id" class="java.lang.Long"/>
+	<field name="cp_tamanho_id" class="java.lang.Long"/>
+	<field name="it_quantidade" class="java.lang.Double"/>
+	<field name="it_valor" class="java.lang.Double"/>
+	<field name="it_composicaoproduto_id" class="java.lang.Long"/>
+	<field name="it_compra_id" class="java.lang.Long"/>
+	<field name="cor_id" class="java.lang.Long"/>
+	<field name="cor_nome" class="java.lang.String"/>
+	<field name="tamanho_id" class="java.lang.Long"/>
+	<field name="tamanho_nome" class="java.lang.String"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="10" y="0" width="538" height="20" backcolor="#BDBDBD" uuid="cdbc890f-faf9-4a49-8720-ad18ecae0b4d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pr_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="37" width="126" height="20" uuid="553ca9ed-2d42-4410-ac5d-68d45c88cab2"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cor_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="37" width="115" height="20" uuid="b74cf209-9889-40c0-b013-89a502323c52"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tamanho_nome}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="347" y="37" width="100" height="20" uuid="81c9669e-f2a0-4b71-bcb8-646b871c2d8b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{it_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="37" width="97" height="20" uuid="ccaab8c4-9561-4131-902f-e415415927db"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itenscompra_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="447" y="37" width="100" height="20" uuid="ef6cbcc7-4933-4c3e-93a7-e52a9cbdf6bc"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="20" width="125" height="20" uuid="496560e7-9be4-4a23-a6b9-df64f9dff6c8"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="20" width="115" height="20" uuid="6844f02e-13a6-4b38-8634-2b09d90d880f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tamanho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="20" width="97" height="20" uuid="a6428794-1f38-4468-9f0e-db72dd52d164"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="20" width="100" height="20" uuid="0aab4c7e-46ff-4127-9524-d09b4c0be260"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="20" width="100" height="20" uuid="06b9e62f-2a0d-4b4a-8134-f38868c08006"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SubTotal]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

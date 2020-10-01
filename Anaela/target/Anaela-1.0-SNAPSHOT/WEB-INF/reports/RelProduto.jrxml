@@ -105,7 +105,7 @@ grupoproduto."nome" like $P{filtro}  and marca."nome" like $P{filtro1}]]>
 				<textFieldExpression><![CDATA[$F{grupoproduto_nome}]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="24" y="30" width="531" height="31" uuid="95267273-ed94-4e98-bab6-89b6859402d8"/>
+				<reportElement x="0" y="30" width="555" height="31" uuid="95267273-ed94-4e98-bab6-89b6859402d8"/>
 				<subreportParameter name="produtoid">
 					<subreportParameterExpression><![CDATA[$F{produto_id}]]></subreportParameterExpression>
 				</subreportParameter>
