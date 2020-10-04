@@ -31,6 +31,7 @@ public class Produto implements Serializable, EntidadePai {
     private Long id;
     @Column(length = 255, nullable = false)
     private String nome;
+    private Double estoqueTotal;
     @ManyToOne
     private GrupoProduto grupoProduto;
     @ManyToOne
@@ -61,6 +62,15 @@ public class Produto implements Serializable, EntidadePai {
         this.id = id;
     }
 
+    public Double getEstoqueTotal() {
+        return estoqueTotal;
+    }
+
+    public void setEstoqueTotal(Double estoqueTotal) {
+        this.estoqueTotal = estoqueTotal;
+    }
+
+    
     public String getNome() {
         return nome;
     }

@@ -1,5 +1,7 @@
 package facade;
 
+import entidade.ComposicaoProduto;
+import entidade.Produto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -62,6 +64,16 @@ public abstract class AbstractFacade<T> implements Serializable {
         Query q = getEntityManager().createQuery(hql);
         q.setParameter("filtro", "%" + filtro.toLowerCase() + "%");
         return q.getResultList();
+    }
+    
+    public void somaEstoqueTotalProduto(Produto p) {
+        Double estoque = 0d;
+        Double estoqueTotal = 0d;
+        for (ComposicaoProduto it : p.getComposicaoProduto()) {
+            estoque = it.getEstoque();
+            estoqueTotal = estoqueTotal + estoque;
+            p.setEstoqueTotal(estoqueTotal);   
+        }
     }
 
 }

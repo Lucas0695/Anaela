@@ -20,9 +20,10 @@ public class ProdutoFacade extends AbstractFacade<Produto>{
         return em;
     }
     @Override
-    public void salvar(Produto pr) {        
+    public void salvar(Produto pr) {  
+        super.somaEstoqueTotalProduto(pr);
         super.salvar(pr); 
 //        baixaEstoque(pr);
     }
-    
+   
 }

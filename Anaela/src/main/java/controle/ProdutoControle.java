@@ -21,8 +21,6 @@ import facade.TamanhoFacade;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -153,7 +151,7 @@ public class ProdutoControle implements Serializable {
     public void editar(Produto e) {
         this.produto = e;
     }
-    
+
     public void editarCompos(ComposicaoProduto cp) {
         this.composicaoProduto = cp;
     }
@@ -199,17 +197,17 @@ public class ProdutoControle implements Serializable {
 //  
 //            }
 //            }
-        if(composicaoProduto.getPercentual()!= null){
-              produto.getComposicaoProduto().add(composicaoProduto);
-        composicaoProduto.setProduto(produto);
-        composicaoProduto = new ComposicaoProduto();
-        }else{
-            
-        setCalculaPercentualValor();
-        produto.getComposicaoProduto().add(composicaoProduto);
-        composicaoProduto.setProduto(produto);
-        composicaoProduto = new ComposicaoProduto();
-    }
+        if (composicaoProduto.getPercentual() != null) {
+            produto.getComposicaoProduto().add(composicaoProduto);
+            composicaoProduto.setProduto(produto);
+            composicaoProduto = new ComposicaoProduto();
+        } else {
+
+            setCalculaPercentualValor();
+            produto.getComposicaoProduto().add(composicaoProduto);
+            composicaoProduto.setProduto(produto);
+            composicaoProduto = new ComposicaoProduto();
+        }
     }
 
     public void removerItemEstoque(ComposicaoProduto it) {

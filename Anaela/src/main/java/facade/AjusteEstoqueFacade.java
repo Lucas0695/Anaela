@@ -3,6 +3,7 @@ package facade;
 import entidade.AjusteEstoque;
 import entidade.ComposicaoProduto;
 import entidade.ItensAjusteEstoque;
+import entidade.Produto;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import util.Transacional;
@@ -23,14 +24,20 @@ public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque> {
     }
 
     @Override
-    public void salvar(AjusteEstoque aj) {
+    public void salvar(AjusteEstoque aj) { 
         for (ItensAjusteEstoque it : aj.getItensAjusteEstoque()) {
             ComposicaoProduto p = it.getComposicaoProduto();
             it.setEstoqueAnterior(p.getEstoque());
             p.setEstoque(it.getEstoqueAntual());
-            em.merge(p);
+            em.merge(p); 
+            somaEstoqueTotal(p.getProduto());
         }
         super.salvar(aj);
+    }
+    
+    public void somaEstoqueTotal(Produto pr){
+         super.somaEstoqueTotalProduto(pr);
+            em.merge(pr);
     }
 
     @Override

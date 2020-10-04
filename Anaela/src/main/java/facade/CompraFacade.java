@@ -3,6 +3,7 @@ package facade;
 import entidade.ComposicaoProduto;
 import entidade.Compra;
 import entidade.ItensCompra;
+import entidade.Produto;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import util.Transacional;
@@ -24,17 +25,19 @@ public class CompraFacade extends AbstractFacade<Compra> {
 
     @Override
     public void salvar(Compra co) {
-        super.salvar(co);
-        somaEstoque(co);
-        atualizaPrecoCompra(co);
-    }
-
-    private void somaEstoque(Compra co) {
         for (ItensCompra it : co.getItensCompra()) {
             ComposicaoProduto p = it.getComposicaoProduto();
             p.setEstoque(p.getEstoque() + it.getQuantidade());
             em.merge(p);
+            somaEstoqueTotal(p.getProduto());
         }
+        super.salvar(co);
+        atualizaPrecoCompra(co);
+    }
+    
+     public void somaEstoqueTotal(Produto pr){
+         super.somaEstoqueTotalProduto(pr);
+            em.merge(pr);
     }
 
     private void atualizaPrecoCompra(Compra co) {

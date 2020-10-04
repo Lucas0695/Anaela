@@ -22,6 +22,9 @@
                 <p:column headerText="Marca" filterBy="#{e.marca.nome}" filterMatchMode="contains" style=" background: #ffffff">
                     #{e.marca.nome}
                 </p:column>
+                <p:column headerText="Estoque Total" filterBy="#{e.estoqueTotal}" filterMatchMode="contains" style=" background: #ffffff">
+                    #{e.estoqueTotal}
+                </p:column>
 <!--                <p:column headerText="Preço" filterBy="{e.preco}" filterMatchMode="contains" style=" background: #ffffff">
                     <p:outputLabel value="{e.preco}" converter="{produtoControle.moneyConverter}"/>
                 </p:column>

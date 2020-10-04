@@ -2,6 +2,7 @@ package facade;
 
 import entidade.ComposicaoProduto;
 import entidade.ItensVenda;
+import entidade.Produto;
 import entidade.Venda;
 import java.util.List;
 import javax.inject.Inject;
@@ -49,10 +50,16 @@ public class VendaFacade extends AbstractFacade<Venda> {
                 ComposicaoProduto p = it.getComposicaoProduto();
                 p.setEstoque(p.getEstoque() - it.getQuantidade());
                 em.merge(p);
+                somaEstoqueTotal(p.getProduto());
             }
             ve.setValorTotal(ve.getValorTotal());
             super.salvar(ve);
         }
+    }
+    
+      public void somaEstoqueTotal(Produto pr){
+         super.somaEstoqueTotalProduto(pr);
+            em.merge(pr);
     }
 
     @Override
