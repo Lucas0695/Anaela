@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -81,9 +82,9 @@ public class VendaControle implements Serializable {
 //                            ""));
 //        } else {
 
-            itensVenda.setComposicaoProduto(cp);
-            itensVenda.setValor(cp.getPrecoVenda());
-            setTeste(cp.toString());
+        itensVenda.setComposicaoProduto(cp);
+        itensVenda.setValor(cp.getPrecoVenda());
+        setTeste(cp.toString());
 //        }
     }
 

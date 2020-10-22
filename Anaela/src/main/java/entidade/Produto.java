@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -43,6 +44,7 @@ public class Produto implements Serializable, EntidadePai {
 
     public Produto() {
         this.composicaoProduto = new ArrayList<ComposicaoProduto>();
+        Hibernate.initialize(composicaoProduto);
     }
 
     public List<ComposicaoProduto> getComposicaoProduto() {
@@ -86,15 +88,6 @@ public class Produto implements Serializable, EntidadePai {
     public void setGrupoProduto(GrupoProduto grupoProduto) {
         this.grupoProduto = grupoProduto;
     }
-
-//    public Double somaEstoque() {
-//        Double total = 0.0;
-//        for(ComposicaoProduto it : composicaoProduto){
-//            total = total +it.getQuantidade();
-//        }
-//        return estoque = total;
-//    }
-
 
     public Marca getMarca() {
         return marca;

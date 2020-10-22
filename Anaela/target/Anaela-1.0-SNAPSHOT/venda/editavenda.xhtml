@@ -22,7 +22,8 @@
                 <p:panelGrid columns="2">
                     Data da Venda:<p:calendar value="#{vendaControle.venda.dataVenda}"
                                               pattern="dd/MM/yyyy"
-                                              locale="pt_BR"/>
+                                              locale="pt_BR"
+                                              />
                     Cliente:<p:autoComplete value="#{vendaControle.venda.pessoa}"
                                             completeMethod="#{vendaControle.listaFiltrandoPessoa}"
                                             var="co"

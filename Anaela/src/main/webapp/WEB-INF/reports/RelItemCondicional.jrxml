@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelItemCondicional" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="45dc1d66-5dbd-41f2-8e7c-1a983444535b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="vendaId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     it."id" AS it_id ,
+     it."quantidade" AS it_quantidade,
+     it."valor" AS it_valor,
+     it."composicaoproduto_id" AS it_composicaoproduto_id,
+     it."venda_id" AS it_venda_id,
+     cp."id" AS cp_id,
+     cp."precovenda" AS cp_precovenda,
+     cp."cor_id" AS cp_cor_id,
+     cp."produto_id" AS cp_produto_id,
+     cp."tamanho_id" AS cp_tamanho_id,
+     p."id" AS p_id,
+     p."nome" as prod_nome,
+     t."id" AS t_id,
+     t."nome" AS tam_nome,
+     c."nome" AS cor_nome,
+     v."id" AS v_id,
+     it.quantidade * it.valor as subtotal
+FROM
+     public."itensvenda" it inner join
+	 public."composicaoproduto" AS cp on it.composicaoproduto_id = cp.id
+     inner join public."produto" AS p on cp.produto_id = p.id
+	 inner join public."tamanho" AS t on cp.tamanho_id = t.id
+	 inner join public."cor" AS c on cp.cor_id= c.id
+	 inner join public."venda" AS v on it.venda_id= v.id
+where
+ v.id= $P{vendaId}]]>
+	</queryString>
+	<field name="it_id" class="java.lang.Long"/>
+	<field name="it_quantidade" class="java.lang.Double"/>
+	<field name="it_valor" class="java.lang.Double"/>
+	<field name="it_composicaoproduto_id" class="java.lang.Long"/>
+	<field name="it_venda_id" class="java.lang.Long"/>
+	<field name="cp_id" class="java.lang.Long"/>
+	<field name="cp_precovenda" class="java.lang.Double"/>
+	<field name="cp_cor_id" class="java.lang.Long"/>
+	<field name="cp_produto_id" class="java.lang.Long"/>
+	<field name="cp_tamanho_id" class="java.lang.Long"/>
+	<field name="p_id" class="java.lang.Long"/>
+	<field name="prod_nome" class="java.lang.String"/>
+	<field name="t_id" class="java.lang.Long"/>
+	<field name="tam_nome" class="java.lang.String"/>
+	<field name="cor_nome" class="java.lang.String"/>
+	<field name="v_id" class="java.lang.Long"/>
+	<field name="subtotal" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="20" width="103" height="20" uuid="c5835ed6-da99-46ea-a56b-e3f77aecbdac"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="20" width="100" height="20" uuid="3e29e7ba-41ad-47a6-b9c1-c00221ccad00"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="20" width="100" height="20" uuid="76f40cb0-aeb3-4e35-8dad-dea72a61109f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="20" width="113" height="20" uuid="afbf227c-cc27-43fd-ad8d-717b6a96d858"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tamanho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="20" width="116" height="20" uuid="60a61c3d-1d12-4e48-8570-1b03d5d76f9e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="7" y="0" width="529" height="20" backcolor="#BDB1B1" uuid="e2030c14-daf8-452a-999a-5a0f6a459395"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prod_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="40" width="100" height="20" uuid="8681a2ca-265b-449d-8945-ab6f0bf1530b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cor_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="40" width="110" height="20" uuid="3b179a63-889c-4657-af01-8a5ea044c62d"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tam_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="40" width="100" height="20" uuid="c2c3e225-9be7-4825-91cd-115543f5c02f"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{it_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="320" y="40" width="116" height="20" uuid="b993f5de-0642-44b0-a897-74c85da81546"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{it_valor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="436" y="40" width="100" height="20" uuid="f329dab5-5234-472e-8a74-e53058ad9513"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

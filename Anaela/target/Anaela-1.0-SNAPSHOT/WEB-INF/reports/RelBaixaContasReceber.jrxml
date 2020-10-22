@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelBaixaContasReceber" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="184cec51-76c3-4e41-8771-e63796f21286">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="contId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     baixacontasreceber."id" AS baixacontasreceber_id,
+     baixacontasreceber."databaixa" AS baixacontasreceber_databaixa,
+     baixacontasreceber."valor" AS baixacontasreceber_valor,
+     baixacontasreceber."contasreceber_id" AS baixacontasreceber_contasreceber_id,
+	 cr.id,
+	 sum (bc.valor)as total
+FROM
+     public."baixacontasreceber" baixacontasreceber
+	 inner join contasreceber cr on cr.id = baixacontasreceber.contasreceber_id
+	 inner join baixacontasreceber bc on baixacontasreceber.id = baixacontasreceber.id
+where
+cr.id = $P{contId}
+
+group by
+baixacontasreceber."id",
+     baixacontasreceber."databaixa",
+     baixacontasreceber."valor",
+     baixacontasreceber."contasreceber_id",
+	 cr.id
+order by
+baixacontasreceber."databaixa"]]>
+	</queryString>
+	<field name="baixacontasreceber_id" class="java.lang.Long"/>
+	<field name="baixacontasreceber_databaixa" class="java.sql.Date"/>
+	<field name="baixacontasreceber_valor" class="java.lang.Double"/>
+	<field name="baixacontasreceber_contasreceber_id" class="java.lang.Long"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="132" height="20" uuid="cd49e497-821d-4805-92dd-b3787e3ef340"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Baixa:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="132" y="0" width="126" height="20" uuid="1370e1aa-ec2d-4e01-89f3-8091879865aa"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{baixacontasreceber_databaixa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="258" y="0" width="136" height="20" uuid="c305e43a-1e8e-4a85-be1f-5c757174148b"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Baixa:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="394" y="0" width="158" height="20" uuid="1f5019f0-0996-4e95-8e19-82a5835695d0"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{baixacontasreceber_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

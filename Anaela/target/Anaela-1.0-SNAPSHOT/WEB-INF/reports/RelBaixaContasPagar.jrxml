@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelBaixaContasPagar" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9bcee0c5-6663-4057-a36e-3afb8c6bbac8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cpId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     baixacontaspagar."id" AS baixacontaspagar_id,
+     baixacontaspagar."databaixa" AS baixacontaspagar_databaixa,
+     baixacontaspagar."valor" AS baixacontaspagar_valor,
+     baixacontaspagar."contaspagar_id" AS baixacontaspagar_contaspagar_id,
+     cp.id
+FROM
+     public."baixacontaspagar" baixacontaspagar
+ inner join contaspagar cp on cp.id = baixacontaspagar."contaspagar_id"
+where
+cp.id = $P{cpId}]]>
+	</queryString>
+	<field name="baixacontaspagar_id" class="java.lang.Long"/>
+	<field name="baixacontaspagar_databaixa" class="java.sql.Date"/>
+	<field name="baixacontaspagar_valor" class="java.lang.Double"/>
+	<field name="baixacontaspagar_contaspagar_id" class="java.lang.Long"/>
+	<field name="id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="153" height="20" uuid="26df78c7-6df6-4e8b-956e-1ec2e7dd8852"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Baixa:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="153" y="0" width="132" height="20" uuid="f52aaf44-77a9-4e87-8490-fdf1fd7927cc"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{baixacontaspagar_databaixa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="285" y="0" width="135" height="20" uuid="cc60b076-e4fa-47bb-aff7-06fefbc6d105"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Baixa:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="420" y="0" width="135" height="20" uuid="c3654e49-5641-4435-99a9-9d387a7acc06"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{baixacontaspagar_valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

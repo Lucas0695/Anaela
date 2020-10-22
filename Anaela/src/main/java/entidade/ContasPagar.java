@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -56,7 +57,10 @@ public class ContasPagar implements Serializable, EntidadePai  {
             fetch = FetchType.EAGER, 
             mappedBy = "contasPagar")
     private List<BaixaContasPagar> baixaContasPagars;
-    
+
+    public ContasPagar() {
+        Hibernate.isInitialized(baixaContasPagars);
+    }
     
     public Double getTotalBaixado(){
         Double total = 0d;

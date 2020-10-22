@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelDespesa" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="473a101a-51ed-4247-808a-642a1436c270">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicial" class="java.util.Date"/>
+	<parameter name="dataFinal" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+     compra."valortotal" as valortotal,
+     compra."id" AS compra_id,
+     compra."datacompra" AS compra_datacompra,
+     compra."formapag" AS compra_formapag,
+     compra."pessoajuridica_id" AS compra_pessoajuridica_id,
+     pessoajuridica."cnpj" AS pessoajuridica_cnpj,
+     pessoajuridica."ie" AS pessoajuridica_ie,
+     pessoajuridica."nomefantasia" AS pessoajuridica_nomefantasia,
+     pessoajuridica."id" AS pessoajuridica_id,
+     SUM(com."valortotal") as total
+
+FROM
+     public."pessoajuridica" pessoajuridica
+     INNER JOIN  public."compra" compra ON pessoajuridica."id" = compra."pessoajuridica_id"
+     INNER JOIN  public."compra" com ON pessoajuridica."id" = compra."pessoajuridica_id"
+ where
+     com."datacompra" between $P{dataInicial} and $P{dataFinal}
+group by
+     compra."id",
+     compra."datacompra",
+     compra."formapag",
+     compra."pessoajuridica_id",
+     pessoajuridica."cnpj",
+     pessoajuridica."ie",
+     pessoajuridica."nomefantasia",
+     pessoajuridica."id",
+     compra."valortotal"
+order by
+     compra."valortotal"]]>
+	</queryString>
+	<field name="valortotal" class="java.lang.Double"/>
+	<field name="compra_id" class="java.lang.Long"/>
+	<field name="compra_datacompra" class="java.sql.Date"/>
+	<field name="compra_formapag" class="java.lang.String"/>
+	<field name="compra_pessoajuridica_id" class="java.lang.Long"/>
+	<field name="pessoajuridica_cnpj" class="java.lang.String"/>
+	<field name="pessoajuridica_ie" class="java.lang.String"/>
+	<field name="pessoajuridica_nomefantasia" class="java.lang.String"/>
+	<field name="pessoajuridica_id" class="java.lang.Long"/>
+	<field name="total" class="java.lang.Double"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="94">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#FEFEFE" uuid="bcde131b-e9ef-474c-801c-2c508ca904cc"/>
+				<staticText>
+					<reportElement x="20" y="20" width="435" height="43" forecolor="#010101" uuid="e5f93264-5ed8-4c11-a78d-1180b7744a18"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Despesa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#010101" uuid="e89d3beb-a24c-43a4-9e1e-148b8f49db5a"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Sistema Anaela]]></text>
+				</staticText>
+			</frame>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="72" width="100" height="20" forecolor="#EF0D10" uuid="b5a37044-974a-42d2-9792-a78f819eda4b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="74" width="275" height="20" forecolor="#EF0D10" backcolor="#FEFEFE" uuid="45e90419-aa43-4715-bd58-a31ec0fbef4c"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Despesa Total:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="ad8733f8-ea80-4f40-ac36-9c061e851cc7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="275" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="2ba1e699-41e0-4fa8-a901-b4c17606da82"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fornecedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="386" y="0" width="169" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="7d8c67f4-fa30-4dc9-83ab-59d800f14234"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CNPJ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="90">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="8387574c-9fd8-40a0-9b7a-b7e1c6dae2ed"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_datacompra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="111" y="0" width="275" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="8fe88c73-d0fb-48a0-a425-05598075c643"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_nomefantasia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="386" y="0" width="169" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="4fd18734-d808-40f1-99b4-3bc81da1c77b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pessoajuridica_cnpj}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="38" width="555" height="38" uuid="89217a90-33fa-483f-a13e-80e243bbc3f8"/>
+				<subreportParameter name="itId">
+					<subreportParameterExpression><![CDATA[$F{compra_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItemDespesa.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="54">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="2c4b5a83-d618-4179-8860-47993e9419d9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma Pag.:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="254" y="0" width="164" height="20" forecolor="#0049FF" backcolor="#FEFEFE" uuid="02924de5-a231-416c-a237-45ddafefdbdf"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Compra:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="143" height="20" uuid="85c2c10d-b651-4a56-a78b-bcc7e6b1819c"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compra_formapag}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="418" y="0" width="137" height="20" forecolor="#0049FF" uuid="cb2ad2a2-4a50-498c-8a10-75dd6cf2d116"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valortotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="2304cc12-b365-4592-a98b-5b49fbbaa68b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="3ce6de74-74fc-4cd1-a49e-f98dde565194"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement mode="Opaque" x="0" y="4" width="100" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="d1186028-c0ca-4d0a-9de1-e831fc353ecd"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="25">
+			<staticText>
+				<reportElement mode="Opaque" x="180" y="5" width="275" height="20" forecolor="#EF0D10" backcolor="#FEFEFE" uuid="c76c61ec-a080-408f-8f15-19846e11e7de"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Despesa Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="455" y="5" width="100" height="20" forecolor="#EF0D10" uuid="300ce3fa-22c1-4a4a-9e5a-c735cadacb48"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

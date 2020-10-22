@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelVendaColaborador" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89fcae29-7a6d-4056-9db2-70b141bd15dc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicial" class="java.util.Date"/>
+	<parameter name="dataFinal" class="java.util.Date"/>
+	<parameter name="filtro" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     v."id" AS v_id,
+     v."datavenda" AS a_datavenda,
+     v."formapag" AS v_formapag,
+     v."statusvenda" AS v_statusvenda,
+     v."valortotal" AS v_valortotal,
+     v."pessoa_id" AS v_pessoa_id,
+     p."id" AS p_id,
+     p."cadastro" AS p_cadasrtro,
+     p."nome" AS cliente,
+     colab."nome" AS colaborador,
+     sum (ven."valortotal") as total
+FROM
+     public."venda" v INNER JOIN  public."pessoa" AS p ON v.pessoa_id= p.id
+	inner join public."venda" ven on v.pessoa_id= p.id
+	inner join public."colaborador" AS c on ven.colaborador_id = c.id
+	inner join public."pessoa" AS colab on colab.id = c.id
+
+
+where
+ven."statusvenda" = 'FATURADA' and
+v."statusvenda" = 'FATURADA' and
+colab."nome" like $P{filtro}  and
+ v."datavenda" between $P{dataInicial} and $P{dataFinal} and
+ven."datavenda" between $P{dataInicial} and $P{dataFinal}
+group by
+ v."id",
+     v."datavenda",
+     v."formapag",
+     v."statusvenda",
+     v."valortotal",
+     v."pessoa_id",
+     p."id",
+     p."cadastro",
+     p."nome",
+     colab."nome"
+order by
+v.datavenda desc]]>
+	</queryString>
+	<field name="v_id" class="java.lang.Long"/>
+	<field name="a_datavenda" class="java.sql.Date"/>
+	<field name="v_formapag" class="java.lang.String"/>
+	<field name="v_statusvenda" class="java.lang.String"/>
+	<field name="v_valortotal" class="java.lang.Double"/>
+	<field name="v_pessoa_id" class="java.lang.Long"/>
+	<field name="p_id" class="java.lang.Long"/>
+	<field name="p_cadasrtro" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="colaborador" class="java.lang.String"/>
+	<field name="total" class="java.lang.Double"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="87">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="107" backcolor="#FEFEFE" uuid="f1b8922e-3351-40ef-960f-3c0ecca3ffae"/>
+				<staticText>
+					<reportElement x="20" y="20" width="575" height="43" forecolor="#010101" uuid="c42de26c-cbc5-49c1-8129-3eaf5e7b6922"/>
+					<textElement>
+						<font size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório Venda por Colaborador]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#010101" uuid="7d5893e2-46be-4d3f-8b07-b7b6d53b8947"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Sistema Anaela]]></text>
+				</staticText>
+				<textField pattern="¤ #,##0.00">
+					<reportElement x="464" y="83" width="111" height="20" forecolor="#FF0000" uuid="db0cc006-dc84-4950-8047-78f05beb4e0f"/>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="289" y="83" width="175" height="20" forecolor="#FF0000" backcolor="#FEFEFE" uuid="cc2a9246-5279-4145-bd36-93b1c1299495"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Receita Total:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="158" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="30cd74eb-2ac0-4b4d-8002-51e2b9b65e9f"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Venda]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="356" y="1" width="199" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="01c61882-fef9-4edb-ae00-9e7f98e05f25"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="158" y="0" width="198" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="fb19ab4f-d2f6-4edf-84f1-637e2aeef85b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Colaborador]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="95">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="0" y="0" width="158" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="a1a72a0d-efe4-4756-ab1d-a4eb9a08b05b"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{a_datavenda}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="356" y="0" width="199" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="48d8a951-5e05-4b9a-80b7-15f54efe4679"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="30" width="555" height="35" uuid="2c47fa36-7fa6-478f-91b7-675e921e8784"/>
+				<subreportParameter name="vendaId">
+					<subreportParameterExpression><![CDATA[$F{v_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItemVendaColaborador.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="158" y="0" width="198" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="34f05a5e-a6d3-4581-8b98-28620e0c334d"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colaborador}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="39">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="127" y="9" width="142" height="20" forecolor="#0009FF" uuid="3324e5c8-f695-4c0c-8328-792c2768d8b9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{v_formapag}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="¤ #,##0.00">
+				<reportElement x="431" y="9" width="124" height="20" forecolor="#0009FF" uuid="1990c219-e647-4cd3-9542-7e44565f1fce"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{v_valortotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="9" width="143" height="20" forecolor="#0009FF" backcolor="#FEFEFE" uuid="8ac34b78-39ca-42bb-a70b-d026e6e09536"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor da Venda:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="9" width="126" height="20" forecolor="#0009FF" backcolor="#FEFEFE" uuid="860a14ab-af77-43d6-a701-8675042ad1c5"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma Pag.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="32">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="10" width="515" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="ee937ba9-cb1d-4d0e-8aed-dc463ba06ebd"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement mode="Opaque" x="0" y="10" width="100" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="b21c4ae0-d58d-4aa3-b771-a74dc993c199"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="10" width="40" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="48a6cb5b-afb0-44d7-8e67-dd1860b5ba18"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="27">
+			<staticText>
+				<reportElement mode="Opaque" x="269" y="0" width="175" height="20" forecolor="#FF0000" backcolor="#FEFEFE" uuid="78bf721e-ed42-46c9-9a98-fa3829628b79"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Receita Total:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="444" y="0" width="111" height="20" forecolor="#FF0000" uuid="c2476041-9f94-4158-9290-1f3bb3a7fc35"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

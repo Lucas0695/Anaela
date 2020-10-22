@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -52,6 +53,8 @@ public class Compra implements Serializable, EntidadePai {
         this.dataCompra = new Date();
         this.itensCompra = new ArrayList<ItensCompra>();
         this.contasPagars = new ArrayList<ContasPagar>();
+        Hibernate.isInitialized(contasPagars);
+        Hibernate.isInitialized(itensCompra);
     }
 
     public Date getDataCompra() {

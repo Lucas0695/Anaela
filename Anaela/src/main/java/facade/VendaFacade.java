@@ -1,12 +1,14 @@
 package facade;
 
 import entidade.ComposicaoProduto;
+import entidade.ContasReceber;
 import entidade.ItensVenda;
 import entidade.Produto;
 import entidade.Venda;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import org.hibernate.Hibernate;
 import util.Transacional;
 
 @Transacional
@@ -29,7 +31,10 @@ public class VendaFacade extends AbstractFacade<Venda> {
         List<Venda> retorno = super.listaTodos();
         for (Venda c : retorno) {
             c.getItensVenda().size();
+            Hibernate.initialize(c.getContasRecebers());
+            Hibernate.initialize(c.getItensVenda());
         }
+        
         return retorno;//To change body of generated methods, choose Tools | Templates.
     }
 

@@ -53,25 +53,11 @@ public abstract class AbstractFacade<T> implements Serializable {
         q.setParameter("filtro", "%" + filtro.toLowerCase() + "%");
         return q.getResultList();
     }
-
-//    Filtro de Composição de Produto
-    public List<T> listaFiltrandoComposicao(String filtro, String... atributos) {
-        String hql = "from " + "composicaoproduto" + " obj where ";
-        for (String atributo : atributos) {
-            hql += "lower(obj." + atributo + ") like :filtro OR ";
-        }
-        hql = hql.substring(0, hql.length() - 3);
-        Query q = getEntityManager().createQuery(hql);
-        q.setParameter("filtro", "%" + filtro.toLowerCase() + "%");
-        return q.getResultList();
-    }
     
     public void somaEstoqueTotalProduto(Produto p) {
-        Double estoque = 0d;
         Double estoqueTotal = 0d;
         for (ComposicaoProduto it : p.getComposicaoProduto()) {
-            estoque = it.getEstoque();
-            estoqueTotal = estoqueTotal + estoque;
+            estoqueTotal = estoqueTotal + it.getEstoque();
             p.setEstoqueTotal(estoqueTotal);   
         }
     }
