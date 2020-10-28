@@ -1,5 +1,6 @@
 package facade;
 
+import entidade.ComposicaoProduto;
 import entidade.Produto;
 import java.util.List;
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class ProdutoFacade extends AbstractFacade<Produto>{
         List<Produto> retorno = super.listaTodos();
         for (Produto c : retorno) {
             c.getComposicaoProduto().size();
-            Hibernate.initialize(c.getComposicaoProduto());
+//            Hibernate.initialize(c.getComposicaoProduto());
         }
         
         return retorno;//To change body of generated methods, choose Tools | Templates.

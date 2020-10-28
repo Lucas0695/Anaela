@@ -16,7 +16,6 @@
      pr.grupoproduto_id AS pr_grupoproduto_id,
      pr.marca_id AS pr_marca_id,
      cp.id AS cp_id,
-     cp.codbarras AS cp_codbarras,
      cp.estoque AS cp_estoque,
      cp.percentual AS cp_percentual,
      cp.precocompra AS cp_precocompra,
@@ -25,7 +24,6 @@
      cp.produto_id AS cp_produto_id,
      cp.tamanho_id AS cp_tamanho_id,
      cp.id AS cp_id,
-     cp.codbarras AS cp_codbarras,
      cp.estoque AS cp_estoque,
      cp.percentual AS cp_percentual,
      cp.precocompra AS cp_precocompra,
@@ -70,7 +68,6 @@ it.compra_id = $P{itid}]]>
 	<field name="pr_grupoproduto_id" class="java.lang.Long"/>
 	<field name="pr_marca_id" class="java.lang.Long"/>
 	<field name="cp_id" class="java.lang.Long"/>
-	<field name="cp_codbarras" class="java.lang.String"/>
 	<field name="cp_estoque" class="java.lang.Double"/>
 	<field name="cp_percentual" class="java.lang.Double"/>
 	<field name="cp_precocompra" class="java.lang.Double"/>

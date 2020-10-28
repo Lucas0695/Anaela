@@ -85,18 +85,23 @@
                         <p:menuitem value="Pessoa Jurídica" ajax="false" action="/relatorios/relpessoajuridica"/>
                         <p:menuitem value="Colaborador" ajax="false" action="/relatorios/relcolaborador"/>
                     </p:submenu>
-                    
-                    <p:submenu label="Relatórios Gerenciais" icon="pi pi-question" style="background: #ffffff">
+
+                    <p:submenu label="Relatórios Gerenciais" icon="pi pi-question" >
+                        <p:menuitem value="Ajuste de Estoque por período" ajax="false" action="/relatorios/relajusteestoque"/>
                         <p:menuitem value="Compra por período" ajax="false" action="/relatorios/relcompra"/>
-                        <p:menuitem value="Venda por período" ajax="false" action="/relatorios/relvenda"/>
-                        <p:menuitem value="Venda por Colaborador por período" ajax="false" action="/relatorios/relvendacolaborador"/>
                         <p:menuitem value="Condicional por período" ajax="false" action="/relatorios/relcondicional"/> 
-                        <p:menuitem value="Clientes Devedores" ajax="false" action="/relatorios/relclientesdevedores"/>
+                        <p:menuitem value="Venda por período" ajax="false" action="/relatorios/relvenda"/>                      
+                        <p:menuitem value="Contas a Receber" ajax="false" action="/relatorios/contasreceber"/>     
+                        <p:menuitem value="Contas a Pagar" ajax="false" action="/relatorios/contaspagar"/> 
                         <p:menuitem value="Produto com Mais Estoque" ajax="false" action="/relatorios/relprodutomaisestoque"/>
                         <p:menuitem value="Produto com Menos Estoque" ajax="false" action="/relatorios/relprodutomenosestoque"/>
-                        <p:menuitem value="Despesas por período" ajax="false" action="/relatorios/reldespesa"/>
-                        <p:menuitem value="Contas a Receber" ajax="false" action="/relatorios/contasreceber"/>     
-                        <p:menuitem value="Contas a Pagar" ajax="false" action="/relatorios/contaspagar"/>  
+                        <p:menuitem value="Produto Mais Vendido" ajax="false" action="/relatorios/relprodutomaisvendodo"/> 
+                        <p:menuitem value="Venda por Colaborador por período" ajax="false" action="/relatorios/relvendacolaborador"/>
+                        <p:menuitem value="Fornecedor mais Comprado" ajax="false" action="/relatorios/relfornecedormaiscomprado"/> 
+                        <p:menuitem value="Cliente que mais Comprou" ajax="false" action="/relatorios/relclientemaisvenda"/> 
+                        <p:menuitem value="Colaborador que mais Vendeu" ajax="false" action="/relatorios/relcolaboradormaisvenda"/>                         
+                        <p:menuitem value="Clientes Devedores" ajax="false" action="/relatorios/relclientesdevedores"/>                       
+                        <p:menuitem value="Despesas por período" ajax="false" action="/relatorios/reldespesa"/>  
                         
                     </p:submenu>
 

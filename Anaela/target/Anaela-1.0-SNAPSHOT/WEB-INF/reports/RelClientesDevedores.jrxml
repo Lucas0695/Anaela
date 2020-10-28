@@ -26,11 +26,7 @@
 	 contasreceber."valor" - sum (br.valor)  as valorFinal
 FROM
      "public"."pessoa" pessoa INNER JOIN "public"."contasreceber" contasreceber ON pessoa."id" = contasreceber."pessoa_id"
-	 right join baixacontasreceber br on br.contasreceber_id = contasreceber.id
-
-where
-	  (br.valor) < contasreceber."valor" and contasreceber."datavencimento" between $P{dataInicial} and
-$P{dataFinal} and pessoa."nome" like $P{filtro}
+	 left join baixacontasreceber br on br.contasreceber_id = contasreceber.id
 group by
 contasreceber."id",
      contasreceber."valor",
@@ -43,6 +39,8 @@ contasreceber."id",
      contasreceber."venda_id",
      pessoa."id" ,
      pessoa."nome"
+   having
+	  coalesce(sum (br.valor), 0) < contasreceber."valor" and contasreceber."datavencimento" between $P{dataInicial} and $P{dataFinal}
 ORDER BY
 contasreceber."datavencimento"]]>
 	</queryString>

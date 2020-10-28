@@ -26,7 +26,7 @@
 FROM
      public."itensvenda" it inner join
 	 public."composicaoproduto" AS cp on it.composicaoproduto_id = cp.id
-     inner join public."produto" AS p on cp.produto_id = p.id
+     	 inner join public."produto" AS p on cp.produto_id = p.id
 	 inner join public."tamanho" AS t on cp.tamanho_id = t.id
 	 inner join public."cor" AS c on cp.cor_id= c.id
 	 inner join public."venda" AS v on it.venda_id= v.id

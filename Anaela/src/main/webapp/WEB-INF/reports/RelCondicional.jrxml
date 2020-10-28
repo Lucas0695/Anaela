@@ -57,7 +57,7 @@ p."nome" like $P{filtro} and colab."nome" like $P{filtro1}]]>
 				<staticText>
 					<reportElement x="395" y="63" width="180" height="20" forecolor="#010101" uuid="6f978f80-912f-47f1-9494-17e2bc4ac644"/>
 					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+						<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
 					</textElement>
 					<text><![CDATA[Sistema Anaela]]></text>
 				</staticText>

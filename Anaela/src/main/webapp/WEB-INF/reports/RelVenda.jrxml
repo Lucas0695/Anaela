@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelVenda" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c4c149d-404f-4d99-b307-4bf5bde5d895">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelVenda" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c4c149d-404f-4d99-b307-4bf5bde5d895">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/../../../../../../home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="filtro " class="java.lang.String"/>
 	<parameter name="dataInicial" class="java.util.Date"/>
 	<parameter name="dataFinal" class="java.util.Date"/>
 	<parameter name="filtro1" class="java.lang.String"/>
+	<parameter name="filtro" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     v."id" AS v_id,
-     v."datavenda" AS a_datavenda,
-     v."formapag" AS v_formapag,
-     v."statusvenda" AS v_statusvenda,
-     v."valortotal" AS v_valortotal,
-     v."pessoa_id" AS v_pessoa_id,
-     p."id" AS p_id,
-     p."cadastro" AS p_cadasrtro,
-     p."nome" AS cliente,
-     colab."nome" AS colaborador
+     v.id AS v_id,
+     v.datavenda AS a_datavenda,
+     v.formapag AS v_formapag,
+     v.statusvenda AS v_statusvenda,
+     v.valortotal AS v_valortotal,
+     v.pessoa_id AS v_pessoa_id,
+     p.id AS p_id,
+     p.cadastro AS p_cadasrtro,
+     p.nome AS cliente,
+     colab.nome AS colaborador
 FROM
-     public."venda" v INNER JOIN  public."pessoa" AS p ON v.pessoa_id= p.id
-	 inner join public."colaborador" AS c on v.colaborador_id = c.id
-	 inner join public."pessoa" AS colab on colab.id = c.id
+     public."venda" v
+   	 INNER JOIN  pessoa  p ON v.pessoa_id= p.id
+	 inner join pessoa colab on colab.id = v.colaborador_id
 where
-p."nome" like $P{filtro } and
-colab."nome" like $P{filtro1} and
+p.nome like $P{filtro} and
+colab.nome like $P{filtro1} and
 v."datavenda" between $P{dataInicial} and $P{dataFinal}
 
 order by
@@ -113,7 +113,7 @@ v.datavenda desc]]>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItensVenda.jasper"]]></subreportExpression>
 			</subreport>
-			<textField>
+			<textField pattern="dd/MM/yyyy">
 				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="2448227c-5215-40bd-bd54-3f9a36a231fb"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
@@ -157,7 +157,7 @@ v.datavenda desc]]>
 				</textElement>
 				<text><![CDATA[Valor da Venda: ]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="¤ #,##0.00">
 				<reportElement x="401" y="10" width="154" height="20" forecolor="#FF0000" uuid="dcad086e-1164-4373-85c1-a29285c1a754"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>

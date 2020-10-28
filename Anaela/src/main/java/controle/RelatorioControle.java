@@ -35,7 +35,7 @@ public class RelatorioControle implements Serializable {
     private Date dataInicial;
     private Date dataFinal;
     private String filtro1;
-    
+
     public void gerarRelatorioEstados() {
         try {
             JasperReport relatorio;
@@ -240,8 +240,8 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-    
-     public void gerarRelatorioColaborador() {
+
+    public void gerarRelatorioColaborador() {
         try {
             JasperReport relatorio;
             String arquivoJasper = "RelColaborador.jasper";
@@ -275,7 +275,6 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-
 
     public void gerarRelatorioPessoaJuridica() {
         try {
@@ -450,7 +449,7 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-    
+
     public void gerarRelatorioCompra() {
         try {
             //gera relatorio com as classes do jasper
@@ -493,7 +492,206 @@ public class RelatorioControle implements Serializable {
         }
     }
 
-     public void gerarRelatorioDespesa() {
+    public void gerarRelatorioAjusteEstoque() {
+        try {
+            HashMap p = new HashMap();
+            p.put("dataInicial", dataInicial);
+            p.put("dataFinal", dataFinal);
+            JasperReport relatorio;
+            String arquivoJasper = "RelAjusteEstoque.jasper";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/WEB-INF/reports/" + arquivoJasper), p, Conexao.getConnection());
+            ByteArrayOutputStream dadosByte = new ByteArrayOutputStream();
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, dadosByte);
+            exporter.exportReport();
+            byte[] bytes = dadosByte.toByteArray();
+            if (bytes != null && bytes.length > 0) {
+                int recorte = arquivoJasper.indexOf(".");
+                String nomePDF = arquivoJasper.substring(0, recorte);
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\"" + nomePDF + ".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+        }
+    }
+
+    public void gerarRelatorioProdutoMaisVendido() {
+        try {
+            //gera relatorio com as classes do jasper
+            HashMap p = new HashMap();
+//            if (dataInicial != null && dataFinal != null) {
+//                p.put("dataInicial", dataFormatada(dataInicial));
+//                p.put("dataFinal", dataFormatada(dataFinal));
+//            }
+
+            p.put("dataInicial", dataInicial);
+            p.put("dataFinal", dataFinal);
+            JasperReport relatorio;
+            String arquivoJasper = "RelProdutoMaisVendido.jasper";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/WEB-INF/reports/" + arquivoJasper), p, Conexao.getConnection());
+            ByteArrayOutputStream dadosByte = new ByteArrayOutputStream();
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, dadosByte);
+            exporter.exportReport();
+            byte[] bytes = dadosByte.toByteArray();
+            if (bytes != null && bytes.length > 0) {
+                int recorte = arquivoJasper.indexOf(".");
+                String nomePDF = arquivoJasper.substring(0, recorte);
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\"" + nomePDF + ".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+        }
+    }
+
+    public void gerarRelatorioFornecedorMaisComprado() {
+        try {
+            //gera relatorio com as classes do jasper
+            HashMap p = new HashMap();
+//            if (dataInicial != null && dataFinal != null) {
+//                p.put("dataInicial", dataFormatada(dataInicial));
+//                p.put("dataFinal", dataFormatada(dataFinal));
+//            }
+
+            p.put("dataInicial", dataInicial);
+            p.put("dataFinal", dataFinal);
+            JasperReport relatorio;
+            String arquivoJasper = "RelFornecedorMaisComprado.jasper";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/WEB-INF/reports/" + arquivoJasper), p, Conexao.getConnection());
+            ByteArrayOutputStream dadosByte = new ByteArrayOutputStream();
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, dadosByte);
+            exporter.exportReport();
+            byte[] bytes = dadosByte.toByteArray();
+            if (bytes != null && bytes.length > 0) {
+                int recorte = arquivoJasper.indexOf(".");
+                String nomePDF = arquivoJasper.substring(0, recorte);
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\"" + nomePDF + ".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+        }
+    }
+
+    public void gerarRelatorioClienteMaisComprou() {
+        try {
+            //gera relatorio com as classes do jasper
+            HashMap p = new HashMap();
+//            if (dataInicial != null && dataFinal != null) {
+//                p.put("dataInicial", dataFormatada(dataInicial));
+//                p.put("dataFinal", dataFormatada(dataFinal));
+//            }
+
+            p.put("dataInicial", dataInicial);
+            p.put("dataFinal", dataFinal);
+            JasperReport relatorio;
+            String arquivoJasper = "RelClienteMaisVenda.jasper";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/WEB-INF/reports/" + arquivoJasper), p, Conexao.getConnection());
+            ByteArrayOutputStream dadosByte = new ByteArrayOutputStream();
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, dadosByte);
+            exporter.exportReport();
+            byte[] bytes = dadosByte.toByteArray();
+            if (bytes != null && bytes.length > 0) {
+                int recorte = arquivoJasper.indexOf(".");
+                String nomePDF = arquivoJasper.substring(0, recorte);
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\"" + nomePDF + ".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+        }
+    }
+
+    public void gerarRelatorioColaboradorMaisVedeu() {
+        try {
+            //gera relatorio com as classes do jasper
+            HashMap p = new HashMap();
+//            if (dataInicial != null && dataFinal != null) {
+//                p.put("dataInicial", dataFormatada(dataInicial));
+//                p.put("dataFinal", dataFormatada(dataFinal));
+//            }
+
+            p.put("dataInicial", dataInicial);
+            p.put("dataFinal", dataFinal);
+            JasperReport relatorio;
+            String arquivoJasper = "RelColaboradorMaisVendeu.jasper";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.responseComplete();
+            ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/WEB-INF/reports/" + arquivoJasper), p, Conexao.getConnection());
+            ByteArrayOutputStream dadosByte = new ByteArrayOutputStream();
+            JRPdfExporter exporter = new JRPdfExporter();
+            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, dadosByte);
+            exporter.exportReport();
+            byte[] bytes = dadosByte.toByteArray();
+            if (bytes != null && bytes.length > 0) {
+                int recorte = arquivoJasper.indexOf(".");
+                String nomePDF = arquivoJasper.substring(0, recorte);
+                HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+                response.setContentType("application/pdf");
+                response.setHeader("Content-disposition", "inline; filename=\"" + nomePDF + ".pdf\"");
+                response.setContentLength(bytes.length);
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(bytes, 0, bytes.length);
+                outputStream.flush();
+                outputStream.close();
+            }
+        } catch (Exception e) {
+            System.out.println("erro: " + e.getMessage());
+        }
+    }
+
+    public void gerarRelatorioDespesa() {
         try {
             //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
@@ -533,9 +731,8 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-     
-     
-       public void gerarRelatorioVendaColaborador() {
+
+    public void gerarRelatorioVendaColaborador() {
         try {
             //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
@@ -576,8 +773,8 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-     
-     public void gerarRelatorioContaReceber() {
+
+    public void gerarRelatorioContaReceber() {
         try {
             //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
@@ -617,8 +814,8 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-     
-     public void gerarRelatorioContaPagar() {
+
+    public void gerarRelatorioContaPagar() {
         try {
             //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
@@ -658,18 +855,13 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-     
+
     public void gerarRelatorioVenda() {
         try {
-            //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
-//            if (dataInicial != null && dataFinal != null) {
-//                p.put("dataInicial", dataFormatada(dataInicial));
-//                p.put("dataFinal", dataFormatada(dataFinal));
-//            }
 
             p.put("filtro", "%" + filtro + "%");
-             p.put("filtro1", "%" + filtro1 + "%");
+            p.put("filtro1", "%" + filtro1 + "%");
             p.put("dataInicial", dataInicial);
             p.put("dataFinal", dataFinal);
             JasperReport relatorio;
@@ -702,7 +894,7 @@ public class RelatorioControle implements Serializable {
         }
     }
 
-     public void gerarRelatorioClientesDevedores() {
+    public void gerarRelatorioClientesDevedores() {
         try {
             //gera relatorio com as classes do jasper
             HashMap p = new HashMap();
@@ -742,7 +934,7 @@ public class RelatorioControle implements Serializable {
             System.out.println("erro: " + e.getMessage());
         }
     }
-     
+
     public void gerarRelatorioCondicional() {
         try {
             //gera relatorio com as classes do jasper
@@ -753,7 +945,7 @@ public class RelatorioControle implements Serializable {
 //            }
 
             p.put("filtro", "%" + filtro + "%");
-             p.put("filtro1", "%" + filtro1 + "%");
+            p.put("filtro1", "%" + filtro1 + "%");
             p.put("dataInicial", dataInicial);
             p.put("dataFinal", dataFinal);
             JasperReport relatorio;
@@ -786,7 +978,6 @@ public class RelatorioControle implements Serializable {
         }
     }
 
-    
     public void gerarRelatorioPerfil() {
         try {
             JasperReport relatorio;
@@ -936,5 +1127,5 @@ public class RelatorioControle implements Serializable {
             return "";
         }
     }
-    
-        }
+
+}

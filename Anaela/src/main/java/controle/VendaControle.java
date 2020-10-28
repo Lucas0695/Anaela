@@ -271,6 +271,11 @@ public class VendaControle implements Serializable {
 
     public void editar(Venda e) {
         this.venda = e;
+        for(ItensVenda it : e.getItensVenda()){
+        Hibernate.initialize(it.getComposicaoProduto());
+        Hibernate.initialize(it.getQuantidade());
+        Hibernate.initialize(it.getValor());
+        }
     }
 
     public void salvar() {

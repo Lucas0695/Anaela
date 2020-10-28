@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelItemAjusteEstoque" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="10f216a3-b6c4-4f56-9f0f-6e9fca15769e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ajId" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[select
+	pr.nome as produto,
+	cor.nome as cor,
+	tm.nome as tamanho,
+	it.estoqueanterior as estoque_anterior,
+	it.estoqueantual as estoque_atual,
+	aj.id as aj_id
+	from itensajusteestoque as it
+	inner join composicaoproduto cp on cp.id = it.composicaoproduto_id
+	inner join cor on cor.id = cp.cor_id
+	inner join tamanho tm on tm.id = cp.tamanho_id
+	inner join produto pr on pr.id = cp.produto_id
+	inner join ajusteestoque aj on aj.id = it.ajusteestoque_id
+where
+	aj.id = $P{ajId}]]>
+	</queryString>
+	<field name="produto" class="java.lang.String"/>
+	<field name="cor" class="java.lang.String"/>
+	<field name="tamanho" class="java.lang.String"/>
+	<field name="estoque_anterior" class="java.lang.Double"/>
+	<field name="estoque_atual" class="java.lang.Double"/>
+	<field name="aj_id" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="0" width="526" height="20" uuid="37ae1288-9096-42b6-a4f0-c4fb6c84d746"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="13" y="20" width="526" height="20" backcolor="#C1C1C1" uuid="853b39f3-33b0-496a-87ec-ffbc5794e2a5"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="40" width="100" height="20" uuid="b0e39d96-408f-4940-9f29-a6b250901998"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="13" y="60" width="100" height="20" uuid="965007ff-822b-4961-a98c-20b54ba66dba"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="113" y="40" width="104" height="20" uuid="075fba13-4ee5-46c5-b0b5-9b7681332a8d"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tamanho]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="113" y="60" width="104" height="20" uuid="ef168be3-023a-4058-a3d2-f275315f2efd"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tamanho}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="217" y="40" width="164" height="20" uuid="7bf1a379-2971-4b5e-8007-4b2922b1cae0"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estoque Anterior]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="217" y="60" width="164" height="20" uuid="9097886b-6e8d-4412-8093-a628e34ecaa2"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estoque_anterior}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="381" y="40" width="158" height="20" uuid="44ff5e9c-3243-4593-a590-dc989bfad574"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estoque Alterado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="381" y="60" width="158" height="20" uuid="54692e61-604a-4555-a924-c678ba1aadb7"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estoque_atual}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -27,7 +27,6 @@ public class ComposicaoProduto implements Serializable {
     private Double precoCompra;
     private Double precoVenda;
     private Double percentual;
-    private String codBarras;
     @ManyToOne
     private Cor cor;
     @ManyToOne
@@ -38,16 +37,6 @@ public class ComposicaoProduto implements Serializable {
     public Double getSubtotal(){
         return precoCompra * estoque;
     }
-
-    public String getCodBarras() {
-        return codBarras;
-    }
-
-    public void setCodBarras(String codBarras) {
-        this.codBarras = codBarras;
-    }
-    
-    
 
     public Double getPercentual() {
         return percentual;

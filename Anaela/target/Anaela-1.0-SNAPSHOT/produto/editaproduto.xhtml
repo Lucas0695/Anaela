@@ -71,8 +71,6 @@
                                                  converter="#{produtoControle.moneyConverter}"
                                                  size="9"
                                                  />
-                        Código de Barras <p:inputText value="#{produtoControle.composicaoProduto.codBarras}"
-                                                      />
 
                         <p:commandButton value="Calc. %" actionListener="#{produtoControle.setCalculaPercentual()}" ajax="false" update="precoVenda" />
 
@@ -85,10 +83,6 @@
                         value="#{produtoControle.produto.composicaoProduto}"
                         var="it"
                         emptyMessage="Nenhum serviço adicionado!">
-
-                        <p:column headerText="Código de Barras">
-                            #{it.codBarras}
-                        </p:column>
 
                         <p:column headerText="Cor">
                             #{it.cor.nome}

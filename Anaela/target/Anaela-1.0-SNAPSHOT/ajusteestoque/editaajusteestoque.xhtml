@@ -70,7 +70,7 @@
                     <br/>
                     Estoque Modificado: <p:inputText value="#{ajusteEstoqueControle.itensAjusteEstoque.estoqueAntual}"/>
                     <br/>
-                    Estoque Anterior: <p:outputLabel value="#{ajusteEstoqueControle.itensAjusteEstoque.estoqueAnterior}"/>
+                    Estoque Anterior: <p:outputLabel value="#{ajusteEstoqueControle.itensAjusteEstoque.composicaoProduto.estoque}"/>
                         <br/>
                     <p:commandButton value="ADD" actionListener="#{ajusteEstoqueControle.addItemComposicaoProduto()}" ajax="true" update="painelajusteEstoque comp"/>
                     <p:dataTable 
@@ -87,12 +87,12 @@
                         <p:column headerText="Tamanho">
                             #{it.composicaoProduto.tamanho.nome}
                         </p:column>
+                        <p:column headerText="Estoque anterior">
+                            #{it.estoqueAnterior}
+                        </p:column>
                          <p:column headerText="Estoque alterado">
                             #{it.estoqueAntual}
-                        </p:column>
-                        <p:column headerText="Estoque anterior">
-                            #{it.composicaoProduto.estoque}
-                        </p:column>
+                        </p:column>                       
                         <p:column headerText="Operações">
                             <p:commandButton icon="ui-icon-trash" ajax="false" actionListener="#{ajusteEstoqueControle.removerItemAjusteEstoque(it)}"/>
                         </p:column>

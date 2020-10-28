@@ -1,7 +1,6 @@
 package facade;
 
 import entidade.ComposicaoProduto;
-import entidade.ContasReceber;
 import entidade.ItensVenda;
 import entidade.Produto;
 import entidade.Venda;
@@ -31,10 +30,10 @@ public class VendaFacade extends AbstractFacade<Venda> {
         List<Venda> retorno = super.listaTodos();
         for (Venda c : retorno) {
             c.getItensVenda().size();
-            Hibernate.initialize(c.getContasRecebers());
-            Hibernate.initialize(c.getItensVenda());
+//            Hibernate.initialize(c.getContasRecebers());
+//            Hibernate.initialize(c.getItensVenda());
         }
-        
+
         return retorno;//To change body of generated methods, choose Tools | Templates.
     }
 
@@ -42,6 +41,8 @@ public class VendaFacade extends AbstractFacade<Venda> {
     public Venda find(Object id) {
         Venda c = super.find(id);
         c.getItensVenda().size();
+        Hibernate.initialize(c.getContasRecebers());
+        Hibernate.initialize(c.getItensVenda());
         return c;//To change body of generated methods, choose Tools | Templates.
     }
 
@@ -61,10 +62,10 @@ public class VendaFacade extends AbstractFacade<Venda> {
             super.salvar(ve);
         }
     }
-    
-      public void somaEstoqueTotal(Produto pr){
-         super.somaEstoqueTotalProduto(pr);
-            em.merge(pr);
+
+    public void somaEstoqueTotal(Produto pr) {
+        super.somaEstoqueTotalProduto(pr);
+        em.merge(pr);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class Venda implements Serializable, EntidadePai {
         this.contasRecebers = new ArrayList<ContasReceber>();
         this.statusVenda = StatusVenda.FATURADA;
         Hibernate.initialize(contasRecebers);
-            Hibernate.initialize(itensVenda);
+        Hibernate.initialize(itensVenda);
 //        for(ContasReceber cr: contasRecebers){
 //        
 //        }

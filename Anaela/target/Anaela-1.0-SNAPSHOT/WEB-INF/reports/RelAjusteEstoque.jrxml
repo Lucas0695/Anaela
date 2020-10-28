@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelAjusteEstoque" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="626bd618-0de9-4c47-b473-2d6f977869d8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lucas/NetBeansProjects/SystemServiceMaven/Anaela/src/main/webapp/WEB-INF/reports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="dataInicial" class="java.util.Date"/>
+	<parameter name="dataFinal" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select pessoa.nome as colaborador,
+	aj.dataajuste as dataAjuste,
+	aj.motivo as motivo,
+	aj.id as aj_id
+	from ajusteestoque as aj
+	inner join pessoa on pessoa.id= aj.colaborador_id
+where
+	aj.dataajuste between $P{dataInicial} and $P{dataFinal}
+order by
+	aj.dataajuste]]>
+	</queryString>
+	<field name="colaborador" class="java.lang.String"/>
+	<field name="dataajuste" class="java.sql.Date"/>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="aj_id" class="java.lang.Long"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#FEFEFE" uuid="337ca5b8-8a58-42d3-82db-52735e779020"/>
+				<staticText>
+					<reportElement x="20" y="20" width="555" height="43" forecolor="#010101" uuid="850d8763-ecfe-4e9b-ada2-efdbb8abc031"/>
+					<textElement>
+						<font size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Relatório de Ajuste de Estoque]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="63" width="180" height="20" forecolor="#010101" uuid="8f9d4c0d-cba1-4431-89dc-d59b215c4777"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Sistema Anaela]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="e3219b99-2455-4bc5-8cf8-591f32f03a80"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data do Ajuste]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="370" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="33c7d48e-4fe4-40a4-8e44-8604b8a4c191"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Colaborador]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="120">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="6ad30874-c436-4174-ac96-4039bd239750"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataajuste}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement mode="Opaque" x="185" y="0" width="370" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="f83e4f49-fb13-4f23-8174-127e727253fa"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colaborador}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="40" width="555" height="20" uuid="a6598cc8-9a0d-4ee1-a3bc-b8828f8eadd2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="19" width="555" height="20" forecolor="#010101" backcolor="#FEFEFE" uuid="5abf3dc7-7043-462b-b673-691c0abffa85"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="71" width="542" height="37" uuid="bac18870-0cdc-40e6-931f-0713d5905b03"/>
+				<subreportParameter name="ajId">
+					<subreportParameterExpression><![CDATA[$F{aj_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelItemAjusteEstoque.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="c0f29a6c-178d-4e36-b5f4-e0ffc7bc3197"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="4381f3d7-e0ef-49a2-8067-88ccfa2e8884"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement mode="Opaque" x="0" y="4" width="100" height="13" forecolor="#FEFEFE" backcolor="#010101" uuid="ac3b1397-6bd6-4625-8112-fc4164e1114f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

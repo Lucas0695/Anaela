@@ -144,6 +144,7 @@ public class ProdutoControle implements Serializable {
         composicaoProduto = new ComposicaoProduto();
     }
 
+    
     public void excluir(Produto e) {
         produtoFacade.excluir(e);
     }
