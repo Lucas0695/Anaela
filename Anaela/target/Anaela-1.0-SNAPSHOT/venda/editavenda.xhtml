@@ -56,8 +56,8 @@
                                             >
                         <p:ajax update="comp" event="itemSelect"/>
                     </p:autoComplete>
-                    Quantidade: <p:inputText value="#{vendaControle.itensVenda.quantidade}"/>
-                    Preço: <p:inputText id="precoProduto" 
+                    Quantidade: <p:inputText value="#{vendaControle.itensVenda.quantidade}" id="quantidade"/>
+                    Preço: <p:inputText id="preco" 
                                         value="#{vendaControle.itensVenda.valor}"
                                         converter="#{vendaControle.moneyConverter}" 
                                         onkeydown="mascaraMonetaria(this)"
@@ -94,7 +94,9 @@
                     </p:dataTable>
 
 
-                    <p:commandButton value="ADD" actionListener="#{vendaControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelvenda comp"/>
+                    <p:commandButton value="ADD" actionListener="#{vendaControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelvenda comp painelProd"/>
+                    </p:panel>
+                <p:panel id="painelProd">
                     <p:dataTable 
                         value="#{vendaControle.venda.itensVenda}"
                         var="it"
@@ -159,8 +161,8 @@
                 </p:panel>
                 <br/>
                 <br/>
-                <p:commandButton value="Salvar" actionListener="#{vendaControle.salvar()}" action="listavenda" ajax="false"/>
-                <p:commandButton value="Cancelar" action="listavenda" immediate="true" ajax="false"/>
+                <p:commandButton value="Salvar" actionListener="#{vendaControle.salvar()}" action="listavenda" ajax="false" icon="fa fa-fw fa-save" style="background: #ffffff"/>
+                <p:commandButton value="Cancelar" action="listavenda" immediate="true" ajax="false" actionListener="#{vendaControle.cancelar()}" icon="fa fa-fw fa-times" style="background: #ffffff"/>
 
             </h:form>
         </ui:define>

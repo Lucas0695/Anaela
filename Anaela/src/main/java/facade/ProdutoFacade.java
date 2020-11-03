@@ -35,9 +35,21 @@ public class ProdutoFacade extends AbstractFacade<Produto>{
     }
     @Override
     public void salvar(Produto pr) {  
-        super.somaEstoqueTotalProduto(pr);
         super.salvar(pr); 
 //        baixaEstoque(pr);
+    }
+    
+    public void recuperarComposicaoProduto(Produto p){
+        for(ComposicaoProduto cp : p.getComposicaoProduto()){
+             Hibernate.initialize(cp.getCor());
+             Hibernate.initialize(cp.getCor().getNome());
+             Hibernate.initialize(cp.getEstoque());
+             Hibernate.initialize(cp.getPercentual());
+             Hibernate.initialize(cp.getPrecoCompra());
+             Hibernate.initialize(cp.getPrecoVenda());
+             Hibernate.initialize(cp.getTamanho());
+             Hibernate.initialize(cp.getTamanho().getNome());
+        }        
     }
    
 }

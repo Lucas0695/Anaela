@@ -12,8 +12,8 @@
                 <p:panelGrid columns="2" style="color: #ffffff">
                     Nome:<p:inputText value="#{estadoControle.estado.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
                     UF:<p:inputText value="#{estadoControle.estado.uf}"  required="true" requiredMessage="A sigla é obrigatório!" maxlength="2"/>
-                    <p:commandButton value="Salvar"  actionListener="#{estadoControle.salvar()}" action="listaestado" ajax="false"/>
-                    <p:commandButton value="Cancelar" action="listaestado" immediate="true" ajax="false"/>
+                    <p:commandButton value="Salvar"  actionListener="#{estadoControle.salvar()}" action="listaestado" ajax="false" style="background: #ffffff" icon="fa fa-fw fa-save"/>
+                    <p:commandButton value="Cancelar" action="listaestado" immediate="true" ajax="false" style="background: #ffffff" icon="fa fa-fw fa-times"/>
                 </p:panelGrid>            
             </h:form>
         </ui:define>

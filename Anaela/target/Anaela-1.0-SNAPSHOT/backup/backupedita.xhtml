@@ -13,11 +13,14 @@
                     <p:commandButton value="Realizar Backup" 
                                      action="#{backupControle.realizaBackup()}"
                                      ajax="false"
-                                     icon="fa fa-download"/>
+                                     icon="fa fa-download"
+                                     style="background: #ffffff"/>
                     <p:commandButton value="Restaurar Backup" 
                                      action="#{backupControle.realizaRestore()}"
                                      ajax="false"
-                                     icon="fa fa-upload"/>
+                                     icon="fa fa-upload"
+                                     style="background: #ffffff"/>
+                    <p:commandButton value="início" action="/index" icon="fa fa-fw fa-home" style="background: #ffffff"/>
                 </p:panel>
             </h:form>
         </ui:define>

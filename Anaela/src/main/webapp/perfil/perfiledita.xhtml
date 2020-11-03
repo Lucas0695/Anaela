@@ -77,10 +77,13 @@
                 <p:commandButton value="Salvar" 
                                  actionListener="#{perfilControle.salvar()}"
                                  action="perfillista"
-                                 ajax="false" />
-                <p:commandButton value="Voltar" 
+                                 ajax="false" 
+                                 icon="fa fa-fw fa-save" style="background: #ffffff"/>
+                <p:commandButton value="Cancelar" 
                                  action="perfillista"
-                                 ajax="false" />
+                                 ajax="false" 
+                                 immediate="true"
+                                 icon="fa fa-fw fa-times" style="background: #ffffff"/>
 
             </h:form>
         </ui:define>

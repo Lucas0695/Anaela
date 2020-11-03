@@ -53,13 +53,6 @@ public abstract class AbstractFacade<T> implements Serializable {
         q.setParameter("filtro", "%" + filtro.toLowerCase() + "%");
         return q.getResultList();
     }
-    
-    public void somaEstoqueTotalProduto(Produto p) {
-        Double estoqueTotal = 0d;
-        for (ComposicaoProduto it : p.getComposicaoProduto()) {
-            estoqueTotal = estoqueTotal + it.getEstoque();
-            p.setEstoqueTotal(estoqueTotal);   
-        }
-    }
+
 
 }

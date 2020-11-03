@@ -29,17 +29,12 @@ public class CompraFacade extends AbstractFacade<Compra> {
             ComposicaoProduto p = it.getComposicaoProduto();
             p.setEstoque(p.getEstoque() + it.getQuantidade());
             em.merge(p);
-            somaEstoqueTotal(p.getProduto());
         }
         super.salvar(co);
         atualizaPrecoCompra(co);
     }
     
-     public void somaEstoqueTotal(Produto pr){
-         super.somaEstoqueTotalProduto(pr);
-            em.merge(pr);
-    }
-
+    
     private void atualizaPrecoCompra(Compra co) {
         for (ItensCompra it : co.getItensCompra()) {
             ComposicaoProduto p = it.getComposicaoProduto();

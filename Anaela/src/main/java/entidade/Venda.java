@@ -22,7 +22,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.Hibernate;
 
 /**
  *
@@ -64,14 +63,6 @@ public class Venda implements Serializable, EntidadePai {
         this.itensVenda = new ArrayList<ItensVenda>();
         this.contasRecebers = new ArrayList<ContasReceber>();
         this.statusVenda = StatusVenda.FATURADA;
-        Hibernate.initialize(contasRecebers);
-        Hibernate.initialize(itensVenda);
-//        for(ContasReceber cr: contasRecebers){
-//        
-//        }
-//        for(ItensVenda it: itensVenda){
-//        Hibernate.isInitialized(it);
-//        }
     }
 
     public StatusVenda getStatusVenda() {

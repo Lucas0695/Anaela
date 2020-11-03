@@ -32,7 +32,6 @@ public class Produto implements Serializable, EntidadePai {
     private Long id;
     @Column(length = 255, nullable = false)
     private String nome;
-    private Double estoqueTotal;
     @ManyToOne
     private GrupoProduto grupoProduto;
     @ManyToOne
@@ -44,7 +43,14 @@ public class Produto implements Serializable, EntidadePai {
 
     public Produto() {
         this.composicaoProduto = new ArrayList<ComposicaoProduto>();
-        Hibernate.initialize(composicaoProduto);
+         for(ComposicaoProduto cp : composicaoProduto){
+             Hibernate.initialize(cp.getCor());
+             Hibernate.initialize(cp.getEstoque());
+             Hibernate.initialize(cp.getPercentual());
+             Hibernate.initialize(cp.getPrecoCompra());
+             Hibernate.initialize(cp.getPrecoVenda());
+             Hibernate.initialize(cp.getTamanho());
+        }        
     }
 
     public List<ComposicaoProduto> getComposicaoProduto() {
@@ -64,15 +70,6 @@ public class Produto implements Serializable, EntidadePai {
         this.id = id;
     }
 
-    public Double getEstoqueTotal() {
-        return estoqueTotal;
-    }
-
-    public void setEstoqueTotal(Double estoqueTotal) {
-        this.estoqueTotal = estoqueTotal;
-    }
-
-    
     public String getNome() {
         return nome;
     }

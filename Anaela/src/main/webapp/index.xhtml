@@ -32,25 +32,25 @@
         <title>Anaela</title>
     </h:head>
     <h:body>
-        <p:layout fullPage="true" style="background: black">
+        <p:layout fullPage="true">
             <p:layoutUnit position="north" resizable="true" closable="false" collapsible="false" size="50"  >
                 <center>
                     <p:outputLabel value="Anaela" style="font-size: 30px"/>
                 </center>
                 <div align="center">
-                    <img width="150" src="imagens/IMG-20181008-WA0016.jpg" alt=""/>
-                    <img src="imagens/IMG-20181008-WA0016" width="" alt=""/>
+                    <h:graphicImage library="imagens" name="LogoAnaela.png" width="" alt=""/>
+                    <h:graphicImage value="/imagens/LogoAnaela.png" width="" alt=""/>
                 </div>
 
             </p:layoutUnit >
             <p:layoutUnit position="south" style="text-align: center" >
                 <p:outputLabel value="Todos os direitos reservados 2020"/>
             </p:layoutUnit>
-            <h:form>
+            <h:form >
                 <p:growl id="messages"/>
 
                 <p:menubar style="background: #ffffff">
-                    <p:submenu label="Cadastros"  icon="pi pi-file" style="background: #ffffff">
+                    <p:submenu label="Cadastros"  icon="fa fa-fw fa-plus" style="background: #ffffff">
                         <p:menuitem value="Estado" ajax="false" action="/estado/listaestado"/>
                         <p:menuitem value="Cidade" ajax="false" action="/cidade/listacidade"/>
                         <p:menuitem value="Pessoa" ajax="false" action="/pessoa/listapessoa"/>
@@ -63,7 +63,7 @@
                         <p:menuitem value="Usuario" ajax="false" action="/usuario/usuariolista"/>
                     </p:submenu>
 
-                    <p:submenu label="Movimentos" icon="pi pi-pencil" style="background: #ffffff">
+                    <p:submenu label="Movimentos" icon="fa fa-fw fa-shopping-cart" style="background: #ffffff">
                         <p:menuitem value="Ajuste de Estoque" ajax="false" action="/ajusteestoque/listaajusteestoque"/>
                         <p:menuitem value="Compra" ajax="false" action="/compra/listacompra"/>
                         <p:menuitem value="Contas a Pagar" ajax="false" action="/contaspagar/contaspagarlista"/>
@@ -71,7 +71,7 @@
                         <p:menuitem value="Venda" ajax="false" action="/venda/listavenda"/>
                     </p:submenu>
 
-                    <p:submenu label="Relatórios" icon="pi pi-question" style="background: #ffffff">
+                    <p:submenu label="Relatórios" icon="fa fa-fw fa-bar-chart" style="background: #ffffff">
                         <p:menuitem value="Estado" ajax="false" action="/relatorios/relestado"/>
                         <p:menuitem value="Cidade" ajax="false" action="/relatorios/relcidade"/>                            
                         <p:menuitem value="Marca" ajax="false" action="/relatorios/relmarca"/> 
@@ -86,38 +86,51 @@
                         <p:menuitem value="Colaborador" ajax="false" action="/relatorios/relcolaborador"/>
                     </p:submenu>
 
-                    <p:submenu label="Relatórios Gerenciais" icon="pi pi-question" >
-                        <p:menuitem value="Ajuste de Estoque por período" ajax="false" action="/relatorios/relajusteestoque"/>
-                        <p:menuitem value="Compra por período" ajax="false" action="/relatorios/relcompra"/>
-                        <p:menuitem value="Condicional por período" ajax="false" action="/relatorios/relcondicional"/> 
-                        <p:menuitem value="Venda por período" ajax="false" action="/relatorios/relvenda"/>                      
-                        <p:menuitem value="Contas a Receber" ajax="false" action="/relatorios/contasreceber"/>     
-                        <p:menuitem value="Contas a Pagar" ajax="false" action="/relatorios/contaspagar"/> 
-                        <p:menuitem value="Produto com Mais Estoque" ajax="false" action="/relatorios/relprodutomaisestoque"/>
-                        <p:menuitem value="Produto com Menos Estoque" ajax="false" action="/relatorios/relprodutomenosestoque"/>
-                        <p:menuitem value="Produto Mais Vendido" ajax="false" action="/relatorios/relprodutomaisvendodo"/> 
-                        <p:menuitem value="Venda por Colaborador por período" ajax="false" action="/relatorios/relvendacolaborador"/>
-                        <p:menuitem value="Fornecedor mais Comprado" ajax="false" action="/relatorios/relfornecedormaiscomprado"/> 
-                        <p:menuitem value="Cliente que mais Comprou" ajax="false" action="/relatorios/relclientemaisvenda"/> 
-                        <p:menuitem value="Colaborador que mais Vendeu" ajax="false" action="/relatorios/relcolaboradormaisvenda"/>                         
-                        <p:menuitem value="Clientes Devedores" ajax="false" action="/relatorios/relclientesdevedores"/>                       
-                        <p:menuitem value="Despesas por período" ajax="false" action="/relatorios/reldespesa"/>  
-                        
+                    <p:submenu label="Relatórios Gerenciais" icon="fa fa-fw fa-bar-chart" >
+                        <p:submenu label="Ajuste estoque">
+                            <p:menuitem value="Ajuste de Estoque por período" ajax="false" action="/relatorios/relajusteestoque"/>
+                        </p:submenu>
+                        <p:submenu label="Compra">
+                            <p:menuitem value="Compra por período" ajax="false" action="/relatorios/relcompra"/>
+                            <p:menuitem value="Fornecedor mais Comprado" ajax="false" action="/relatorios/relfornecedormaiscomprado"/> 
+                        </p:submenu>
+                        <p:submenu label="Venda">
+                            <p:menuitem value="Venda por período" ajax="false" action="/relatorios/relvenda"/>     
+                            <p:menuitem value="Condicional por período" ajax="false" action="/relatorios/relcondicional"/> 
+                            <p:menuitem value="Venda por Colaborador por período" ajax="false" action="/relatorios/relvendacolaborador"/>
+                            <p:menuitem value="Cliente que mais Comprou" ajax="false" action="/relatorios/relclientemaisvenda"/> 
+                            <p:menuitem value="Colaborador que mais Vendeu" ajax="false" action="/relatorios/relcolaboradormaisvenda"/>  
+                        </p:submenu>    
+
+                        <p:submenu label="Produto">
+                            <p:menuitem value="Produto com Mais Estoque" ajax="false" action="/relatorios/relprodutomaisestoque"/>
+                            <p:menuitem value="Produto com Menos Estoque" ajax="false" action="/relatorios/relprodutomenosestoque"/>
+                            <p:menuitem value="Produto Mais Vendido" ajax="false" action="/relatorios/relprodutomaisvendodo"/>  
+                        </p:submenu>
+                        <p:submenu label="Financeiro">
+                            <p:menuitem value="Contas a Receber" ajax="false" action="/relatorios/contasreceber"/>     
+                            <p:menuitem value="Contas a Pagar" ajax="false" action="/relatorios/contaspagar"/> 
+                            <p:menuitem value="Clientes Devedores" ajax="false" action="/relatorios/relclientesdevedores"/>                       
+                            <p:menuitem value="Despesas por período" ajax="false" action="/relatorios/reldespesa"/>  
+                        </p:submenu>
                     </p:submenu>
 
-                    <p:submenu label="Backup" icon="pi pi-pencil" style="background: #ffffff">
+                    <p:submenu label="Backup" icon="fa fa-fw fa-cloud-download" style="background: #ffffff">
                         <p:menuitem value="Backup" ajax="false" action="/backup/backupedita"/>
                     </p:submenu>
 
                     <f:facet name="options" >
-                        <p:commandButton type="button" icon=" ui-icon-arrowthickstop-1-e" style="background: #ffffff"/>
+                        <p:commandButton type="button" icon="fa fa-fw fa-share-square-o" style="background: #ffffff"/>
                     </f:facet>
                 </p:menubar>
             </h:form>
 
             <p:layoutUnit position="center">
-                <ui:insert id="corpo" name="body">
-                    Seja bem vindo!
+                <ui:insert id="corpo" name="body" >
+                    <!--                    Seja bem vindo!-->
+                    <div align="center">
+                        <h:graphicImage library="imagens" name="Logo_Anaela-sem_fundo.png" width="1050" alt="2000"/>
+                    </div>
                 </ui:insert>
             </p:layoutUnit>
 

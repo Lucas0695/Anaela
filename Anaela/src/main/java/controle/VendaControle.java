@@ -74,18 +74,8 @@ public class VendaControle implements Serializable {
     }
 
     public void setarComposicao(ComposicaoProduto cp) {
-//        if (itensVenda.getQuantidade().equals(0d)) {
-//            FacesContext.getCurrentInstance().addMessage(
-//                    null, new FacesMessage(
-//                            FacesMessage.SEVERITY_ERROR,
-//                            "Obrigatório adicionar a quantidade de produto",
-//                            ""));
-//        } else {
-
         itensVenda.setComposicaoProduto(cp);
         itensVenda.setValor(cp.getPrecoVenda());
-        setTeste(cp.toString());
-//        }
     }
 
     public String getTeste() {
@@ -270,12 +260,13 @@ public class VendaControle implements Serializable {
     }
 
     public void editar(Venda e) {
-        this.venda = e;
-        for(ItensVenda it : e.getItensVenda()){
-        Hibernate.initialize(it.getComposicaoProduto());
-        Hibernate.initialize(it.getQuantidade());
-        Hibernate.initialize(it.getValor());
+        vendaFacade.recuperarLista(e);
+        for (ItensVenda it : e.getItensVenda()) {
+            itensVenda = it;
+            produtoFacade.recuperarComposicaoProduto(it.getComposicaoProduto().getProduto());
         }
+        this.venda = e;
+//        vendaFacade.editarVendaRetornaEstoque(venda);
     }
 
     public void salvar() {
@@ -352,4 +343,9 @@ public class VendaControle implements Serializable {
             }
         }
     }
+    
+    public void cancelar(){
+        vendaFacade.cancelaVendaRetornaEstoque(venda);
+    }
+            
 }

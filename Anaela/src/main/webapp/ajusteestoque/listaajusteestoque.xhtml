@@ -34,8 +34,8 @@
                         <p:commandButton icon="ui-icon-pencil" actionListener="#{ajusteEstoqueControle.editar(e)}" action="editaajusteestoque" ajax="false"/>
                     </p:column>
                 </p:dataTable>
-                <p:commandButton value="Novo" actionListener="#{ajusteEstoqueControle.novo()}" action="editaajusteestoque" ajax="false"/>
-                <p:commandButton value="Voltar" action="/index"/>
+                <p:commandButton value="Novo" actionListener="#{ajusteEstoqueControle.novo()}" action="editaajusteestoque" ajax="false"  style="background: #ffffff" icon="fa fa-fw fa-plus"/>
+                <p:commandButton value="início" action="/index" icon="fa fa-fw fa-home" style="background: #ffffff"/>
             </h:form>    
         </ui:define>
     </ui:composition>

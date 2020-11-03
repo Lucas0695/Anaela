@@ -11,8 +11,8 @@
                 <p:growl autoUpdate="true"/>
                 <p:panelGrid columns="2" style="color: #ffffff">
                     Tamanho:<p:inputText value="#{tamanhoControle.tamanho.nome}" required="true" requiredMessage="O Tamanho é obrigatório!"/>
-                    <p:commandButton value="Salvar"  actionListener="#{tamanhoControle.salvar()}" action="listatamanho" ajax="false"/>
-                    <p:commandButton value="Cancelar" action="listatamanho" immediate="true" ajax="false"/>
+                    <p:commandButton value="Salvar"  actionListener="#{tamanhoControle.salvar()}" action="listatamanho" ajax="false" icon="fa fa-fw fa-save" style="background: #ffffff"/>
+                    <p:commandButton value="Cancelar" action="listatamanho" immediate="true" ajax="false" icon="fa fa-fw fa-times" style="background: #ffffff"/>
                 </p:panelGrid>            
             </h:form>
         </ui:define>

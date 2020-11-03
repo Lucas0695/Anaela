@@ -11,8 +11,8 @@
                 <p:growl autoUpdate="true"/>
                 <p:panelGrid columns="2" style="color: #ffffff">
                     Cor:<p:inputText value="#{corControle.cor.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
-                    <p:commandButton value="Salvar"  actionListener="#{corControle.salvar()}" action="listacor" ajax="false"/>
-                    <p:commandButton value="Cancelar" action="listacor" immediate="true" ajax="false"/>
+                    <p:commandButton value="Salvar"  actionListener="#{corControle.salvar()}" action="listacor" icon="fa fa-fw fa-save" ajax="false" style="background: #ffffff"/>
+                    <p:commandButton value="Cancelar" action="listacor" immediate="true" icon="fa fa-fw fa-times" ajax="false" style="background: #ffffff"/>
                 </p:panelGrid>            
             </h:form>
         </ui:define>

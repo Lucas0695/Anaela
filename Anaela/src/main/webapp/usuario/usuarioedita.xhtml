@@ -41,10 +41,13 @@
                     <p:commandButton value="Salvar" 
                                      actionListener="#{usuarioControle.salvar()}"
                                      action="usuariolista"
-                                     ajax="false" />
-                    <p:commandButton value="Voltar" 
+                                     ajax="false" 
+                                     icon="fa fa-fw fa-save" style="background: #ffffff"/>
+                    <p:commandButton value="Cancelar" 
                                      action="usuariolista"
-                                     ajax="false" />
+                                     ajax="false"
+                                     immediate="true"
+                                     icon="fa fa-fw fa-times" style="background: #ffffff"/>
                 </p:panelGrid>                
             </h:form>
         </ui:define>

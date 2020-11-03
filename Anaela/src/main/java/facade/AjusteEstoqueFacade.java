@@ -30,15 +30,11 @@ public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque> {
             it.setEstoqueAnterior(p.getEstoque());
             p.setEstoque(it.getEstoqueAntual());
             em.merge(p); 
-            somaEstoqueTotal(p.getProduto());
         }
         super.salvar(aj);
     }
     
-    public void somaEstoqueTotal(Produto pr){
-         super.somaEstoqueTotalProduto(pr);
-            em.merge(pr);
-    }
+  
 
     @Override
     public void excluir(AjusteEstoque aj) {

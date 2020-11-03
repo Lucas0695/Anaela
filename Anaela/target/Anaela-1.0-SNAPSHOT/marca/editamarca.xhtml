@@ -11,8 +11,8 @@
                 <p:growl autoUpdate="true"/>
                 <p:panelGrid columns="2" style="color: #ffffff">
                     Nome:<p:inputText value="#{marcaControle.marca.nome}" required="true" requiredMessage="O nome é obrigatório!"/>
-                    <p:commandButton value="Salvar"  actionListener="#{marcaControle.salvar()}" action="listamarca" ajax="false"/>
-                    <p:commandButton value="Cancelar" action="listamarca" immediate="true" ajax="false"/>
+                    <p:commandButton value="Salvar"  actionListener="#{marcaControle.salvar()}" action="listamarca" ajax="false" icon="fa fa-fw fa-save" style="background: #ffffff"/>
+                    <p:commandButton value="Cancelar" action="listamarca" immediate="true" ajax="false" icon="fa fa-fw fa-times" style="background: #ffffff"/>
                 </p:panelGrid>            
             </h:form>
         </ui:define>

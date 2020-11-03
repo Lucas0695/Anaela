@@ -19,15 +19,25 @@
      marca."nome" AS marca_nome,
      grupoproduto."id" AS grupoproduto_id,
      grupoproduto."nome" AS grupoproduto_nome,
-     produto."estoquetotal" AS produto_estoquetotal
+	 sum (cp.estoque) as estoqueomposicao
 FROM
      "public"."marca" marca INNER JOIN "public"."produto" produto ON marca."id" = produto."marca_id"
      INNER JOIN "public"."grupoproduto" grupoproduto ON produto."grupoproduto_id" = grupoproduto."id"
+	 inner join composicaoproduto cp on cp.produto_id = produto.id
 WHERE
      grupoproduto."nome" LIKE $P{filtro}
      and marca."nome" LIKE $P{filtro1}
+	 group by
+	 produto."id",
+     produto."nome" ,
+     produto."grupoproduto_id",
+     produto."marca_id",
+     marca."id",
+     marca."nome",
+     grupoproduto."id",
+     grupoproduto."nome"
 order by
-produto."estoquetotal" desc]]>
+ sum (cp.estoque) desc]]>
 	</queryString>
 	<field name="produto_id" class="java.lang.Long"/>
 	<field name="produto_nome" class="java.lang.String"/>
@@ -37,7 +47,7 @@ produto."estoquetotal" desc]]>
 	<field name="marca_nome" class="java.lang.String"/>
 	<field name="grupoproduto_id" class="java.lang.Long"/>
 	<field name="grupoproduto_nome" class="java.lang.String"/>
-	<field name="produto_estoquetotal" class="java.lang.Double"/>
+	<field name="estoqueomposicao" class="java.lang.Double"/>
 	<background>
 		<band/>
 	</background>
@@ -132,11 +142,11 @@ produto."estoquetotal" desc]]>
 				<textFieldExpression><![CDATA[$F{grupoproduto_nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="466" y="0" width="89" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="0f76dec1-6fb8-4e9f-8c3e-7b1a80b8088d"/>
+				<reportElement mode="Opaque" x="466" y="0" width="89" height="20" forecolor="#FEFEFE" backcolor="#010101" uuid="38c3cec8-e6e0-4888-ba9b-92afbfee1442"/>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{produto_estoquetotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{estoqueomposicao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

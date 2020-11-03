@@ -30,8 +30,6 @@ public class VendaFacade extends AbstractFacade<Venda> {
         List<Venda> retorno = super.listaTodos();
         for (Venda c : retorno) {
             c.getItensVenda().size();
-//            Hibernate.initialize(c.getContasRecebers());
-//            Hibernate.initialize(c.getItensVenda());
         }
 
         return retorno;//To change body of generated methods, choose Tools | Templates.
@@ -56,17 +54,33 @@ public class VendaFacade extends AbstractFacade<Venda> {
                 ComposicaoProduto p = it.getComposicaoProduto();
                 p.setEstoque(p.getEstoque() - it.getQuantidade());
                 em.merge(p);
-                somaEstoqueTotal(p.getProduto());
             }
             ve.setValorTotal(ve.getValorTotal());
             super.salvar(ve);
         }
+
     }
 
-    public void somaEstoqueTotal(Produto pr) {
-        super.somaEstoqueTotalProduto(pr);
-        em.merge(pr);
+    public void editarVendaRetornaEstoque(Venda ve) {
+        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
+            for (ItensVenda it : ve.getItensVenda()) {
+                ComposicaoProduto p = it.getComposicaoProduto();
+                p.setEstoque(p.getEstoque() + it.getQuantidade());
+                em.merge(p);
+            }
+        }
     }
+
+    public void cancelaVendaRetornaEstoque(Venda ve) {
+        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
+            for (ItensVenda it : ve.getItensVenda()) {
+                ComposicaoProduto p = it.getComposicaoProduto();
+                p.setEstoque(p.getEstoque() - it.getQuantidade());
+                em.merge(p);
+            }
+        }
+    }
+
 
     @Override
     public void excluir(Venda ve) {
@@ -82,4 +96,21 @@ public class VendaFacade extends AbstractFacade<Venda> {
         }
     }
 
+    public void recuperarLista(Venda ve) {
+        Hibernate.initialize(ve.getContasRecebers());
+//        Hibernate.initialize(ve.getItensVenda().size());
+        for (ItensVenda it : ve.getItensVenda()) {
+            Hibernate.initialize(it.getQuantidade());
+            Hibernate.initialize(it.getComposicaoProduto());
+            Hibernate.initialize(it.getComposicaoProduto().getCor());
+            Hibernate.initialize(it.getComposicaoProduto().getCor().getNome());
+            Hibernate.initialize(it.getComposicaoProduto().getTamanho());
+            Hibernate.initialize(it.getComposicaoProduto().getTamanho().getNome());
+            Hibernate.initialize(it.getSubtotal());
+            Hibernate.initialize(it.getValor());
+            Hibernate.initialize(it.getComposicaoProduto().getProduto());
+            Hibernate.initialize(it.getId());
+            Hibernate.initialize(it.getVenda());
+        }
+    }
 }

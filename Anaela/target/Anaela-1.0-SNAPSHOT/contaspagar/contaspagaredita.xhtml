@@ -36,11 +36,15 @@
                     <p:commandButton value="Salvar" 
                                      actionListener="#{contasPagarControle.salvar()}"
                                      action="contaspagarlista"
-                                     ajax="false" />
-                    <p:commandButton value="Voltar"
+                                     ajax="false" 
+                                      icon="fa fa-fw fa-save"
+                                      style="background: #ffffff"/>
+                    <p:commandButton value="Cancelar"
                                      immediate="true"
                                      action="contaspagarlista"
-                                     ajax="false" />
+                                     ajax="false" 
+                                     icon="fa fa-fw fa-times"
+                                     style="background: #ffffff"/>
                 </p:panelGrid>                
             </h:form>
         </ui:define>
