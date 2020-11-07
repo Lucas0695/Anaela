@@ -38,11 +38,11 @@ public class AjusteEstoqueFacade extends AbstractFacade<AjusteEstoque> {
 
     @Override
     public void excluir(AjusteEstoque aj) {
-        for (ItensAjusteEstoque it : aj.getItensAjusteEstoque()) {
-            ComposicaoProduto p = it.getComposicaoProduto();
-            p.setEstoque(it.getEstoqueAnterior());
-            em.merge(p);
-        }
+//        for (ItensAjusteEstoque it : aj.getItensAjusteEstoque()) {
+//            ComposicaoProduto p = it.getComposicaoProduto();
+//            p.setEstoque(it.getEstoqueAnterior());
+//            em.merge(p);
+//        }
         super.excluir(aj);
     }
 }

@@ -40,11 +40,21 @@
                             <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true"/>
                         </p:confirmDialog>
 
-                        <p:commandButton icon="ui-icon-pencil" actionListener="#{vendaControle.editar(e)}"  disabled="#{e.statusVenda=='FATURADA'}" action="editavenda" ajax="false"/>
+                        <!--                        <p:commandButton icon="ui-icon-pencil" actionListener="{vendaControle.editar(e)}"  disabled="{e.statusVenda=='FATURADA'}" action="editavenda" ajax="false"/>-->
+
+
+                       <p:commandButton icon="ui-icon-pencil" actionListener="#{vendaControle.editar(e)}"  disabled="#{e.statusVenda=='FATURADA'}" action="editavenda">
+                            <p:confirm header="Confirmação" message="Deseja Alterar? O Status da venda irá mudar para condicional" icon="ui-icon-alert"/>
+                        </p:commandButton>
+                        <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-color: orange ">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  immediate="true" ajax="false" style="background: #ffffff"/>
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" ajax="true" style="background: #ffffff"/>
+                        </p:confirmDialog>
                     </p:column>
                 </p:dataTable>
                 <p:commandButton value="Novo" actionListener="#{vendaControle.novo()}" action="editavenda" ajax="false" style="background: #ffffff" icon="fa fa-fw fa-plus"/>
                 <p:commandButton value="início" action="/index" icon="fa fa-fw fa-home" style="background: #ffffff"/>
+                <p:commandButton value="Ajuda" action="/topicoajuda/venda" style="background: #ffffff" icon="fa fa-fw fa-question-circle"/>
             </h:form>    
         </ui:define>
     </ui:composition>

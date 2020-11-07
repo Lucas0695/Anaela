@@ -22,9 +22,9 @@
                     <p:column headerText="Login" filterBy="#{obj.login}" filterMatchMode="contains">
                         <h:outputText value="#{obj.login}"/>
                     </p:column>
-                    <p:column headerText="Senha" filterBy="#{obj.senha}" filterMatchMode="contains">
-                        <h:outputText value="#{obj.senha}"/>
-                    </p:column>
+<!--                    <p:column headerText="Senha" filterBy="{obj.senha}" filterMatchMode="contains">
+                        <h:outputText value="{obj.senha}"/>
+                    </p:column>-->
                     <p:column headerText="Permissão" filterBy="#{obj.perfil.nome}" filterMatchMode="contains">
                         <h:outputText value="#{obj.perfil.nome}"/>
                     </p:column>
@@ -44,6 +44,7 @@
                 <p:commandButton value="Novo Usuário" action="usuarioedita"
                                  actionListener="#{usuarioControle.novo()}" ajax="false" style="background: #ffffff" icon="fa fa-fw fa-plus"/>
                 <p:commandButton value="início" action="/index" icon="fa fa-fw fa-home" style="background: #ffffff"/>
+                <p:commandButton value="Ajuda" action="/topicoajuda/usuario" style="background: #ffffff" icon="fa fa-fw fa-question-circle"/>
             </h:form>
         </ui:define>
     </ui:composition>

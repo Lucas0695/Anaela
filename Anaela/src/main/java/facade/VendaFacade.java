@@ -16,6 +16,16 @@ public class VendaFacade extends AbstractFacade<Venda> {
     @Inject
     private EntityManager em;
 
+    private Venda vendaAnterior;
+
+    public Venda getVendaAnterior() {
+        return vendaAnterior;
+    }
+
+    public void setVendaAnterior(Venda vendaAnterior) {
+        this.vendaAnterior = vendaAnterior;
+    }
+
     public VendaFacade() {
         super(Venda.class);
     }
@@ -50,6 +60,9 @@ public class VendaFacade extends AbstractFacade<Venda> {
             super.salvar(ve);
 
         } else {
+//            if (vendaAnterior != null) {
+//                editarVendaRetornaEstoque(vendaAnterior);
+//            }
             for (ItensVenda it : ve.getItensVenda()) {
                 ComposicaoProduto p = it.getComposicaoProduto();
                 p.setEstoque(p.getEstoque() - it.getQuantidade());
@@ -62,25 +75,24 @@ public class VendaFacade extends AbstractFacade<Venda> {
     }
 
     public void editarVendaRetornaEstoque(Venda ve) {
-        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
+//        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
             for (ItensVenda it : ve.getItensVenda()) {
                 ComposicaoProduto p = it.getComposicaoProduto();
                 p.setEstoque(p.getEstoque() + it.getQuantidade());
                 em.merge(p);
-            }
+//            }
         }
     }
-
-    public void cancelaVendaRetornaEstoque(Venda ve) {
-        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
-            for (ItensVenda it : ve.getItensVenda()) {
-                ComposicaoProduto p = it.getComposicaoProduto();
-                p.setEstoque(p.getEstoque() - it.getQuantidade());
-                em.merge(p);
-            }
-        }
-    }
-
+//
+//    public void cancelaVendaRetornaEstoque(Venda ve) {
+//        if (ve.getStatusVenda().equals(ve.getStatusVenda().FATURADA) || ve.getStatusVenda().equals(ve.getStatusVenda().CONDICIONAL)) {
+//            for (ItensVenda it : ve.getItensVenda()) {
+//                ComposicaoProduto p = it.getComposicaoProduto();
+//                p.setEstoque(p.getEstoque() - it.getQuantidade());
+//                em.merge(p);
+//            }
+//        }
+//    }
 
     @Override
     public void excluir(Venda ve) {
@@ -112,5 +124,18 @@ public class VendaFacade extends AbstractFacade<Venda> {
             Hibernate.initialize(it.getId());
             Hibernate.initialize(it.getVenda());
         }
+    }
+    
+    public void recuperarComposicaoProduto(Produto p){
+        for(ComposicaoProduto cp : p.getComposicaoProduto()){
+             Hibernate.initialize(cp.getCor());
+             Hibernate.initialize(cp.getCor().getNome());
+             Hibernate.initialize(cp.getEstoque());
+             Hibernate.initialize(cp.getPercentual());
+             Hibernate.initialize(cp.getPrecoCompra());
+             Hibernate.initialize(cp.getPrecoVenda());
+             Hibernate.initialize(cp.getTamanho());
+             Hibernate.initialize(cp.getTamanho().getNome());
+        }        
     }
 }

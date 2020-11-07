@@ -24,7 +24,7 @@
                     </p:column>
                     <p:column headerText="Operações">
                         <p:commandButton icon="ui-icon-closethick" actionListener="#{ajusteEstoqueControle.excluir(e)}" update="mensage" immediate="true" >
-                            <p:confirm header="Confirmação" message="Deseja excluir?" icon="ui-icon-alert" />
+                            <p:confirm header="Confirmação" message="Deseja excluir? O estoue não irá retornar." icon="ui-icon-alert" />
                         </p:commandButton>
                         <p:confirmDialog global="true" widgetVar="dlg3" height="" style="background-position:center ">
                             <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"  ajax="false" />
@@ -36,6 +36,7 @@
                 </p:dataTable>
                 <p:commandButton value="Novo" actionListener="#{ajusteEstoqueControle.novo()}" action="editaajusteestoque" ajax="false"  style="background: #ffffff" icon="fa fa-fw fa-plus"/>
                 <p:commandButton value="início" action="/index" icon="fa fa-fw fa-home" style="background: #ffffff"/>
+                <p:commandButton value="Ajuda" action="/topicoajuda/ajusteestoque" style="background: #ffffff" icon="fa fa-fw fa-question-circle"/>
             </h:form>    
         </ui:define>
     </ui:composition>

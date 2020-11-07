@@ -82,7 +82,7 @@
                                         />
 
 
-                    <p:commandButton value="ADD" actionListener="#{compraControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelcompra"/>
+                    <p:commandButton value="ADD" actionListener="#{compraControle.addItemComposicaoProduto()}" ajax="true" update="campototal painelcompra comp"/>
                     <br/>
                     <br></br>
                     <p:dataTable 
@@ -147,7 +147,7 @@
                     </p:dataTable>
                 </p:panel>
                 <p:commandButton value="Salvar" actionListener="#{compraControle.salvar()}" action="listacompra" ajax="false" icon="fa fa-fw fa-save" style="background: #ffffff" />
-                <p:commandButton value="Cancelar" action="listacompra" immediate="true" ajax="false" icon="fa fa-fw fa-times" style="background: #ffffff"/>
+                <p:commandButton value="Cancelar" action="listacompra" immediate="true" ajax="false" icon="fa fa-fw fa-times Red" style="background: #ffffff"/>
 
             </h:form>
         </ui:define>

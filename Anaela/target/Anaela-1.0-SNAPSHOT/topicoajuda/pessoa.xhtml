@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/index.xhtml">
+        <ui:define name="body">
+                        <h3 align="center">Tela Listar</h3>
+            <h:form>
+                <p:panelGrid>
+                    <div align="center">
+                        <h:graphicImage library="imagens" name="pessoa.JPG" width="1000" alt="950"/>
+                        <br/>
+                        <br/>
+                        <h3 align="center">Tela Pessoa Física</h3>
+                        <h:graphicImage library="imagens" name="pessoaFisica.JPG" width="1000" alt="950"/>
+                        <br/>
+                        <br/>
+                        <h3 align="center">Tela Pessoa Jurídica</h3>
+                        <h:graphicImage library="imagens" name="pessoaJuridica.JPG" width="1000" alt="950"/>
+                        br/>
+                        <br/>
+                        <h3 align="center">Tela Colaborador</h3>
+                        <h:graphicImage library="imagens" name="colaborador.JPG" width="1000" alt="950"/>
+                    </div>
+                    <p:commandButton value="Voltar" action="/pessoa/listapessoa" style="background: #ffffff" icon="fa fa-fw fa-mail-reply"/>
+                </p:panelGrid> 
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

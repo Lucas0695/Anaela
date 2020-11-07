@@ -10,6 +10,7 @@ facade/ContasPagarFacade.class
 entidade/ContasPagar.class
 entidade/Produto.class
 controle/PerfilControle.class
+controle/LoginControle.class
 entidade/IncrementoBKP.class
 controle/RelatorioControle.class
 controle/PessoaControle.class

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"          
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <center>
+        <style>
+            html{
+                width: 100%;
+                height: 100px; 
+                font-size:18px;
+                text-align: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;  
+                background-size: cover;
+            }
+            .center {
+                margin: auto;
+                width: 30%;
+                text-align: center;
+                padding: 10px; 
+            }
+            .painel{
+                font-size:18px;
+                border: 2px solid black;
+                padding: 20px; 
+            }
+
+
+        </style> 
+        <h:head>       
+            <title>Sistema Anaela</title>
+        </h:head>
+        <h:body style="align-items: center; width : 100%">
+
+            
+            <br/><br/><br/><br/><br/><br/>
+            <div align="center" class="center">
+                <h:form  style="align-items: center; width : 100%" id="formLogin">
+                    <p:messages autoUpdate="true"/>
+                    <p:panel  header="LOGIN SISTEMA">
+                        <p:panelGrid  columns="1" layout="grid">
+                            <p:outputLabel value="Login:" for="login"/>
+                            <p:inputText id="login"   value="#{loginControle.usuario.login}"/>
+                            <p:outputLabel value="Senha:"  for="senha"/>
+                            <p:password id="senha" value="#{loginControle.usuario.senha}"/>
+                        </p:panelGrid>
+                        <f:facet name="footer">
+                            <p:commandButton id="botaoLogin"
+                                             value="Logar"
+                                             action="#{loginControle.logar()}"
+                                             ajax="false"/>
+                        </f:facet>
+                    </p:panel>
+                </h:form>
+            </div>       
+        </h:body>
+    </center>
+</html>
+

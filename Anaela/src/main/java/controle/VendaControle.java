@@ -15,6 +15,7 @@ import entidade.ContasReceber;
 import entidade.ItensVenda;
 import entidade.Venda;
 import entidade.Produto;
+import entidade.StatusVenda;
 import facade.PessoaFacade;
 import facade.ColaboradorFacade;
 import facade.VendaFacade;
@@ -181,7 +182,16 @@ public class VendaControle implements Serializable {
                     }
                 }
                 if (itemTemp != null) {
+                    Double quant = itemTemp.getQuantidade() + itensVenda.getQuantidade(); 
+                    if(quant < itensVenda.getComposicaoProduto().getEstoque()){
                     itemTemp.setQuantidade(itemTemp.getQuantidade() + itensVenda.getQuantidade());
+                    } else{
+                        FacesContext.getCurrentInstance().addMessage(
+                        null, new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR,
+                                "A quantidade somada ao produto já inserido é maior que o estoque atual: ",
+                                "" + itensVenda.getComposicaoProduto().getEstoque()));
+                    }
                 } else {
                     itensVenda.setVenda(venda);
                     venda.getItensVenda().add(itensVenda);
@@ -260,13 +270,18 @@ public class VendaControle implements Serializable {
     }
 
     public void editar(Venda e) {
-        vendaFacade.recuperarLista(e);
-        for (ItensVenda it : e.getItensVenda()) {
-            itensVenda = it;
-            produtoFacade.recuperarComposicaoProduto(it.getComposicaoProduto().getProduto());
+        if(e.getStatusVenda() != StatusVenda.ORCAMENTO){
+                vendaFacade.editarVendaRetornaEstoque(e);
+                e.setStatusVenda(StatusVenda.ORCAMENTO);
         }
         this.venda = e;
-//        vendaFacade.editarVendaRetornaEstoque(venda);
+        vendaFacade.recuperarLista(e);
+        for (ItensVenda it : e.getItensVenda()) {
+            this.itensVenda = it;
+            vendaFacade.recuperarComposicaoProduto(it.getComposicaoProduto().getProduto());
+        }
+
+//        vendaFacade.setVendaAnterior(e);
     }
 
     public void salvar() {
@@ -343,9 +358,9 @@ public class VendaControle implements Serializable {
             }
         }
     }
-    
-    public void cancelar(){
-        vendaFacade.cancelaVendaRetornaEstoque(venda);
+
+    public void cancelar() {
+//        vendaFacade.cancelaVendaRetornaEstoque(venda);
     }
-            
+
 }

@@ -6,42 +6,16 @@
 	<parameter name="itId" class="java.lang.Long" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[SELECT
-     it.id AS itenscompra_id,
      it.quantidade AS itenscompra_quantidade,
      it.valor AS itenscompra_valor,
      it.composicaoproduto_id AS itenscompra_composicaoproduto_id,
      it.compra_id AS itenscompra_compra_id,
      pr.id AS pr_id,
      pr.nome AS pr_nome,
-     pr.grupoproduto_id AS pr_grupoproduto_id,
-     pr.marca_id AS pr_marca_id,
      cp.id AS cp_id,
-     cp.codbarras AS cp_codbarras,
      cp.estoque AS cp_estoque,
-     cp.percentual AS cp_percentual,
      cp.precocompra AS cp_precocompra,
      cp.precovenda AS cp_precovenda,
-     cp.cor_id AS cp_cor_id,
-     cp.produto_id AS cp_produto_id,
-     cp.tamanho_id AS cp_tamanho_id,
-     cp.id AS cp_id,
-     cp.codbarras AS cp_codbarras,
-     cp.estoque AS cp_estoque,
-     cp.percentual AS cp_percentual,
-     cp.precocompra AS cp_precocompra,
-     cp.precovenda AS cp_precovenda,
-     cp.cor_id AS cp_cor_id,
-     cp.produto_id AS cp_produto_id,
-     cp.tamanho_id AS cp_tamanho_id,
-     it.id AS itenscompra_id,
-     it.quantidade AS it_quantidade,
-     it.valor AS it_valor,
-     it.composicaoproduto_id AS it_composicaoproduto_id,
-     it.compra_id AS it_compra_id,
-     cp.id AS cp_id,
-     cp.estoque AS cp_estoque,
-     cp.percentual AS cp_percentual,
-     cp.precocompra AS cp_precocompra,
      cp.cor_id AS cp_cor_id,
      cp.produto_id AS cp_produto_id,
      cp.tamanho_id AS cp_tamanho_id,
@@ -60,28 +34,19 @@ inner join produto pr on cp.produto_id = pr.id
 where
 it.compra_id = $P{itId}]]>
 	</queryString>
-	<field name="itenscompra_id" class="java.lang.Long"/>
 	<field name="itenscompra_quantidade" class="java.lang.Double"/>
 	<field name="itenscompra_valor" class="java.lang.Double"/>
 	<field name="itenscompra_composicaoproduto_id" class="java.lang.Long"/>
 	<field name="itenscompra_compra_id" class="java.lang.Long"/>
 	<field name="pr_id" class="java.lang.Long"/>
 	<field name="pr_nome" class="java.lang.String"/>
-	<field name="pr_grupoproduto_id" class="java.lang.Long"/>
-	<field name="pr_marca_id" class="java.lang.Long"/>
 	<field name="cp_id" class="java.lang.Long"/>
-	<field name="cp_codbarras" class="java.lang.String"/>
 	<field name="cp_estoque" class="java.lang.Double"/>
-	<field name="cp_percentual" class="java.lang.Double"/>
 	<field name="cp_precocompra" class="java.lang.Double"/>
 	<field name="cp_precovenda" class="java.lang.Double"/>
 	<field name="cp_cor_id" class="java.lang.Long"/>
 	<field name="cp_produto_id" class="java.lang.Long"/>
 	<field name="cp_tamanho_id" class="java.lang.Long"/>
-	<field name="it_quantidade" class="java.lang.Double"/>
-	<field name="it_valor" class="java.lang.Double"/>
-	<field name="it_composicaoproduto_id" class="java.lang.Long"/>
-	<field name="it_compra_id" class="java.lang.Long"/>
 	<field name="cor_id" class="java.lang.Long"/>
 	<field name="cor_nome" class="java.lang.String"/>
 	<field name="tamanho_id" class="java.lang.Long"/>
